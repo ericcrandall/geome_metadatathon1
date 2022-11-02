@@ -1,0 +1,60 @@
+Species,Common,Category
+Abelmoschus esculentus,"c(""okra"", ""gumbo"", ""lady's finger"")",Model Species
+Aedes albopictus,forest day mosquito,Model Species
+Ambystoma mexicanum,California Tiger Salamander,Model Species
+Anolis carolinensis,Carolina anole,Model Species
+Apis mellifera,"c(""honey bee"", ""abeille domestique"")",Model Species
+Arabidopsis thaliana,rockcress,Model Species
+Arachis hypogaea,peanut,Model Species
+Arachis monticola,peanut,Model Species
+Asymmetron lucayanum,Amphioxus,Model Species
+Barbarea vulgaris,"c(""yellow rocket"", ""garden yellow rocket"", ""winter cress"", ""garden yellowrocket"")",Model Species
+Bos taurus,"c(""aurochs"", ""domesticated cattle"", ""domestic cattle (feral)"", ""Aurochs"")",Model Species
+Brachypodium distachyon,"c(""purple false brome"", ""purple falsebrome"")",Model Species
+Brassica napus,"c(""turnip"", ""rape"")",Model Species
+Brassica rapa,"c(""rape mustard"", ""rape"", ""bird's rape"", ""birdsrape mustard"", ""wild mustard"", ""wild rutabaga"", ""wild turnip"", ""turnip rape"", ""field mustard"")",Model Species
+Caenorhabditis elegans,mode nematode,Model Species
+Callosobruchus maculatus,Cowpea Weevil,Model Species
+Candida albicans,fungus,Model Species
+Candida glabrata,fungus,Model Species
+Cenchrus americanus,pearl millet,Model Species
+Chlamydomonas reinhardtii,Green alga biofuels,Model Species
+Chlorella sorokiniana,Green alga biofuels,Model Species
+Chlorella sp. Dachan,Green alga biofuels,Model Species
+Chlorella variabilis,Green alga biofuels,Model Species
+Chromochloris zofingiensis,Green alga,Model Species
+Columba livia,"c(""Paloma doméstica"", ""Rock Dove"", ""pigeon biset"", ""Common Pigeon"", ""Rock Pigeon"")",Model Species
+Cryptococcus amylolentus,Model fungus,Model Species
+Cryptococcus gattii,Model fungus,Model Species
+Cryptococcus neoformans var. grubii,Model fungus,Model Species
+Danio rerio,Zebrafish,Model Species
+Dictyostelium discoideum,Model amoeba,Model Species
+Drosophila melanogaster,Model fruit fly,Model Species
+Ectocarpus siliculosus,Model brown algae,Model Species
+Emiliania huxleyi,Coccolithophore,Model Species
+Erythranthe guttata,Model monkeyflower,Model Species
+Erythranthe lutea,Model monkeyflower,Model Species
+Fundulus heteroclitus,Mummichog,Model Species
+Gallus gallus,Red junglefowl,Model Species
+Glycine max,"c(""soybean"", ""wild soybean"", ""reseeding soybean"")",Model Species
+Gossypium hirsutum,"c(""upland cotton"", ""algodón"")",Model Species
+Komagataella phaffii,Model yeast,Model Species
+Mus musculus,White mouse,Model Species
+Neurospora crassa,Model fungus,Model Species
+Nothobranchius furzeri,Turquoise killifish,Model Species
+Oryzias latipes,Japanese rice fish,Model Species
+Physcomitrella patens,Moss,Model Species
+Podospora anserina,Model fungus,Model Species
+Poecilia reticulata,"c(""gupi"", ""guppy"", ""millions fish"", ""rainbowfish"")",Model Species
+Rattus norvegicus,"c(""rat surmulot"", ""Brown Rat"", ""Norway Rat"")",Model Species
+Rhizophagus irregularis,Model fungus,Model Species
+Rhodotorula toruloides,Model fungus bioremediation,Model Species
+Rosa hybrid cultivar,NA,Model Species
+Saccharomyces cerevisiae,Brewers yeast,Model Species
+Schizosaccharomyces pombe,Fission Yeast,Model Species
+Sesamum indicum,sesame,Model Species
+Solanum macrocarpon,nightshade,Model Species
+Tetrahymena thermophila,Model ciliate,Model Species
+Xenopus laevis,"c(""African Clawed Frog"", ""Rana-de garras africana"")",Model Species
+Xenopus tropicalis,Western clawed Frog,Model Species
+Yarrowia lipolytica,Fungus studied as novel food,Model Species

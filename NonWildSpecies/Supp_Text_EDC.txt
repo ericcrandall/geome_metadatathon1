@@ -1,0 +1,28 @@
+We developed a list of eukaryotic species binomials by which to filter BioSamples for three broad categories of species that we reasoned had allele frequencies significantly altered by human activities, or that likely reflected samples taken from non-natural systems: 1) human pathogens and their vectors, 2) model organisms, 3) domesticated species. For human pathogens, we used the organisms table from VEuPathDB [1], a consortium database for human eukaryotic pathogens and vectors (accessed Jan 25, 2021) and augmented from a Wikipedia list of infectious diseases [2]. For model organisms, we used Wikipedia lists of model organisms [2]. For domesticated plants, we started from supplemental table S1 of Khoury et al. [4], which in turn was compiled from a standard list of crops reported in the FAOSTAT database [5]. We augmented this list from the United States Agricultural Research Service Germplasm Resources Information Network's [6] listing of World Economic Plants [7] for Human Food and Lawn and Turf categories, and the Wikipedia list of domesticated plants [8]. For domesticated animals, we used Table 1A1 from the State of Livestock Diversity Annex to the FAO's Second Report on the State of the World's Animal Genetic Resources [9], and augmented this list from Wikipedia's list of domesticated animals [10]. For domesticated aquaculture species, we used FAO's The state of the world's fisheries and aquaculture [11]. We joined lists from each category using the R package dplyr [12], and removed duplicated binomials within categories and cited each to the most authoritative source. We then hand-edited each of these lists to remove species which we judged had significant natural populations (e.g. we removed Three-spined stickleback, Gasterosteus aculeatus from the list of model organisms), in keeping with our desire to comment on metadata from potentially natural populations. In cases where an entire genus was judged to fall into one of the three categories, only the generic name was retained (e.g. Citrus).
+
+
+1. C. Aurrecoechea, A. Barreto, E. Y. Basenko, J. Brestelli, B. P. Brunk, S. Cade, K. Crouch, R. Doherty, D. Falke, S. Fischer, B. Gajria, O. S. Harb, M. Heiges, C. Hertz-Fowler, S. Hu, J. Iodice, J. C. Kissinger, C. Lawrence, W. Li, D. F. Pinney, J. A. Pulman, D. S. Roos, A. Shanmugasundram, F. Silva-Franco, S. Steinbiss, C. J. Stoeckert, D. Spruill, H. Wang, S. Warrenfeltz, J. Zheng, EuPathDB: the eukaryotic pathogen genomics database resource. Nucleic Acids Res. 45, D581–D591 (2017).
+
+2. List of Infectious Diseases. (n.d.). In Wikipedia. Retrieved January 25, 2021, from https://en.wikipedia.org/wiki/List_of_infectious_diseases
+
+3. Model Organisms. (n.d.). In Wikipedia. Retrieved January 25, 2021, from https://en.wikipedia.org/wiki/Model_organism and https://en.wikipedia.org/wiki/List_of_model_organisms
+
+
+4. C. K. Khoury, H. A. Achicanoy, A. D. Bjorkman, C. Navarro-Racines, L. Guarino, X. Flores-Palacios, J. M. M. Engels, J. H. Wiersema, H. Dempewolf, S. Sotelo, J. Ramírez-Villegas, N. P. Castañeda-Álvarez, C. Fowler, A. Jarvis, L. H. Rieseberg, P. C. Struik, Origins of food crops connect countries worldwide. Proc. R. Soc. B. 283, 20160792 (2016).
+
+5. FAO. 2015 FAOSTAT. Rome, Italy: Food and Agriculture Organization of the United Nations. See http://faostat3.fao.org/. 
+
+6. Germplasm Resources Information Network [Internet]. Beltsville (MD): United States Department of Agriculture, Agricultural Research Service. [insert date]. Available from: http://www.ars-grin.gov/.
+
+7. J. H. Wiersema, B. Léon, World Economic Plants (Taylor & Francis, Boca Raton, FL, 2013).
+
+8. List of Domesticated Plants. (n.d.). In Wikipedia. Retrieved January 25, 2021, from https://en.wikipedia.org/wiki/List_of_domesticated_plants
+
+
+9. B. D. Scherf, D. Pilling, Commission on Genetic Resources for Food and Agriculture, The second report on the state of the world’s animal genetic resources for food and agriculture (2015; http://www.fao.org/3/a-i4787e.pdf).
+
+10. List of Domesticated Animals. (n.d.). In Wikipedia. Retrieved January 25, 2021, from https://en.wikipedia.org/wiki/List_of_domesticated_animals
+
+11. FAO, Ed., The state of the world’s fisheries and aquaculture (Rome, 2018), The state of world fisheries and aquaculture.
+
+12. H. Wickham, R. François, L. Henry, K. E. Müller, dplyr: A Grammar of Data Manipulation. R package version 1.0.2. (2020; https://CRAN.R-project.org/package=dplyr).

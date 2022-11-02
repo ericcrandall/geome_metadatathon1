@@ -1,0 +1,125 @@
+Species,Common,Category
+Actinomyces,Actinomycosis,HumanPathogen Species
+Trypanosoma brucei,African sleeping sickness (African trypanosomiasis),HumanPathogen Species
+Entamoeba histolytica,Amoebiasis,HumanPathogen Species
+Anaplasma species,Anaplasmosis,HumanPathogen Species
+Angiostrongylus,Angiostrongyliasis,HumanPathogen Species
+Anisakis,Anisakiasis,HumanPathogen Species
+Ascaris lumbricoides,Ascariasis,HumanPathogen Species
+Aspergillus species,Aspergillosis,HumanPathogen Species
+Babesia species,Babesiosis,HumanPathogen Species
+Bacteroides species,Bacteroides infection,HumanPathogen Species
+Balantidium coli,Balantidiasis,HumanPathogen Species
+Baylisascaris species,Baylisascaris infection,HumanPathogen Species
+Piedraia hortae,Black piedra,HumanPathogen Species
+Blastocystis species,Blastocystosis,HumanPathogen Species
+Blastomyces dermatitidis,Blastomycosis,HumanPathogen Species
+Clostridium botulinum; Note: Botulism is not an infection by Clostridium botulinum but caused by the intake of botulinum toxin.,Botulism (and Infant botulism),HumanPathogen Species
+Brucella species,Brucellosis,HumanPathogen Species
+Burkholderia cepacia and other Burkholderia species,Burkholderia infection,HumanPathogen Species
+Campylobacter species,Campylobacteriosis,HumanPathogen Species
+Candida,Candidiasis (Moniliasis; Thrush),HumanPathogen Species
+"Intestinal disease by Capillaria philippinensis, hepatic disease by Capillaria hepatica and pulmonary disease by Capillaria aerophila",Capillariasis,HumanPathogen Species
+Streptococcus and Staphylococcus,Cellulitis,HumanPathogen Species
+Trypanosoma cruzi,Chagas disease (American trypanosomiasis),HumanPathogen Species
+Fonsecaea pedrosoi,Chromoblastomycosis,HumanPathogen Species
+Batrachochytrium dendrabatidis,Chytridiomycosis,HumanPathogen Species
+Clonorchis sinensis,Clonorchiasis,HumanPathogen Species
+Coccidioides immitis and Coccidioides posadasii,Coccidioidomycosis,HumanPathogen Species
+PRNP,Creutzfeldt–Jakob disease (CJD),HumanPathogen Species
+Cryptococcus neoformans,Cryptococcosis,HumanPathogen Species
+Cryptosporidium species,Cryptosporidiosis,HumanPathogen Species
+Ancylostoma braziliense; other parasites,Cutaneous larva migrans (CLM),HumanPathogen Species
+Cyclospora cayetanensis,Cyclosporiasis,HumanPathogen Species
+Taenia solium,Cysticercosis,HumanPathogen Species
+Green algae Desmodesmus armatus,Desmodesmus infection,HumanPathogen Species
+Dientamoeba fragilis,Dientamoebiasis,HumanPathogen Species
+Diphyllobothrium,Diphyllobothriasis,HumanPathogen Species
+Dracunculus medinensis,Dracunculiasis,HumanPathogen Species
+Echinococcus species,Echinococcosis,HumanPathogen Species
+Ehrlichia species,Ehrlichiosis,HumanPathogen Species
+Enterobius vermicularis,Enterobiasis (Pinworm infection),HumanPathogen Species
+Enterococcus species,Enterococcus infection,HumanPathogen Species
+Fasciola hepatica and Fasciola gigantica,Fasciolasis,HumanPathogen Species
+Fasciolopsis buski,Fasciolopsiasis,HumanPathogen Species
+PRNP,Fatal familial insomnia (FFI),HumanPathogen Species
+Filarioidea superfamily,Filariasis,HumanPathogen Species
+multiple,Free-living amebic infection,HumanPathogen Species
+Fusobacterium species,Fusobacterium infection,HumanPathogen Species
+Clostridium perfringens; other Clostridium species,Gas gangrene (Clostridial myonecrosis),HumanPathogen Species
+Geotrichum candidum,Geotrichosis,HumanPathogen Species
+PRNP,Gerstmann-Sträussler-Scheinker syndrome (GSS),HumanPathogen Species
+Giardia lamblia,Giardiasis,HumanPathogen Species
+Gnathostoma spinigerum and Gnathostoma hispidum,Gnathostomiasis,HumanPathogen Species
+"Escherichia coli O157:H7, O111 and O104:H4",Hemolytic-uremic syndrome (HUS),HumanPathogen Species
+Histoplasma capsulatum,Histoplasmosis,HumanPathogen Species
+Ancylostoma duodenale and Necator americanus,Hookworm infection,HumanPathogen Species
+Hymenolepis nana and Hymenolepis diminuta,Hymenolepiasis,HumanPathogen Species
+Isospora belli,Isosporiasis,HumanPathogen Species
+unknown; evidence supports that it is infectious,Kawasaki disease,HumanPathogen Species
+PRNP,Kuru,HumanPathogen Species
+Leishmania,Leishmaniasis,HumanPathogen Species
+Mycobacterium leprae and Mycobacterium lepromatosis,Leprosy,HumanPathogen Species
+Leptospira species,Leptospirosis,HumanPathogen Species
+"Borrelia burgdorferi, Borrelia garinii, and Borrelia afzelii",Lyme disease (Lyme borreliosis),HumanPathogen Species
+Wuchereria bancrofti and Brugia malayi,Lymphatic filariasis (Elephantiasis),HumanPathogen Species
+Plasmodium,Malaria,HumanPathogen Species
+Metagonimus yokagawai,Metagonimiasis,HumanPathogen Species
+Microsporidia phylum,Microsporidiosis,HumanPathogen Species
+numerous species of bacteria ,Mycetoma,HumanPathogen Species
+parasitic dipterous fly larvae,Myiasis,HumanPathogen Species
+Chlamydia trachomatis and Neisseria gonorrhoeae,Neonatal conjunctivitis (Ophthalmia neonatorum),HumanPathogen Species
+PRNP,"(New) Variant Creutzfeldt–Jakob disease (vCJD, nvCJD)",HumanPathogen Species
+Nocardia asteroides and other Nocardia species,Nocardiosis,HumanPathogen Species
+Onchocerca volvulus,Onchocerciasis (River blindness),HumanPathogen Species
+Opisthorchis viverrini and Opisthorchis felineus,Opisthorchiasis,HumanPathogen Species
+Paracoccidioides brasiliensis,Paracoccidioidomycosis (South American blastomycosis),HumanPathogen Species
+Paragonimus westermani and other Paragonimus species,Paragonimiasis,HumanPathogen Species
+Pasteurella species,Pasteurellosis,HumanPathogen Species
+Pediculus humanus capitis,Pediculosis capitis (Head lice),HumanPathogen Species
+Pediculus humanus corporis,Pediculosis corporis (Body lice),HumanPathogen Species
+Pthirus pubis,"Pediculosis pubis (pubic lice, crab lice)",HumanPathogen Species
+multiple,Pelvic inflammatory disease (PID),HumanPathogen Species
+Pneumocystis jirovecii,Pneumocystis pneumonia (PCP),HumanPathogen Species
+multiple,Pneumonia,HumanPathogen Species
+Prevotella species,Prevotella infection,HumanPathogen Species
+Naegleria fowleri,Primary amoebic meningoencephalitis (PAM),HumanPathogen Species
+"Borrelia hermsii, Borrelia recurrentis, and other Borrelia species",Relapsing fever,HumanPathogen Species
+Rhinosporidium seeberi,Rhinosporidiosis,HumanPathogen Species
+Rickettsia species,Rickettsial infection,HumanPathogen Species
+Salmonella species,Salmonellosis,HumanPathogen Species
+Sarcoptes scabiei,Scabies,HumanPathogen Species
+Streptococcus species,Scarlet fever,HumanPathogen Species
+Schistosoma,Schistosomiasis,HumanPathogen Species
+multiple,Sepsis,HumanPathogen Species
+Shigella species,Shigellosis (bacillary dysentery),HumanPathogen Species
+Variola major or Variola minor,Smallpox (variola),HumanPathogen Species
+Sporothrix schenckii,Sporotrichosis,HumanPathogen Species
+Staphylococcus species,Staphylococcal food poisoning,HumanPathogen Species
+Staphylococcus species,Staphylococcal infection,HumanPathogen Species
+Strongyloides stercoralis,Strongyloidiasis,HumanPathogen Species
+Taenia species,Taeniasis,HumanPathogen Species
+Trichophyton species,"Tinea barbae (barbers itch)	itis	Trichophyton species	NA
+Trichophyton tonsurans	Tinea capitis (ringworm of the scalp)	itis	Trichophyton tonsurans	NA
+Trichophyton species	Tinea corporis (ringworm of the body)	itis	Trichophyton species	NA
+""Epidermophyton floccosum, Trichophyton rubrum, and Trichophyton mentagrophytes""	Tinea cruris (Jock itch)	itis	""Epidermophyton floccosum, Trichophyton rubrum, and Trichophyton mentagrophytes""	NA
+Trichophyton rubrum	Tinea manum (ringworm of the hand)	itis	Trichophyton rubrum	NA
+Hortaea werneckii	Tinea nigra	itis	Hortaea werneckii	NA
+Trichophyton species	Tinea pedis (athlete’s foot)	itis	Trichophyton species	NA
+Trichophyton species	Tinea unguium (onychomycosis)	itis	Trichophyton species	NA
+Malassezia species	Tinea versicolor (Pityriasis versicolor)	itis	Malassezia species	NA
+Staphylococcus aureus or Streptococcus pyogenes	Toxic shock syndrome (TSS)	itis	Staphylococcus aureus or Streptococcus pyogenes	NA
+Toxocara canis or Toxocara cati	Toxocariasis (ocular larva migrans (OLM))	itis	Toxocara canis or Toxocara cati	NA
+Toxocara canis or Toxocara cati	Toxocariasis (visceral larva migrans (VLM))	itis	Toxocara canis or Toxocara cati	NA
+Toxoplasma gondii	Toxoplasmosis	itis	Toxoplasma gondii	NA
+Trichinella spiralis	Trichinosis	itis	Trichinella spiralis	NA
+Trichomonas vaginalis	Trichomoniasis	itis	Trichomonas vaginalis	NA
+Trichuris trichiura	Trichuriasis (whipworm infection)	itis	Trichuris trichiura	NA
+""Salmonella enterica subsp. enterica, serovar typhi""	Typhoid fever	itis	""Salmonella enterica subsp. enterica, serovar typhi""	NA
+Coccidioides immitis or Coccidioides posadasii.[1]	Valley fever	itis	Coccidioides immitis or Coccidioides posadasii.[1]	NA
+Trichosporon beigelii	White piedra (tinea blanca)	itis	Trichosporon beigelii	NA
+Zeaspora fungus	Zeaspora	itis	Zeaspora fungus	NA
+Mucorales order 	Zygomycosis	itis	Mucorales order 	NA",HumanPathogen Species
+Cryptosporidium hominis,Cryptosporidium,HumanPathogen Species
+Toxoplasma gondii,Toxoplasmosis,HumanPathogen Species
+Trichomonas vaginalis,Trichomoniasis,HumanPathogen Species

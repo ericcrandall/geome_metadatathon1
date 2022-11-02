@@ -1,0 +1,81 @@
+Species
+Agropyron cristatum (L.) Gaertn.
+Agrostis canina L.
+Agrostis capillaris L.
+Agrostis castellana Boiss. & Reut.
+Agrostis gigantea Roth
+Agrostis idahoensis Nash
+Agrostis nebulosa Boiss. & Reut.
+Agrostis stolonifera L.
+Agrostis stolonifera var. palustris (Huds.) Farw.
+Axonopus compressus (Sw.) P. Beauv.
+Axonopus fissifolius (Raddi) Kuhlm.
+Bothriochloa macra (Steud.) S. T. Blake
+Bothriochloa pertusa (L.) A. Camus
+Bouteloua curtipendula (Michx.) Torr.
+Bouteloua dactyloides (Nutt.) Columbus
+Bouteloua gracilis (Kunth) Lag. ex Griffiths
+Cenchrus clandestinus (Hochst. ex Chiov.) Morrone
+Chamaemelum nobile (L.) All.
+Chrysopogon aciculatus (Retz.) Trin.
+Cynodon dactylon (L.) Pers.
+Cynodon dactylon var. aridus J. R. Harlan & de Wet
+Cynodon dactylon var. dactylon
+Cynodon incompletus var. hirsutus (Stent) de Wet & J. R. Harlan
+Cynodon ×magennisii Hurcombe
+Cynodon transvaalensis Burtt Davy
+Dactyloctenium australe Steud.
+Deschampsia cespitosa (L.) P. Beauv.
+Dichanthium aristatum (Poir.) C. E. Hubb.
+Dichondra micrantha Urb.
+Digitaria didactyla Willd.
+Distichlis spicata var. stricta (Torr.) Scribn.
+Elymus lanceolatus subsp. lanceolatus
+Eragrostis tenella (L.) P. Beauv. ex Roem. & Schult.
+Eremochloa ophiuroides (Munro) Hack.
+Festuca arundinacea Schreb.
+Festuca filiformis Pourr.
+Festuca ovina L.
+Festuca rubra L.
+Festuca rubra subsp. commutata Markgr.-Dann.
+Festuca rubra subsp. litoralis (G. Mey.) Auquier
+Festuca rubra subsp. rubra
+Festuca trachyphylla (Hack.) R. P. Murray
+Grona triflora (L.) H. Ohashi & K. Ohashi
+Hilaria belangeri (Steud.) Nash
+Holcus mollis L.
+Hydrocotyle novae-zelandiae DC.
+Ischaemum ciliare Retz.
+Koeleria macrantha (Ledeb.) Schult.
+Leptinella dioica Hook. f.
+Leptinella maniototo (Petrie) D. G. Lloyd & C. J. Webb
+Leptinella squalida Hook. f.
+Lobelia angulata G. Forst.
+Lolium multiflorum Lam.
+Lolium perenne L.
+Microlaena stipoides (Labill.) R. Br.
+Paspalum notatum Flüggé
+Paspalum vaginatum Sw.
+Phleum nodosum L.
+Phyla canescens (Kunth) Greene
+Poa annua L.
+Poa annua f. reptans (Hausskn.) T. Koyama
+Poa arachnifera Torr.
+Poa compressa L.
+Poa nemoralis L.
+Poa pratensis L.
+Poa supina Schrad.
+Poa trivialis L.
+Polytrias indica (Houtt.) Veldkamp
+Puccinellia distans (Jacq.) Parl.
+Stenotaphrum secundatum (Walter) Kuntze
+Trifolium fragiferum L.
+Trisetum flavescens (L.) P. Beauv.
+Urochloa glumaris (Trin.) Veldkamp
+Zoysia japonica Steud.
+Zoysia macrostachya Franch. & Sav.
+Zoysia matrella (L.) Merr.
+Zoysia sinica Hance
+Zoysia tenuifolia Willd. ex Thiele
+#Cite as: USDA, Agricultural Research Service, National Plant Germplasm System. 2021. Germplasm Resources Information Network (GRIN-Taxonomy).
+#National Germplasm Resources Laboratory, Beltsville, Maryland. URL: https://npgsweb.ars-grin.gov/gringlobal/taxon/taxonomysearcheco. Accessed 25 January 2021.

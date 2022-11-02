@@ -1,0 +1,431 @@
+Species	Common	Category
+Triticosecale	Triticale	Domesticated Plant Khouri et al. 2016
+Abelmoschus esculentus	Okra	Domesticated Plant Khouri et al. 2016
+Actinidea	Kiwi	Domesticated Plant Khouri et al. 2016
+Agave fourcroydes	Sisal	Domesticated Plant Other Wikipedia
+Agrostis canina	velvet bentgrass	Domesticated Plant GRIN Lawn
+Agrostis capillaris	"c(""colonial bentgrass"", ""colonial bent"")"	Domesticated Plant GRIN Lawn
+Agrostis castellana	bentgrass	Domesticated Plant GRIN Lawn
+Agrostis gigantea	"c(""redtop"", ""black bent"", ""water bentgrass"")"	Domesticated Plant GRIN Lawn
+Agrostis idahoensis	"c(""Idaho bentgrass"", ""Idaho redtop"")"	Domesticated Plant GRIN Lawn
+Agrostis nebulosa	cloud bentgrass	Domesticated Plant GRIN Lawn
+Agrostis stolonifera	"c(""creeping bentgrass"", ""carpet bentgrass"", ""spreading bent"", ""creeping bent"", ""redtop"", ""redtop bent"", ""seaside bentgrass"")"	Domesticated Plant GRIN Lawn
+Allium ampeloprasum 	Elephant garlic	Domesticated Plant Vegetable Wikipedia
+Allium cepa	Onions	Domesticated Plant Khouri et al. 2016
+Allium cepa 	Potato onion	Domesticated Plant Vegetable Wikipedia
+Allium porrum	Leeks	Domesticated Plant Khouri et al. 2016
+Allium sativum	Garlic	Domesticated Plant Khouri et al. 2016
+Allium schoenoprasum	Chives	Domesticated Plant Vegetable Wikipedia
+Allium tricoccum	Wild leek	Domesticated Plant Vegetable Wikipedia
+Allium wakegi	Spring onion / Scallion	Domesticated Plant Vegetable Wikipedia
+Alocasia cucullata	chinese taro	Domesticated Plant GRIN Food
+Alocasia macrorrhizos	giant taro	Domesticated Plant GRIN Food
+Alpinia galanga	Galangal	Domesticated Plant Vegetable Wikipedia
+Anacardium occidentale	Cashew	Domesticated Plant Khouri et al. 2016
+Anadara granosa	Blood cockle	Domesticated Aquaculture FAO
+Ananas comosus	Pineapples	Domesticated Plant Khouri et al. 2016
+Anas platyrhynchos	Domestic Duck	Domesticated Animal FAO
+Anethum graveolens	Dill	Domesticated Plant Vegetable Wikipedia
+Anser anser	Greylag Goose	Domesticated Animal FAO
+Anser cygnoides	Swan	Domesticated Animal FAO
+Apis mellifera	"c(""honey bee"", ""abeille domestique"")"	Domesticated Animal Student
+Apium graveolens 	Celeriac	Domesticated Plant Vegetable Wikipedia
+Apostichopus japonicus	Japanese sea cucumber	Domesticated Aquaculture FAO
+Arachis hypogaea	Groundnut	Domesticated Plant Khouri et al. 2016
+Areca catechu	Areca nuts	Domesticated Plant Khouri et al. 2016
+Armoracia rusticana	Horseradish	Domesticated Plant Vegetable Wikipedia
+Artocarpus altilis	breadfruit	Domesticated Plant GRIN Food
+Artocarpus heterophyllus	jackfruit	Domesticated Plant GRIN Food
+Asparagus officinalis	Asparagus	Domesticated Plant Khouri et al. 2016
+Avena sativa	Oats	Domesticated Plant Khouri et al. 2016
+Axonopus compressus	broadleaf carpetgrass	Domesticated Plant GRIN Lawn
+Axonopus fissifolius	"c(""common carpetgrass"", ""carpetgrass"", ""Louisiana grass"", ""mat grass"", ""narrowleaved carpetgrass"")"	Domesticated Plant GRIN Lawn
+Bambusa bambos	thorny bamboo	Domesticated Plant GRIN Food
+Bambusa beecheyana	Beechey's bamboo	Domesticated Plant GRIN Food
+Bambusa tulda	bamboo	Domesticated Plant GRIN Food
+Bambusa tuldoides	puntingpole bamboo	Domesticated Plant GRIN Food
+Bambusa vulgaris	Bamboo shoot	Domesticated Plant Vegetable Wikipedia
+Bertholletia excelsa	Brazil nuts	Domesticated Plant Khouri et al. 2016
+Beta vulgaris	Sugar beet	Domesticated Plant Khouri et al. 2016
+Beta vulgaris cicla 	Swiss chard	Domesticated Plant Vegetable Wikipedia
+Beta vulgaris maritima	Sea beet	Domesticated Plant Vegetable Wikipedia
+Beta vulgaris vulgaris	Beet (greens)	Domesticated Plant Vegetable Wikipedia
+Bombyx mori	Domestic silkmoth (Bombyx mori)	Domesticated Animal Wikipedia
+Bos bubalis carabensis	Swamp buffalo	Domesticated Animal FAO
+Bos frontalis	Mithun	Domesticated Animal FAO
+Bos grunniens	Yak	Domesticated Animal FAO
+Bos indicus	Zebu cattle	Domesticated Animal FAO
+Bos javanicus	Bali cattle	Domesticated Animal FAO
+Bos primigenius	European cattle or taurine cattle (Bos primigenius taurus)[3][23][24]	Domesticated Animal Wikipedia
+Bos taurus	Taurine cattle	Domesticated Animal FAO
+Bothriochloa pertusa	pitted beardgrass	Domesticated Plant GRIN Lawn
+Bouteloua curtipendula	sideoats grama	Domesticated Plant GRIN Lawn
+Bouteloua gracilis	blue grama	Domesticated Plant GRIN Lawn
+Brassica juncea	Mustard spice	Domesticated Plant Khouri et al. 2016
+Brassica napus	Rapeseed	Domesticated Plant Khouri et al. 2016
+Brassica oleracea	Cabbages	Domesticated Plant Khouri et al. 2016
+Brassica rapa	Turnips	Domesticated Plant Khouri et al. 2016
+Brassica rupestris	mustard	Domesticated Plant Student
+Bubalus bubalis	River buffalo	Domesticated Animal FAO
+Cairina moschata	Muscovy Duck	Domesticated Animal FAO
+Cajanus cajan	Pigeonpeas	Domesticated Plant Khouri et al. 2016
+Calamus rotang	rattan	Domesticated Plant GRIN Food
+Camassia	Camas	Domesticated Plant Vegetable Wikipedia
+Camellia sinensis	Tea	Domesticated Plant Khouri et al. 2016
+Camelus bactrianus	Bactrian camel	Domesticated Animal FAO
+Camelus dromedarius	Dromedary	Domesticated Animal FAO
+Canna	Canna	Domesticated Plant Vegetable Wikipedia
+Cannabis indica	Marijuana	Domesticated Plant Other Wikipedia
+Cannabis sativa	Marijuana/Hemp	Domesticated Plant Khouri et al. 2016
+Capparis spinosa	caper	Domesticated Plant GRIN Food
+Capra aegagrus	Domestic goat (Capra aegagrus hircus)	Domesticated Animal Wikipedia
+Capra hircus	Goat	Domesticated Animal FAO
+Capsella bursa-pastoris	Shepherd's purse	Domesticated Plant Vegetable Wikipedia
+Capsicum annuum	Bell Pepper	Domesticated Plant Khouri et al. 2016
+Capsicum baccatum	Aji Amarillo	Domesticated Plant Vegetable Wikipedia
+Capsicum chinense	Habenero	Domesticated Plant Khouri et al. 2016
+Capsicum frutescens	Tabasco/Sambal Pepper	Domesticated Plant Vegetable Wikipedia
+Capsicum pubescens	Manzano Pepper	Domesticated Plant Vegetable Wikipedia
+Carassius auratus	Domestic goldfish (Carassius auratus)	Domesticated Animal Wikipedia
+Carassius carassius	Crucian carp	Domesticated Aquaculture FAO
+Carica papaya	Papayas	Domesticated Plant Khouri et al. 2016
+Carthamus tinctorius	Safflower seed	Domesticated Plant Khouri et al. 2016
+Castanea sativa	Chestnut	Domesticated Plant Khouri et al. 2016
+Catla catla	Catla	Domesticated Aquaculture FAO
+Cavia porcellus	Guinea pig (Cavia porcellus)	Domesticated Animal Wikipedia
+Cenchrus americanus	Pearl millet	Domesticated Plant Khouri et al. 2016
+Ceratonia siliqua	Carob	Domesticated Plant Khouri et al. 2016
+Channa argus	Snakehead	Domesticated Aquaculture FAO
+Chanos chanos	Milkfish	Domesticated Aquaculture FAO
+Chenopodium quinoa	Quinoa	Domesticated Plant Khouri et al. 2016
+Chrysophyllum albidum	white star apple	Domesticated Plant GRIN Food
+Chrysophyllum cainito	star apple	Domesticated Plant GRIN Food
+Chrysopogon aciculatus	"c(""golden false beardgrass"", ""pilipiliula"", ""golden beardgrass"", ""inifuk"", ""Mackie's pest"", ""matapekepeke"", ""seed grass"")"	Domesticated Plant GRIN Lawn
+Cicer arietinum	Chickpeas	Domesticated Plant Khouri et al. 2016
+Cichorium intybus	Chicory roots	Domesticated Plant Khouri et al. 2016
+Cinnamomum verum	Cinnamon	Domesticated Plant Other Wikipedia
+Citrullus lanatus	Watermelons	Domesticated Plant Khouri et al. 2016
+Citrus	Citrus	Domesticated Plant Khouri et al. 2016
+Clarias spp	Torpedo-shaped catfishes nei	Domesticated Aquaculture FAO
+Cocos nucifera	Coconuts	Domesticated Plant Khouri et al. 2016
+Coffea arabica	Arabica coffee	Domesticated Plant Khouri et al. 2016
+Coffea canephora	Robusta coffee	Domesticated Plant Khouri et al. 2016
+Cola nitida	Cola	Domesticated Plant Khouri et al. 2016
+Cola acuminata	Cola	Domesticated Plant Other Wikipedia
+Colocasia esculenta	Taro	Domesticated Plant Khouri et al. 2016
+Columba livia	Domestic pigeon (Columba livia domestica)	Domesticated Animal Wikipedia
+Corchorus capsularis	White Jute	Domesticated Plant Other Wikipedia
+Coriandrum sativum	Coriander	Domesticated Plant Khouri et al. 2016
+Corylus avellana	Hazelnuts	Domesticated Plant Khouri et al. 2016
+Crassostrea gigas	Pacific cupped oyster	Domesticated Aquaculture FAO
+Croceus sativus	Saffron	Domesticated Plant Other Wikipedia
+Ctenopharyngodon idellus	Grass carp	Domesticated Aquaculture FAO
+Cucumis anguria	West Indian gherkin	Domesticated Plant GRIN Food
+Cucumis melo	Melons	Domesticated Plant Khouri et al. 2016
+Cucumis metuliferus	African horned cucumber	Domesticated Plant GRIN Food
+Cucumis sativus	Cucumbers	Domesticated Plant Khouri et al. 2016
+Cucurbita ficifolia	figleaf gourd	Domesticated Plant GRIN Food
+Cucurbita foetidissima	"c(""calabazilla"", ""wild gourd"", ""wild pumkin"", ""buffalo gourd"", ""buffalogourd pumpkin"", ""Missouri gourd"")"	Domesticated Plant GRIN Food
+Cucurbita maxima	Winter squash	Domesticated Plant Khouri et al. 2016
+Cucurbita moschata	Butternut squash	Domesticated Plant Khouri et al. 2016
+Cucurbita pepo	Pumpkin	Domesticated Plant Khouri et al. 2016
+Cuminum cyminum	Cumin	Domesticated Plant Other Wikipedia
+Curcuma amada	mango ginger	Domesticated Plant GRIN Food
+Curcuma angustifolia	East Indian arrowroot	Domesticated Plant GRIN Food
+Curcuma longa	Turmeric	Domesticated Plant Vegetable Wikipedia
+Cyamopsis tetragonoloba	Guar	Domesticated Plant Vegetable Wikipedia
+Cydonia oblonga	Quinces	Domesticated Plant Khouri et al. 2016
+Cymbopogon	Lemongrass	Domesticated Plant Other Wikipedia
+Cymbopogon citratus	Lemongrass	Domesticated Plant Vegetable Wikipedia
+Cynara cardunculus	Artichokes	Domesticated Plant Khouri et al. 2016
+Cynodon dactylon	"c(""chiendent pied-de-poule"", ""devilgrass"", ""grama-seda"", ""manienie"", ""motie molulu"", ""Bermudagrass"", ""common bermudagrass"")"	Domesticated Plant GRIN Lawn
+Cynodon transvaalensis	"c(""Bermudagrass"", ""African dogstooth grass"")"	Domesticated Plant GRIN Lawn
+Cyprinus carpio	Common carp	Domesticated Aquaculture FAO
+Cyprinus rubrofuscus	Koi (Cyprinus rubrofuscus)	Domesticated Animal Wikipedia
+Daucus carota	Carrots & turnips	Domesticated Plant Khouri et al. 2016
+Dendrocalamus asper	giant bamboo	Domesticated Plant GRIN Food
+Dendrocalamus latiflorus	giant bamboo	Domesticated Plant GRIN Food
+Dendrocalamus strictus	male bamboo	Domesticated Plant GRIN Food
+Deschampsia cespitosa	tufted hairgrass	Domesticated Plant GRIN Lawn
+Dialium guineense	velvet tamarind	Domesticated Plant GRIN Food
+Dichanthium aristatum	Angleton bluestem	Domesticated Plant GRIN Lawn
+Dichondra micrantha	Asian ponysfoot	Domesticated Plant GRIN Lawn
+Digera muricata	false amaranth	Domesticated Plant GRIN Food
+Digitaria didactyla	crabgrass	Domesticated Plant GRIN Lawn
+Digitaria exilis	Fonio	Domesticated Plant Khouri et al. 2016
+Digitaria iburua	black fonio	Domesticated Plant GRIN Food
+Dioscorea alata	Purple Yam (Ube)	Domesticated Plant Khouri et al. 2016
+Dioscorea cayenensis	Guinea Yam	Domesticated Plant Khouri et al. 2016
+Dioscorea convolvulacea	yam	Domesticated Plant GRIN Food
+Dioscorea dumetorum	bitter yam	Domesticated Plant GRIN Food
+Dioscorea esculenta	lesser yam	Domesticated Plant GRIN Food
+Dioscorea hispida	intoxicating yam	Domesticated Plant GRIN Food
+Dioscorea japonica	Japanese yam	Domesticated Plant GRIN Food
+Dioscorea pentaphylla	fiveleaf yam	Domesticated Plant GRIN Food
+Dioscorea polystachya	Chinese yam	Domesticated Plant GRIN Food
+Dioscorea praehensilis	bush yam	Domesticated Plant GRIN Food
+Dioscorea rotundata	West African Yam	Domesticated Plant Khouri et al. 2016
+Dioscorea trifida	Indian yam	Domesticated Plant GRIN Food
+Diospyros blancoi	mabolo	Domesticated Plant GRIN Food
+Diospyros digyna	black sapote	Domesticated Plant GRIN Food
+Diospyros kaki	Persimmons	Domesticated Plant Khouri et al. 2016
+Diospyros lotus	date plum	Domesticated Plant GRIN Food
+Diospyros texana	Texas persimmon	Domesticated Plant GRIN Food
+Diospyros virginiana	"c(""eastern persimmon"", ""common persimmon"")"	Domesticated Plant GRIN Food
+Diplotaxis muralis	annual wallrocket	Domesticated Plant GRIN Food
+Dipogon lignosus	Okie bean	Domesticated Plant GRIN Food
+Distichlis spicata	"c(""desert saltgrass"", ""marsh spikegrass"", ""saltgrass"", ""inland saltgrass"", ""seashore saltgrass"")"	Domesticated Plant GRIN Lawn
+Dorstenia contrajerva	tusilla	Domesticated Plant GRIN Food
+Dovyalis abyssinica	koshum	Domesticated Plant GRIN Food
+Dovyalis caffra	kei apple	Domesticated Plant GRIN Food
+Durio zibethinus	durian	Domesticated Plant GRIN Food
+Dyera costulata	jelutong	Domesticated Plant GRIN Food
+Echinochloa esculenta	Japanese millet	Domesticated Plant Khouri et al. 2016
+Echinochloa frumentacea	Barnyard millets	Domesticated Plant Khouri et al. 2016
+Echinochloa stagnina	Burgu millet	Domesticated Plant Khouri et al. 2016
+Eisenia bicyclis	Arame	Domesticated Plant Vegetable Wikipedia
+Elaeis guineensis	Palm oil	Domesticated Plant Khouri et al. 2016
+Elaeis oleifera	Palm oil	Domesticated Plant Khouri et al. 2016
+Eleocharis dulcis	"c(""Chinese water chestnut"", ""Chinese waterchestnut"")"	Domesticated Plant GRIN Food
+Elettaria cardamomum	Cardamom	Domesticated Plant Khouri et al. 2016
+Eleusine coracana	finger millet	Domesticated Plant GRIN Food
+Elymus lanceolatus	"c(""streambank wheatgrass"", ""streamside wild rye"")"	Domesticated Plant GRIN Lawn
+Equus africanus	Domestic donkey or domestic ass (Equus africanus asinus)	Domesticated Animal Wikipedia
+Equus asinus	Donkey	Domesticated Animal FAO
+Equus caballus	Horse	Domesticated Animal FAO
+Eragrostis tenella	Japanese lovegrass	Domesticated Plant GRIN Lawn
+Eremochloa ophiuroides	centipede grass	Domesticated Plant GRIN Lawn
+Eriobotrya japonica	loquat	Domesticated Plant GRIN Food
+Eriocheir sinensis	Chinese mitten crab	Domesticated Aquaculture FAO
+Eruca sativa	Arugula	Domesticated Plant Vegetable Wikipedia
+Eucheuma	Eucheuma seaweeds nei	Domesticated Aquaculture FAO
+Fagopyrum esculentum	Buckwheat	Domesticated Plant Khouri et al. 2016
+Felis catus	Domestic cat or house cat (Felis catus)[3]	Domesticated Animal Wikipedia
+Festuca arundinacea	"c(""Alta fescue"", ""coarse fescue"", ""reed fescue"", ""tall fescue"")"	Domesticated Plant GRIN Lawn
+Festuca filiformis	fineleaf sheep fescue	Domesticated Plant GRIN Lawn
+Festuca ovina	sheep fescue	Domesticated Plant GRIN Lawn
+Festuca rubra	"c(""red fescue"", ""ravine fescue"")"	Domesticated Plant GRIN Lawn
+Festuca trachyphylla	hard fescue	Domesticated Plant GRIN Lawn
+Ficus carica	Figs	Domesticated Plant Khouri et al. 2016
+Foeniculum vulgare	Fennel	Domesticated Plant Khouri et al. 2016
+Foeniculum vulgare 	Florence fennel	Domesticated Plant Vegetable Wikipedia
+Foxtail millet	Setaria italica	Domesticated Plant Khouri et al. 2016
+Fragaria × ananassa	Strawberries	Domesticated Plant Khouri et al. 2016
+Gallus domesticus	Chicken	Domesticated Animal FAO
+Gallus gallus domesticus	Domestic chicken (Gallus gallus domesticus)	Domesticated Animal Wikipedia
+Garcinia mangostana	Mangosteens	Domesticated Plant Khouri et al. 2016
+Glycine max	Soybean	Domesticated Plant Khouri et al. 2016
+Gossypium arboreum	Tree cotton	Domesticated Plant Khouri et al. 2016
+Gossypium barbadense	Creole cotton	Domesticated Plant Khouri et al. 2016
+Gossypium herbaceum	Levant cotton	Domesticated Plant Khouri et al. 2016
+Gossypium hirsutum	Upland cotton	Domesticated Plant Khouri et al. 2016
+Gracilaria	Gracilaria seaweeds	Domesticated Aquaculture FAO
+Gylcine max	Soybean	Domesticated Plant Other Wikipedia
+Helianthus annuus	Sunflower	Domesticated Plant Khouri et al. 2016
+Hibiscus cannabinus	Kenaf	Domesticated Plant Other Wikipedia
+Hilaria belangeri	"c(""curly mesquite"", ""curly-mesquite"", ""Common curleymesquite"", ""curleymesquite"", ""curlymesquite"")"	Domesticated Plant GRIN Lawn
+Holcus mollis	creeping velvetgrass	Domesticated Plant GRIN Lawn
+Hordeum vulgare L.	Barley	Domesticated Plant Khouri et al. 2016
+Humulus lupulus	Hops	Domesticated Plant Khouri et al. 2016
+Hypophthalmichthys molitrix	Silver carp	Domesticated Aquaculture FAO
+Hypophthalmichthys nobilis	Bighead carp	Domesticated Aquaculture FAO
+Ilex paraguariensis	Mate	Domesticated Plant Khouri et al. 2016
+Illicium verum	Badia	Domesticated Plant Khouri et al. 2016
+Ipomoea batatas	Sweet potatoes	Domesticated Plant Khouri et al. 2016
+Jasminum	Jasmine	Domesticated Plant Other Wikipedia
+Juglans ailantifolia	Japanese walnut	Domesticated Plant GRIN Food
+Juglans cinerea	"c(""noyer cendré"", ""white walnut"", ""butternut"")"	Domesticated Plant GRIN Food
+Juglans hindsii	"c(""Hinds's black walnut"", ""Northern California walnut"")"	Domesticated Plant GRIN Food
+Juglans mandshurica	Manchurian walnut	Domesticated Plant GRIN Food
+Juglans neotropica	Andean walnut	Domesticated Plant GRIN Food
+Juglans nigra	"c(""black walnut"", ""noyer noir"")"	Domesticated Plant GRIN Food
+Juglans regia	Walnuts	Domesticated Plant Khouri et al. 2016
+Kaempferia galanga	galanga	Domesticated Plant GRIN Food
+Kappaphycus alvarezii	Elkhorn sea moss	Domesticated Aquaculture FAO
+Koeleria macrantha	"c(""junegrass"", ""prairie Junegrass"")"	Domesticated Plant GRIN Lawn
+Labeo rohita	Roho labeo	Domesticated Aquaculture FAO
+Lactuca sativa	Lettuce	Domesticated Plant Khouri et al. 2016
+Lama glama	Llama	Domesticated Animal FAO
+Laminaria japonica	Japanese kelp	Domesticated Aquaculture FAO
+Lens culinaris	Lentils	Domesticated Plant Khouri et al. 2016
+Linum bienne	pale flax	Domesticated Plant Student
+Linum usitatissimum	Linseed	Domesticated Plant Khouri et al. 2016
+Litchi chinensis	lychee	Domesticated Plant GRIN Food
+Lolium multiflorum	"c(""annual ryegrass"", ""Italian ryegrass"")"	Domesticated Plant GRIN Lawn
+Lolium perenne	"c(""perennial rye grass"", ""perennial ryegrass"", ""Italian ryegrass"")"	Domesticated Plant GRIN Lawn
+Lonchura striata	Society finch (Lonchura striata domestica)	Domesticated Animal Wikipedia
+Lupinus	Lupins	Domesticated Plant Khouri et al. 2016
+Lycalopex culpaeus	Fuegian dog (Lycalopex culpaeus)†	Domesticated Animal Wikipedia
+Macrobrachium nipponense	Oriental river prawn	Domesticated Aquaculture FAO
+Macrobrachium rosenbergii	Giant river prawn	Domesticated Aquaculture FAO
+Malus domestica	Apples	Domesticated Plant Khouri et al. 2016
+Malus pumila	Apple	Domesticated Plant Fruit Wikipedia
+Mangifera indica	Mangoes	Domesticated Plant Khouri et al. 2016
+Manihot esculenta	Cassava	Domesticated Plant Khouri et al. 2016
+Medicago sativa	Alfalfa	Domesticated Plant Khouri et al. 2016
+Megalobrama amblycephala	Wuchang bream	Domesticated Aquaculture FAO
+Meleagris gallopavo	Turkey	Domesticated Animal FAO
+Melopsittacus undulatus	Budgerigar	Domesticated Animal Student
+Mentha balsamea	Peppermint	Domesticated Plant Other Wikipedia
+Mentha spicata	Spearmint	Domesticated Plant Other Wikipedia
+Mentha × piperita	Peppermint	Domesticated Plant Khouri et al. 2016
+Morinda citrifolia	Noni	Domesticated Plant Fruit Wikipedia
+Morus alba	White mulberry	Domesticated Plant Fruit Wikipedia
+Mus musculus	Fancy mouse and laboratory mouse (Mus musculus domestica)	Domesticated Animal Wikipedia
+Musa × paradisiaca	Banana Plantain hybrid	Domesticated Plant Khouri et al. 2016
+Musa acuminata	Banana	Domesticated Plant Khouri et al. 2016
+Musa balbisiana	Plantain	Domesticated Plant Khouri et al. 2016
+Mylopharyngodon piceus	Black carp	Domesticated Aquaculture FAO
+Myristica fragrans	"Nutmeg, mace"	Domesticated Plant Khouri et al. 2016
+Mytilus chilensis	Chilean mussel	Domesticated Aquaculture FAO
+Nicotiana tabacum	Tobacco	Domesticated Plant Other Wikipedia
+Numida meleagris	Domestic guineafowl (Numida meleagris domesticus)	Domesticated Animal Wikipedia
+Olea europaea	Olives	Domesticated Plant Khouri et al. 2016
+Oncorhynchus mykiss	Rainbow trout	Domesticated Aquaculture FAO
+Oreochromis	Tilapias nei	Domesticated Aquaculture FAO
+Oreochromis niloticus	Nile tilapia	Domesticated Aquaculture FAO
+Origanum vulgare	Oregano	Domesticated Plant Other Wikipedia
+Oryctolagus cuniculus	Rabbit	Domesticated Animal FAO
+Oryza glaberrima	African rice	Domesticated Plant Khouri et al. 2016
+Oryza sativa	Rice	Domesticated Plant Khouri et al. 2016
+Ovis aries	Sheep	Domesticated Animal FAO
+Pangasius spp	Pangas catfishes nei	Domesticated Aquaculture FAO
+Papaver somniferum	Opium Poppy	Domesticated Plant Khouri et al. 2016
+Paspalum notatum	"c(""Bahia grass"", ""bahiagrass"")"	Domesticated Plant GRIN Lawn
+Paspalum vaginatum	seashore paspalum	Domesticated Plant GRIN Lawn
+Paullinia cupana	guarana	Domesticated Plant GRIN Food
+Paullinia yoco	yoco	Domesticated Plant GRIN Food
+Penaeus monodon	Giant tiger prawn	Domesticated Aquaculture FAO
+Penaeus vannamei	Whiteleg shrimp	Domesticated Aquaculture FAO
+Pennisetum glaucum	Eleusine coracana	Domesticated Plant Khouri et al. 2016
+Persea americana	Avocados	Domesticated Plant Khouri et al. 2016
+Phaseolus	Beans	Domesticated Plant Khouri et al. 2016
+Phoenix dactylifera	Date palm	Domesticated Plant Khouri et al. 2016
+Phyla canescens	"c(""hairy fogfruit"", ""hairy frogfruit"", ""carpet-grass"")"	Domesticated Plant GRIN Lawn
+Phyllostachys edulis	Bamboo shoot	Domesticated Plant Vegetable Wikipedia
+Pimenta dioica	Pimento	Domesticated Plant Khouri et al. 2016
+Pimpinella anisum	Anise	Domesticated Plant Khouri et al. 2016
+Piper methysticum	kava	Domesticated Plant GRIN Food
+Piper nigrum	Pepper	Domesticated Plant Khouri et al. 2016
+Pistacia atlantica	Mt. Atlas mastic tree	Domesticated Plant GRIN Food
+Pistacia chinensis	Chinese pistache	Domesticated Plant GRIN Food
+Pistacia terebinthus	Cyprus turpentine	Domesticated Plant GRIN Food
+Pistacia vera	Pistachios	Domesticated Plant Khouri et al. 2016
+Pisum sativum	Peas	Domesticated Plant Khouri et al. 2016
+Poa annua	"c(""annual blue grass"", ""walkgrass"", ""annual bluegrass"")"	Domesticated Plant GRIN Lawn
+Poa arachnifera	Texas bluegrass	Domesticated Plant GRIN Lawn
+Poa compressa	"c(""flat-stem blue grass"", ""Canada bluegrass"")"	Domesticated Plant GRIN Lawn
+Poa nemoralis	"c(""forest blue grass"", ""wood bluegrass"")"	Domesticated Plant GRIN Lawn
+Poa pratensis	Kentucky bluegrass	Domesticated Plant GRIN Lawn
+Poa supina	bluegrass	Domesticated Plant GRIN Lawn
+Poa trivialis	rough bluegrass	Domesticated Plant GRIN Lawn
+Poecilia reticulata	"Guppy (Poecilia reticulata);[47]Cauca (P. caucana), Amazon (P. formosa), sailfin (P. latipinna), shortfin (P. mexicana), liberty (P. salvatoris), common (P. sphenops), and Yucatan mollies (P. velifera); Endler's livebearer (P. wingei)"	Domesticated Animal Wikipedia
+Pogostemon cablin	patchouli	Domesticated Plant Student
+Porphyra tenera	Nori	Domesticated Aquaculture FAO
+Procambarus clarkii	Red swamp crawfish	Domesticated Aquaculture FAO
+Proso millet	Panicum mileaceum	Domesticated Plant Khouri et al. 2016
+Prunus armeniaca	Apricots	Domesticated Plant Khouri et al. 2016
+Prunus avium	Cherries	Domesticated Plant Khouri et al. 2016
+Prunus domestica	Plums	Domesticated Plant Khouri et al. 2016
+Prunus dulcis	Almonds	Domesticated Plant Khouri et al. 2016
+Prunus persica	Peaches & nectarines	Domesticated Plant Khouri et al. 2016
+Prunus salicina	Japanese plum	Domesticated Plant Khouri et al. 2016
+Psidium guajava	Guavas	Domesticated Plant Khouri et al. 2016
+Psoralea esculenta	Prairie turnip	Domesticated Plant Vegetable Wikipedia
+Puccinellia distans	"c(""spreading alkali grass"", ""weeping alkaligrass"", ""European alkaligrass"")"	Domesticated Plant GRIN Lawn
+Punica granatum	pomegranate	Domesticated Plant GRIN Food
+Pyrus communis	European pear	Domesticated Plant Khouri et al. 2016
+Pyrus pyrifolia	Nashi pear	Domesticated Plant Khouri et al. 2016
+Pyrus ussuriensis	Chinese pear	Domesticated Plant GRIN Food
+Rangifer tarandus	Reindeer	Domesticated Animal FAO
+Raphanus sativus 	Daikon	Domesticated Plant Vegetable Wikipedia
+Rattus norvegicus	Fancy rat and laboratory rat (Rattus norvegicus domestica)	Domesticated Animal Wikipedia
+Rattus rattus	"c(""rat noir"", ""House Rat"", ""Black Rat"", ""Roof Rat"")"	Domesticated Animal Student
+Rheum × hybridum	Rhubarb	Domesticated Plant Fruit Wikipedia
+Ribes aureum	golden currant	Domesticated Plant GRIN Food
+Ribes divaricatum	"c(""straggly gooseberry"", ""spreading gooseberry"")"	Domesticated Plant GRIN Food
+Ribes hirtellum	"c(""hairystem gooseberry"", ""hairy-stem gooseberry"")"	Domesticated Plant GRIN Food
+Ribes nigrum	Black current	Domesticated Plant Khouri et al. 2016
+Ribes niveum	"c(""white-flowered gooseberry"", ""snowy gooseberry"", ""snow currant"")"	Domesticated Plant GRIN Food
+Ribes rubrum	Red current	Domesticated Plant Khouri et al. 2016
+Ribes spicatum	currant	Domesticated Plant GRIN Food
+Ribes uva	European gooseberry	Domesticated Plant GRIN Food
+Ribes uva-crispa	Gooseberries	Domesticated Plant Khouri et al. 2016
+Ricinus communis	Castor oil	Domesticated Plant Khouri et al. 2016
+Rollinia deliciosa	Biribá	Domesticated Plant Fruit Wikipedia
+Rosa arkansana	"c(""prairie rose"", ""Arkansas rose"", ""prairie wildrose"", ""wild rose"")"	Domesticated Plant GRIN Food
+Rosa laevigata	Cherokee rose	Domesticated Plant GRIN Food
+Rosa roxburghii	"c(""Chinquapin rose"", ""chestnut rose"")"	Domesticated Plant GRIN Food
+Rosa rugosa	Rose hip	Domesticated Plant Fruit Wikipedia
+Rosa villosa	apple rose	Domesticated Plant GRIN Food
+Rubus allegheniensis	Blackberry	Domesticated Plant Fruit Wikipedia
+Rubus idaeus	Raspberries	Domesticated Plant Khouri et al. 2016
+Rubus probus	Atherton raspberry	Domesticated Plant Fruit Wikipedia
+Rubus strigosus	American red raspberry	Domesticated Plant Fruit Wikipedia
+Rubus ursinus × rubus idaeus	Boysenberry	Domesticated Plant Fruit Wikipedia
+Ruditapes philippinarum	Manila Clam	Domesticated Aquaculture FAO
+Rumex acetosa	Sorrel	Domesticated Plant Vegetable Wikipedia
+Saccharomyces cerevisiae	Beer Yeast	Domesticated Fungus Wikipedia
+Saccharum officinarum	Sugarcane	Domesticated Plant Khouri et al. 2016
+Salmo salar	Atlantic salmon	Domesticated Aquaculture FAO
+Salvia columbariae	chia	Domesticated Plant GRIN Food
+Salvia hispanica	chia	Domesticated Plant GRIN Food
+Salvia potus	chia	Domesticated Plant GRIN Food
+Salvia rosmarinus	Rosemary	Domesticated Plant Other Wikipedia
+Sargassum fusiforme	Fusiform sargassum	Domesticated Aquaculture FAO
+Secale cereale	Rye	Domesticated Plant Khouri et al. 2016
+Serinus canaria	Domestic canary (Serinus canaria domestica)	Domesticated Animal Wikipedia
+Sesamum indicum	Sesame	Domesticated Plant Khouri et al. 2016
+Sinonovacula constricta	Constricted tagelus	Domesticated Aquaculture FAO
+Solanum lycopersicum	Tomatoes	Domesticated Plant Khouri et al. 2016
+Solanum melongena	Eggplants	Domesticated Plant Khouri et al. 2016
+Solanum tuberosum	Potatoes	Domesticated Plant Khouri et al. 2016
+Sorghum bicolor	Sorghum	Domesticated Plant Khouri et al. 2016
+Spinacia oleracea	Spinach	Domesticated Plant Khouri et al. 2016
+Spirodela polyrhiza	Giant duckweed	Domesticated Plant Other Wikipedia
+Stenotaphrum secundatum	"c(""St. Augustine grass"", ""St. Augustinegrass"")"	Domesticated Plant GRIN Lawn
+Streptopelia risoria	Barbary dove or ringed turtle dove (Streptopelia risoria)	Domesticated Animal Wikipedia
+Sus scrofa	Pig	Domesticated Animal FAO
+Syzygium aromaticum	Cloves	Domesticated Plant Khouri et al. 2016
+Tamarindus indica	tamarind	Domesticated Plant GRIN Food
+Teff	Eragrostis tef	Domesticated Plant Khouri et al. 2016
+Theobroma cacao	Cocoa beans	Domesticated Plant Khouri et al. 2016
+Theobroma cacoa	Chocolate	Domesticated Plant Other Wikipedia
+Thinopyrum intermedium	intermediate wheatgrass	Domesticated Plant Other Wikipedia
+Thymus vulgaris	Thyme	Domesticated Plant Other Wikipedia
+Trifolium fragiferum	strawberry clover	Domesticated Plant GRIN Lawn
+Trifolium pratense	Red clover	Domesticated Plant Khouri et al. 2016
+Trifolium repens	White clover	Domesticated Plant Khouri et al. 2016
+Trionyx sinensis	Chinese softshell turtle	Domesticated Aquaculture FAO
+Trisetum flavescens	yellow oatgrass	Domesticated Plant GRIN Lawn
+Triticum	Wheat	Domesticated Plant Khouri et al. 2016
+Undaria pinnatifida	Wakame	Domesticated Aquaculture FAO
+Vaccinium macrocarpon	Large cranberry	Domesticated Plant Khouri et al. 2016
+Vaccinium oxycoccos	Small cranberry	Domesticated Plant Khouri et al. 2016
+Vaccinium vitis	"c(""lingonberry"", ""northern mountain cranberry"")"	Domesticated Plant GRIN Food
+Vaccinium corymbosum	Blueberries	Domesticated Plant Khouri et al. 2016
+Vanilla	Vanilla	Domesticated Plant Khouri et al. 2016
+Veronica beccabunga	Brooklime	Domesticated Plant Vegetable Wikipedia
+Vicia	Vetches	Domesticated Plant Khouri et al. 2016
+Vicia faba	Faba beans	Domesticated Plant Khouri et al. 2016
+Vicugna pacos	Alpaca	Domesticated Animal FAO
+Vigna acontifolia	Moth bean	Domesticated Plant Vegetable Wikipedia
+Vigna angularis	Adzuki bean	Domesticated Plant Khouri et al. 2016
+Vigna radiata	Mung bean	Domesticated Plant Khouri et al. 2016
+Vigna subterranea	Bambara beans	Domesticated Plant Khouri et al. 2016
+Vigna unguiculata	Cowpeas	Domesticated Plant Khouri et al. 2016
+Vigna unguiculata 	Asparagus bean	Domesticated Plant Vegetable Wikipedia
+Vigna unguiculata unguiculata	Black-eyed pea	Domesticated Plant Vegetable Wikipedia
+Vitellaria paradoxa	Sheanuts	Domesticated Plant Khouri et al. 2016
+Vitis vinifera	Grapes	Domesticated Plant Khouri et al. 2016
+Vulpes vulpes amicus	Domesticated silver fox (Vulpes vulpes amicus)	Domesticated Animal Wikipedia
+Wasabia japonica	Wasabi	Domesticated Plant Vegetable Wikipedia
+Xanthosoma sagittifolium	American taro	Domesticated Plant Khouri et al. 2016
+Xanthosoma violaceum	Yautia	Domesticated Plant Khouri et al. 2016
+Zea mays	Maize	Domesticated Plant Khouri et al. 2016
+Zingiber officinale	Ginger	Domesticated Plant Khouri et al. 2016
+Zizania palustris	northern wildrice	Domesticated Plant GRIN Food
+Ziziphus mauritiana	Indian jujube	Domesticated Plant GRIN Food
+Zoysia japonica	Korean lawngrass	Domesticated Plant GRIN Lawn
+Zoysia matrella	Manila grass	Domesticated Plant GRIN Lawn
+Zoysia tenuifolia	Mascarene grass	Domesticated Plant GRIN Lawn

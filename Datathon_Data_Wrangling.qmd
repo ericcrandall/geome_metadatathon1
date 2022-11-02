@@ -1,0 +1,1961 @@
+---
+title: "Metadata Wrangling Code for GEOME Metadatathon"
+author: "Eric Crandall"
+format: html
+editor: visual
+execute:
+  eval: false
+---
+
+```{r Setup}
+
+library(tidyverse)
+library(googlesheets4)
+library(googledrive)
+library(taxize)
+library(openxlsx)
+library(readxl)
+library(RefManageR)
+library(rvest)
+BibOptions(max.names = 100, style = "text")
+library(ggalluvial)
+library(lubridate)
+library(clipr)
+library(knitr)
+
+
+
+```
+
+
+# Purpose
+
+This notebook documents the steps to go from raw csv's pulled down from INSDC Sequence Read Archive by Rachel to the spreadsheets necessary for GEOME Datathon project management. I'm also going to try to learn to work better in the Tidyverse.
+
+## From Rachel's Email of June 24, 2020:
+
+>I generated these four spreadsheets for now (note these are different than our previous list numbering):  
+> * list1 - divdiv datasets with lat/longs located outside of NCBI (n indivs per dataset > 9)  
+> * list2 - divdiv datasets for which we haven't yet searched for lat/long outside of NCBI (n indivs per dataset > 9)  
+> * list3 - divdiv datasets where we looked for lat/long outside of NCBI and couldn't find it (n indivs per dataset > 9)   
+> (aka we know we need to contact author for if we want to try and get lat/long)  
+> * list4 - eukaryotes sans model organisms removed for which we haven't yet > assessed data relevance (n indivs per dataset > 4)
+  
+  
+> The order of operations (I think also laid out in Cynthia's flow chart in divdiv materials) as I see it is something like:  
+> 1. Assess if dataset is relevant for popgen (natural populations, multiple populations, not hybrids?, etc.)  
+> 2. For those passing #1, try to locate lat/long outside of NCBI and see if sample names can be matched to NCBI metadata we have  
+> 3a. For those passing #2, gather the data from sources outside NCBI  
+> 3b. For those not passing #2, contact authors.  
+
+> list1 needs to enter the pipeline at step #3a.  
+> list2 needs to enter the pipeline at step #2.  
+> list3 needs to enter the pipeline at step #3b.  
+> list4 needs to enter the pipeline at step #1.  
+
+
+# Read In The Lists
+
+I first loaded all the lists with `read_csv()` in the readr package and then used `cols_condense(spec(list4))` to create a list of fields that depart from the default of `character` field type. Then wrote the following commands to read in the raw lists.
+
+```{r Load Data}
+
+
+list1 <- read_csv("/Volumes/GoogleDrive/My Drive/GEOME_Datathon/SRA_Lists/list1-divdiv_with_latlong_located_outsideofNCBI-6-22-2020.csv", col_types = cols(
+  .default = col_character(),
+  X1 = col_double(),
+  taxid_sra = col_integer(),
+  uid_bioprj = col_integer(),
+  taxid_bioprj = col_integer(),
+  uid_sra = col_integer(),
+  total_number_reads_sra = col_number(),
+  total_number_base_pairs_sra = col_number(),
+  createdate_sra = col_date(format = ""),
+  iteration_sra = col_integer(),
+  uid_biosamp = col_integer(),
+  date_biosamp = col_date(format = ""),
+  publicationdate_biosamp = col_date(format = ""),
+  modificationdate_biosamp = col_date(format = ""),
+  taxonomy_biosamp = col_integer(),
+  taxid_taxonomy = col_integer(),
+  class_taxonomy = col_integer(),
+  family_taxonomy = col_integer(),
+  genus_taxonomy = col_integer(),
+  kingdom_taxonomy = col_integer(),
+  order_taxonomy = col_integer(),
+  phylum_taxonomy = col_double(),
+  class_taxid_taxonomy = col_integer(),
+  family_taxid_taxonomy = col_integer(),
+  genus_taxid_taxonomy = col_integer(),
+  kingdom_taxid_taxonomy = col_integer(),
+  order_taxid_taxonomy = col_integer(),
+  phylum_taxid_taxonomy = col_integer(),
+  publication_year_bioprj = col_integer(),
+  publication_volume_bioprj = col_integer(),
+  publication_issue_bioprj = col_integer(),
+  uid_pubmed = col_integer(),
+  volume_pubmed = col_integer(),
+  issue_pubmed = col_integer(),
+  nlmuniqueid_pubmed = col_integer(),
+  pmcrefcount_pubmed = col_integer()
+))
+
+list2 <- read_csv("/Volumes/GoogleDrive/My Drive/GEOME_Datathon/SRA_Lists/list2-divdiv_without_latlong_located_yet_outsideofNCBI-6-22-2020.csv", col_types = cols(
+  .default = col_character(),
+  X1 = col_double(),
+  taxid_sra = col_integer(),
+  uid_bioprj = col_integer(),
+  taxid_bioprj = col_integer(),
+  uid_sra = col_integer(),
+  total_number_reads_sra = col_number(),
+  total_number_base_pairs_sra = col_number(),
+  createdate_sra = col_date(format = ""),
+  iteration_sra = col_integer(),
+  uid_biosamp = col_integer(),
+  date_biosamp = col_date(format = ""),
+  publicationdate_biosamp = col_date(format = ""),
+  modificationdate_biosamp = col_date(format = ""),
+  taxonomy_biosamp = col_integer(),
+  taxid_taxonomy = col_integer(),
+  class_taxonomy = col_integer(),
+  family_taxonomy = col_integer(),
+  genus_taxonomy = col_integer(),
+  kingdom_taxonomy = col_integer(),
+  order_taxonomy = col_integer(),
+  phylum_taxonomy = col_double(),
+  class_taxid_taxonomy = col_integer(),
+  family_taxid_taxonomy = col_integer(),
+  genus_taxid_taxonomy = col_integer(),
+  kingdom_taxid_taxonomy = col_integer(),
+  order_taxid_taxonomy = col_integer(),
+  phylum_taxid_taxonomy = col_integer(),
+  publication_year_bioprj = col_integer(),
+  publication_volume_bioprj = col_integer(),
+  publication_issue_bioprj = col_integer(),
+  uid_pubmed = col_integer(),
+  volume_pubmed = col_integer(),
+  issue_pubmed = col_integer(),
+  nlmuniqueid_pubmed = col_integer(),
+  pmcrefcount_pubmed = col_integer()
+))
+
+list3 <- read_csv("/Volumes/GoogleDrive/My Drive/GEOME_Datathon/SRA_Lists/list3-divdiv_couldntfind_latlong_outsideofNCBI-6-22-2020.csv", col_types = cols(
+  .default = col_character(),
+  X1 = col_double(),
+  taxid_sra = col_integer(),
+  uid_bioprj = col_integer(),
+  taxid_bioprj = col_integer(),
+  uid_sra = col_integer(),
+  total_number_reads_sra = col_number(),
+  total_number_base_pairs_sra = col_number(),
+  createdate_sra = col_date(format = ""),
+  iteration_sra = col_integer(),
+  uid_biosamp = col_integer(),
+  date_biosamp = col_date(format = ""),
+  publicationdate_biosamp = col_date(format = ""),
+  modificationdate_biosamp = col_date(format = ""),
+  taxonomy_biosamp = col_integer(),
+  taxid_taxonomy = col_integer(),
+  class_taxonomy = col_integer(),
+  family_taxonomy = col_integer(),
+  genus_taxonomy = col_integer(),
+  kingdom_taxonomy = col_integer(),
+  order_taxonomy = col_integer(),
+  phylum_taxonomy = col_double(),
+  class_taxid_taxonomy = col_integer(),
+  family_taxid_taxonomy = col_integer(),
+  genus_taxid_taxonomy = col_integer(),
+  kingdom_taxid_taxonomy = col_integer(),
+  order_taxid_taxonomy = col_integer(),
+  phylum_taxid_taxonomy = col_integer(),
+  publication_year_bioprj = col_integer(),
+  publication_volume_bioprj = col_integer(),
+  publication_issue_bioprj = col_integer(),
+  uid_pubmed = col_integer(),
+  volume_pubmed = col_integer(),
+  issue_pubmed = col_integer(),
+  nlmuniqueid_pubmed = col_integer(),
+  pmcrefcount_pubmed = col_integer()
+))
+
+list4 <- read_csv("/Volumes/GoogleDrive/My Drive/GEOME_Datathon/SRA_Lists/list4-eukaryotes-min5indivs-_without_latlong_located_yet_outsideofNCBI-6-22-2020.csv", na = c("NA","na","?"), col_types = cols(
+  .default = col_character(),
+  X1 = col_double(),
+  taxid_sra = col_integer(),
+  uid_bioprj = col_integer(),
+  taxid_bioprj = col_integer(),
+  uid_sra = col_integer(),
+  total_number_reads_sra = col_number(),
+  total_number_base_pairs_sra = col_number(),
+  createdate_sra = col_date(format = ""),
+  iteration_sra = col_integer(),
+  uid_biosamp = col_integer(),
+  date_biosamp = col_date(format = ""),
+  publicationdate_biosamp = col_date(format = ""),
+  modificationdate_biosamp = col_date(format = ""),
+  taxonomy_biosamp = col_integer(),
+  taxid_taxonomy = col_integer(),
+  class_taxonomy = col_integer(),
+  family_taxonomy = col_integer(),
+  genus_taxonomy = col_integer(),
+  kingdom_taxonomy = col_integer(),
+  order_taxonomy = col_integer(),
+  phylum_taxonomy = col_double(),
+  class_taxid_taxonomy = col_integer(),
+  family_taxid_taxonomy = col_integer(),
+  genus_taxid_taxonomy = col_integer(),
+  kingdom_taxid_taxonomy = col_integer(),
+  order_taxid_taxonomy = col_integer(),
+  phylum_taxid_taxonomy = col_integer(),
+  publication_year_bioprj = col_integer(),
+  publication_volume_bioprj = col_integer(),
+  publication_issue_bioprj = col_integer(),
+  uid_pubmed = col_integer(),
+  volume_pubmed = col_integer(),
+  pmcrefcount_pubmed = col_integer()
+))
+
+
+
+```
+
+## Pull Out SRA Metadata
+
+Rachel pulled out some of the metadata that describe the sequencing experiment (why *do* they call them sequencing "experiments"?) in the mega-field `expxml_sra`. However, we need to pull out a few more, specifically `library_source`, `platform`, `instrument_model` and `protocol_citation`. Looks like that field doesn't contain `protocol_citation`. That's OK.
+
+```{r}
+
+
+pull_sra <- function(listx){
+      plat_inst <- str_match(listx$expxml_sra, pattern = ";Platform instrument_model=\"(.+)\"&gt;(\\w+)&lt;")
+      library_source <- str_match(listx$expxml_sra, pattern = "LIBRARY_SOURCE&gt;(\\w+)&lt;")[,2]
+      library_name <- str_match(listx$expxml_sra, pattern = "LIBRARY_NAME&gt;(\\w+)&lt;")[,2]
+      
+      
+      listx <- cbind(listx, platform = plat_inst[,3])
+      listx <- cbind(listx, instrument = plat_inst[,2])
+      listx <- cbind(listx, library_source = library_source)
+      listx <- cbind(listx, library_name = library_name)
+
+}
+
+list1 <- pull_sra(list1)
+list2 <- pull_sra(list2)
+list3 <- pull_sra(list3)
+list4 <- pull_sra(list4)
+
+```
+
+## Winnow the Fields
+
+(sounds very pastoral)
+
+I went through each of 139 fields and deleted fields that seemed useless in terms of finding metadata. Remaining fields are in `keeps`. Fields to delete can now be found below in `drops` (found with `setdiff()` and `dput()`).
+
+```{r Winnow Fields}
+
+
+keeps <- c("X1","link","Comments_about_spatial_data_location","link_to_published_paper","project_acc_bioprj","organism_biosamp","run_acc_sra","taxid_sra","biosample_acc_sra","X_bioprj","project_data_type_bioprj","project_target_scope_bioprj","project_target_material_bioprj","project_target_capture_bioprj","registration_date_bioprj","project_name_bioprj","project_title_bioprj","project_description_bioprj","relevance_environmental_bioprj","relevance_evolution_bioprj","sequencing_status_bioprj","supergroup_bioprj","lab_name_sra","contact_name_sra","center_name_sra","read_type_sra","library_selection_sra","experiment_acc_sra","sample_acc_sra","study_acc_sra","library_strat_sra","total_number_reads_sra","total_number_base_pairs_sra","createdate_sra","title_biosamp","date_biosamp","modificationdate_biosamp","organization_biosamp","taxonomy_biosamp","sourcesample_biosamp","collectors_info_biosamp","contact_last_name_biosamp","contact_first_name_biosamp","contact_email_biosamp","organization_name_messy_biosamp","collection_date_biosamp","samplename_sampledata_biosamp","lat_long_biosamp","identifiers_biosamp","samplename_identifiers_biosamp","infraspecies_biosamp","ecotype_biosamp","package_biosamp","taxid_taxonomy","scientific_name_taxonomy","myrank_taxonomy","division_taxonomy","full_lineage_taxonomy","publication_ID_bioprj","publication_firstauthor_bioprj","publication_title_bioprj","publication_journalname_bioprj","publication_year_bioprj","publication_volume_bioprj","publication_issue_bioprj","DOI_pubmed","uid_pubmed","pubdate_pubmed","epubdate_pubmed","source_pubmed","lastauthor_pubmed","title_pubmed","sorttitle_pubmed","volume_pubmed","issue_pubmed","pages_pubmed","lang_pubmed","nlmuniqueid_pubmed","issn_pubmed","essn_pubmed","pubtype_pubmed","recordstatus_pubmed","pubstatus_pubmed","fulljournalname_pubmed","elocationid_pubmed","availablefromurl_pubmed","platform","instrument","library_source", "biosamp_country", "biosamp_locality")
+
+drops <- c("uid_bioprj", "taxid_bioprj", "project_type_bioprj", 
+"project_methodtype_bioprj", "relevance_agricultural_bioprj", 
+"relevance_medical_bioprj", "relevance_industrial_bioprj", "relevance_model_bioprj", 
+"relevance_other_bioprj", "organism_name_bioprj", "organism_strain_bioprj", 
+"organism_label_bioprj", "uid_sra", "expxml_sra", "scientific_name_sra", 
+"runs_sra", "extlinks_sra", "iteration_sra", "uid_biosamp", "accession_biosamp",
+"publicationdate_biosamp", "sampledata_biosamp", "class_taxonomy", 
+"family_taxonomy", "genus_taxonomy", "kingdom_taxonomy", "order_taxonomy", 
+"phylum_taxonomy", "class_taxid_taxonomy", "family_taxid_taxonomy", 
+"genus_taxid_taxonomy", "kingdom_taxid_taxonomy", "order_taxid_taxonomy", 
+"phylum_taxid_taxonomy", "full_fetched_record_bioprj", "publication_pages_bioprj", 
+"attributes_pubmed", "pmcrefcount_pubmed", "doctype_pubmed", 
+"booktitle_pubmed", "medium_pubmed", "edition_pubmed", "publisherlocation_pubmed", 
+"publishername_pubmed", "srcdate_pubmed", "reportnumber_pubmed", 
+"locationlabel_pubmed", "docdate_pubmed", "bookname_pubmed", 
+"chapter_pubmed", "sortpubdate_pubmed", "sortfirstauthor_pubmed", 
+"vernaculartitle_pubmed, issue_pubmed")
+```
+
+Now I'm going to try a new way to drop columns in `dplyr`. Using all_of removes potential ambiguity from `drops` being also a column name. I am then adding in columns for student notations using `add_column()`. For the marine dataset, some of this work has already been done, so I need to add these columns with appropriate T/F values to the original lists, before summarizing. 
+
+```{r Drop and Add Columns}
+
+
+list1 <- select(list1,-all_of(drops)) %>% add_column(.after = "link", Metadata_Curator = "",
+                                                     Relevant = "TRUE", 
+                                                     Relevance_Comments = "",
+                                                     Paper_Available = "TRUE",
+                                                     Paper_Comments = "",
+                                                     Authors_Contacted = "FALSE",
+                                                     Who_Will_Contact = "",
+                                                     Email_Date= "",
+                                                     Author_Contact_Comments = "",
+                                                     Metadata_Gathered = "FALSE",
+                                                     Metadata_Gathered_Comments = "",
+                                                     Metadata_Entered = "FALSE",
+                                                     Metadata_Entered_Comments= "",
+                                                     Validated = "",
+                                                     Validation_Comments = "",
+                                                     Total_Minutes_Spent= "",
+                                                     Quality_Controlled = "FALSE",
+                                                     Quality_Controller = "",
+                                                     Quality_Control_Comments = "")
+
+list2 <- select(list2,-all_of(drops))  %>% add_column(.after = "link", Metadata_Curator = "",
+                                                     Relevant = "TRUE", 
+                                                     Relevance_Comments = "",
+                                                     Paper_Available = "NA",
+                                                     Paper_Comments = "",
+                                                     Authors_Contacted = "FALSE",
+                                                     Who_Will_Contact = "",
+                                                     Email_Date = "",
+                                                     Author_Contact_Comments = "",
+                                                     Metadata_Gathered = "FALSE",
+                                                     Metadata_Gathered_Comments = "",
+                                                     Metadata_Entered = "FALSE",
+                                                     Metadata_Entered_Comments = "",
+                                                     Validated = "",
+                                                     Validation_Comments = "",
+                                                     Total_Minutes_Spent= "",
+                                                     Quality_Controlled = "FALSE",
+                                                     Quality_Controller = "",
+                                                     Quality_Control_Comments = "")
+
+list3 <- select(list3,-all_of(drops)) %>% add_column(.after = "link", Metadata_Curator = "",
+                                                     Relevant = "TRUE", 
+                                                     Relevance_Comments = "",
+                                                     Paper_Available = "FALSE",
+                                                     Paper_Comments = "",
+                                                     Authors_Contacted = "FALSE",
+                                                     Who_Will_Contact = "",
+                                                     Email_Date = "",
+                                                     Author_Contact_Comments = "",
+                                                     Metadata_Gathered = "FALSE",
+                                                     Metadata_Gathered_Comments = "",
+                                                     Metadata_Entered = "FALSE",
+                                                     Metadata_Entered_Comments = "",
+                                                     Validated = "",
+                                                     Validation_Comments = "",
+                                                     Total_Minutes_Spent= "",
+                                                     Quality_Controlled = "FALSE",
+                                                     Quality_Controller = "",
+                                                     Quality_Control_Comments = "")
+nonmarinelist <- select(list4,-all_of(drops))
+rm(list4)
+
+marinelist <- bind_rows(list1,list3,list2)
+
+#write_csv(marinelist, "../GEOME_Datathon_Dataset_Lists/marinelist_winnowed.csv")
+
+```
+
+# Summarize By BioProject
+
+Summarize all of these data by BioProject, counting the number of BioSamples and Runs and Species, and adding a `project_index` that will be easier to refer to verbally.
+
+```{r Summarize}
+
+
+Marine_BioProjects <- group_by(marinelist, project_acc_bioprj) %>% 
+                      summarize(
+                              BioSamples = n_distinct(biosample_acc_sra),
+                              Runs = n_distinct(run_acc_sra),
+                              N_Species = n_distinct(organism_biosamp),
+                              Species_all = paste(unique(organism_biosamp),
+                                              collapse = "|"),
+                              DivDiv_Links = paste(unique(link),
+                                              collapse = "|"),
+                              Metadata_Curator = first(Metadata_Curator),
+                              Relevant = first(Relevant),
+                              Relevance_Comments = first(Relevance_Comments),
+                              Paper_Available = first(Paper_Available),
+                              Paper_Comments = paste(unique(Comments_about_spatial_data_location),
+                                              collapse = "|"),
+                              Paper_Link = paste(unique(link_to_published_paper),
+                                              collapse = "|"),
+                              Authors_Contacted = first(Authors_Contacted),
+                              Who_Will_Contact = first(Who_Will_Contact),
+                              Email_Date = first(Email_Date),
+                              Author_Contact_Comments = first(Author_Contact_Comments),
+                              Metadata_Gathered = first(Metadata_Gathered),
+                              Metadata_Gathered_Comments = first(Metadata_Gathered_Comments),
+                              Metadata_Entered = first(Metadata_Entered),
+                              Metadata_Entered_Comments = first(Metadata_Entered_Comments),
+                              Validated = first(Validated),
+                              Validation_Comments = first(Validation_Comments),
+                              Total_Minutes_Spent = first(Total_Minutes_Spent),
+                              Quality_Controlled = first(Quality_Controlled),
+                              Quality_Controller = first(Quality_Controller),
+                              Quality_Control_Comments = first(Quality_Control_Comments),
+                              project_target_scope_bioprj = first(project_target_scope_bioprj),
+                              project_target_capture_bioprj = first(project_target_capture_bioprj),
+                              registration_date_bioprj = first(registration_date_bioprj),
+                              project_name_bioprj = first(project_name_bioprj),
+                              project_title_bioprj = first(project_title_bioprj),
+                              project_description_bioprj = first(project_description_bioprj),
+                              relevance_environmental_bioprj = first(relevance_environmental_bioprj),
+                              relevance_evolution_bioprj = first(relevance_evolution_bioprj),
+                              sequencing_status_bioprj = first(sequencing_status_bioprj),
+                              supergroup_bioprj = first(supergroup_bioprj),
+                              lab_name_sra_all = paste(unique(lab_name_sra),
+                                                              collapse = "|"),
+                              contact_name_sra_all = paste(unique(contact_name_sra),
+                                                              collapse = "|"),
+                              center_name_sra_all = paste(unique(center_name_sra ),
+                                                              collapse = "|"),
+                              read_type_sra_all = paste(unique(read_type_sra ),
+                                                              collapse = "|"),
+                              library_selection_sra_all = paste(unique(library_selection_sra ),
+                                                              collapse = "|"),
+                              library_names = paste(unique(library_name),
+                                                              collapse = "|"),
+                              experiment_acc_sra = first(experiment_acc_sra),
+                              sample_acc_sra = first(sample_acc_sra),
+                              study_acc_sra = first(study_acc_sra),
+                              library_strat_sra_all = paste(unique(library_strat_sra ),
+                                                              collapse = "|"),
+                              total_number_reads_sra_sum = sum(total_number_reads_sra),
+                              total_number_base_pairs_sra_sum = sum(total_number_base_pairs_sra),
+                              organization_biosamp_all = paste(unique(organization_biosamp ),
+                                                              collapse = "|"),
+                              collectors_info_biosamp_all = paste(unique(collectors_info_biosamp),
+                                                              collapse = "|"),
+                              contact_first_name_biosamp_all = paste(unique(contact_first_name_biosamp),
+                                                              collapse = "|"),
+                              contact_last_name_biosamp_all = paste(unique(contact_last_name_biosamp),
+                                                              collapse = "|"),
+                              contact_email_biosamp_all = paste(unique(contact_email_biosamp),
+                                                              collapse = "|"),
+                              package_biosamp_all = paste(unique(package_biosamp),
+                                                              collapse = "|"),
+                              division_taxonomy_all = paste(unique(division_taxonomy),
+                                                              collapse = "|"),
+                              publication_ID_bioprj = first(publication_ID_bioprj),
+                              publication_firstauthor_bioprj = first(publication_firstauthor_bioprj),
+                              publication_title_bioprj = first(publication_title_bioprj),
+                              publication_journalname_bioprj = first(publication_journalname_bioprj),
+                              publication_year_bioprj = first(publication_year_bioprj),
+                              publication_volume_bioprj = first(publication_volume_bioprj),
+                              publication_issue_bioprj = first(publication_issue_bioprj),
+                              DOI_pubmed = first(DOI_pubmed),
+                              uid_pubmed = first(uid_pubmed),
+                              pubdate_pubmed = first(pubdate_pubmed),
+                              epubdate_pubmed = first(epubdate_pubmed),
+                              source_pubmed = first(source_pubmed),
+                              lastauthor_pubmed = first(lastauthor_pubmed),
+                              title_pubmed = first(title_pubmed),
+                              sorttitle_pubmed = first(sorttitle_pubmed),
+                              volume_pubmed = first(volume_pubmed),
+                              issue_pubmed = first(issue_pubmed),
+                              pages_pubmed = first(pages_pubmed),
+                              lang_pubmed = first(lang_pubmed),
+                              nlmuniqueid_pubmed = first(nlmuniqueid_pubmed),
+                              issn_pubmed = first(issn_pubmed),
+                              essn_pubmed = first(essn_pubmed),
+                              pubtype_pubmed = first(pubtype_pubmed),
+                              recordstatus_pubmed = first(recordstatus_pubmed),
+                              pubstatus_pubmed = first(pubstatus_pubmed),
+                              fulljournalname_pubmed = first(fulljournalname_pubmed),
+                              elocationid_pubmed = first(elocationid_pubmed),
+                              availablefromurl_pubmed = first(availablefromurl_pubmed)
+                              ) 
+  
+Marine_BioProjects <- add_column(Marine_BioProjects,.before = "project_acc_bioprj",
+                                 project_index = paste0("M",str_pad(row.names(Marine_BioProjects),
+                                                                    width=4,pad="0")))
+
+nonMarine_BioProjects <- group_by(nonmarinelist, project_acc_bioprj) %>% 
+                    summarize(
+                              BioSamples = n_distinct(biosample_acc_sra),
+                              Runs = n_distinct(run_acc_sra),
+                              N_Species = n_distinct(organism_biosamp),
+                              Species_all = paste(unique(organism_biosamp),
+                                              collapse = "|"),
+                              DivDiv_Links = paste(unique(link),
+                                              collapse = ";"),
+                              project_target_scope_bioprj = first(project_target_scope_bioprj),
+                              project_target_capture_bioprj = first(project_target_capture_bioprj),
+                              registration_date_bioprj = first(registration_date_bioprj),
+                              project_name_bioprj = first(project_name_bioprj),
+                              project_title_bioprj = first(project_title_bioprj),
+                              project_description_bioprj = first(project_description_bioprj),
+                              relevance_environmental_bioprj = first(relevance_environmental_bioprj),
+                              relevance_evolution_bioprj = first(relevance_evolution_bioprj),
+                              sequencing_status_bioprj = first(sequencing_status_bioprj),
+                              supergroup_bioprj = first(supergroup_bioprj),
+                              lab_name_sra_all = paste(unique(lab_name_sra),
+                                                              collapse = "|"),
+                              contact_name_sra_all = paste(unique(contact_name_sra),
+                                                              collapse = "|"),
+                              center_name_sra_all = paste(unique(center_name_sra ),
+                                                              collapse = "|"),
+                              read_type_sra_all = paste(unique(read_type_sra ),
+                                                              collapse = "|"),
+                              library_selection_sra_all = paste(unique(library_selection_sra ),
+                                                              collapse = "|"),
+                              library_names = paste(unique(library_name),
+                                                              collapse = "|"),
+                              experiment_acc_sra = first(experiment_acc_sra),
+                              sample_acc_sra = first(sample_acc_sra),
+                              study_acc_sra = first(study_acc_sra),
+                              library_strat_sra_all = paste(unique(library_strat_sra ),
+                                                              collapse = "|"),
+                              total_number_reads_sra_sum = sum(total_number_reads_sra),
+                              total_number_base_pairs_sra_sum = sum(total_number_base_pairs_sra),
+                              organization_biosamp_all = paste(unique(organization_biosamp ),
+                                                              collapse = "|"),
+                              collectors_info_biosamp_all = paste(unique(collectors_info_biosamp),
+                                                              collapse = "|"),
+                              contact_first_name_biosamp_all = paste(unique(contact_first_name_biosamp),
+                                                              collapse = "|"),
+                              contact_last_name_biosamp_all = paste(unique(contact_last_name_biosamp),
+                                                              collapse = "|"),
+                              contact_email_biosamp_all = paste(unique(contact_email_biosamp),
+                                                              collapse = "|"),
+                              package_biosamp_all = paste(unique(package_biosamp),
+                                                              collapse = "|"),
+                              division_taxonomy_all = paste(unique(division_taxonomy),
+                                                              collapse = "|"),
+                              publication_ID_bioprj = first(publication_ID_bioprj),
+                              publication_firstauthor_bioprj = first(publication_firstauthor_bioprj),
+                              publication_title_bioprj = first(publication_title_bioprj),
+                              publication_journalname_bioprj = first(publication_journalname_bioprj),
+                              publication_year_bioprj = first(publication_year_bioprj),
+                              publication_volume_bioprj = first(publication_volume_bioprj),
+                              publication_issue_bioprj = first(publication_issue_bioprj),
+                              DOI_pubmed = first(DOI_pubmed),
+                              uid_pubmed = first(uid_pubmed),
+                              pubdate_pubmed = first(pubdate_pubmed),
+                              epubdate_pubmed = first(epubdate_pubmed),
+                              source_pubmed = first(source_pubmed),
+                              lastauthor_pubmed = first(lastauthor_pubmed),
+                              title_pubmed = first(title_pubmed),
+                              sorttitle_pubmed = first(sorttitle_pubmed),
+                              volume_pubmed = first(volume_pubmed),
+                              issue_pubmed = first(issue_pubmed),
+                              pages_pubmed = first(pages_pubmed),
+                              lang_pubmed = first(lang_pubmed),
+                              nlmuniqueid_pubmed = first(nlmuniqueid_pubmed),
+                              issn_pubmed = first(issn_pubmed),
+                              essn_pubmed = first(essn_pubmed),
+                              pubtype_pubmed = first(pubtype_pubmed),
+                              recordstatus_pubmed = first(recordstatus_pubmed),
+                              pubstatus_pubmed = first(pubstatus_pubmed),
+                              fulljournalname_pubmed = first(fulljournalname_pubmed),
+                              elocationid_pubmed = first(elocationid_pubmed),
+                              availablefromurl_pubmed = first(availablefromurl_pubmed)
+                              )  %>% add_column(.after = "Species_all", 
+                                                     Metadata_Curator = "",     
+                                                     Relevant = "", 
+                                                     Relevance_Comments = "",
+                                                     Paper_Available = "",
+                                                     Paper_Comments = "",
+                                                     Paper_Link = "",
+                                                     Authors_Contacted = "",
+                                                     Who_Will_Contact = "",
+                                                     Email_Date = "",
+                                                     Author_Contact_Comments = "",
+                                                     Metadata_Gathered = "",
+                                                     Metadata_Gathered_Comments = "",
+                                                     Metadata_Entered = "",
+                                                     Metadata_Entered_Comments = "",
+                                                     Validated = "",
+                                                     Validation_Comments = "",
+                                                     Total_Minutes_Spent= "",
+                                                     Quality_Controlled = "FALSE",
+                                                     Quality_Controller = "",
+                                                     Quality_Control_Comments = ""
+                             ) 
+
+nonMarine_BioProjects <- add_column(nonMarine_BioProjects,.before = "project_acc_bioprj",project_index = paste0("E",str_pad(row.names(nonMarine_BioProjects),width=4,pad="0")))
+ 
+```
+
+
+# Write to Google Sheets
+
+## Write BioProject Summaries
+
+I'm going to write these summaries to google sheets, and then manually move them into the working directory for the datathon. Commenting them and turning off eval to ensure they don't get overwritten.
+
+```{r WriteBioProjectSheets}
+
+
+Marine_bioproject_sheet <- gs4_create(name = "Marine_SRA_BioProjects2")
+
+sheet_write(Marine_BioProjects, ss = Marine_bioproject_sheet)
+
+nonMarine_bioproject_sheet <- gs4_create(name = "NonMarine_SRA_BioProjects")
+
+sheet_write(nonMarine_BioProjects, ss = nonMarine_bioproject_sheet)
+
+write_csv(Marine_BioProjects, "Marine_BioProjects_20200714.csv")
+
+write_csv(nonMarine_BioProjects, "nonMarine_BioProjects_20200714.csv")
+
+```
+
+After writing these sheets:
+
+1. Move sheets to `/GEOME_Datathon/Datathon_Working_Directory/BioProject/Table`
+2. Protect Columns A:E, X:CA. Color columns in between.
+3. Format `email_date` as `Date`
+5. Set up validation on Boolean columns
+4. Freeze up to column F
+5. Set up `Metadata_Gathered`validation: (From Author, From Paper)
+
+
+## Write BioSample metadata
+
+Now I will loop through all of the BioProjects, using the `googledrive` package to make a copy of the template googlesheet per BioProject, (itself created from a GEOME template), and fill it with relevant SRA metadata for that BioProject. Found hints about dealing with the Google Sheets API [here](https://gargle.r-lib.org/articles/get-api-credentials.html) and [here](https://github.com/tidyverse/googlesheets4/issues/170). Basically, I had to get a Google Cloud Platform [project](https://console.cloud.google.com), and create a project (called GEOME) and then enable the Google Drive and Google Sheets APIs. Then I created a service account and create a key for the service account, which I downloaded as a JSON. I also had to edit grant access to the Datathon project for the service account (took me awhile to figure this one out). Then below, I just load in the key to authorize the service account to write to the folder for me. Information about `trycatch()` is [here](https://stringr.tidyverse.org/reference/str_trim.html)
+
+```{r BioSample}
+
+workingList <- nonmarinelist
+workingBioProjects <- nonMarine_BioProjects
+path <- "GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/NonMarine_BioSample_Metadata/"
+
+gs4_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
+drive_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
+
+
+
+#c(310,318,348)
+
+for(prj in workingBioProjects$project_acc_bioprj[55]){
+    #prj <- "PRJNA170681"
+    #prj <- "PRJDB7819" multispecies
+    #prj <- "PRJNA254780" working
+    #prj <- "PRJNA256006" not working
+    #prj <- "PRJNA369456" tricky taxonomy example
+    
+    #grab the index
+    index <- workingBioProjects$project_index[which(workingBioProjects$project_acc_bioprj==prj)]
+    
+    #prj <- workingBioProjects$project_acc_bioprj[55]
+    
+    print(paste("Now Starting",prj,index,sep=" "))
+    #copy the template to a new file name after the BioProject
+    print("Copying Template")
+    drive_cp(file = "GEOME_Datathon/Code/Datathon_BioSample_Template", path = paste0(path, index,"_",prj))
+    
+    # get the `Dribble` (google drive locator) for this new Google sheet
+    gdprj <- drive_get(path = paste0(path, index,"_",prj))
+    
+    # grab the various SRA accession IDs and write them to the sheet
+    prjIDs <- workingList[which(workingList$project_acc_bioprj == prj), c("project_acc_bioprj",
+                                                                        "biosample_acc_sra","run_acc_sra")]
+    prjIDs <- cbind(project_index=index,prjIDs)
+    
+    # grab more metadata, collapse first and last names, split the genus and species names and 
+    #write into the sheet
+    namestax <- workingList[which(workingList$project_acc_bioprj == prj), c("contact_first_name_biosamp",	
+                                                                            "contact_last_name_biosamp",
+                                                                          "samplename_identifiers_biosamp",
+                                                                            "organism_biosamp", 
+                                                                            "taxonomy_biosamp", 
+                                                                            "infraspecies_biosamp")]  %>% 
+                unite("contact_first_name_biosamp", "contact_last_name_biosamp", 
+                                    sep = " ", col = "collectorList", remove = T) 
+    
+    
+    # Taxize - Create a lookup table
+    print("Querying Taxonomy")
+    
+    # my first try using tax_name() required a separate lookup for every sample!
+    #taxonomy <- tax_name(sci=namestax$organism_biosamp, get = c("Phylum","Class","Order","Family"))
+    #common_name <- sci2comm(sci = namestax$organism_biosamp)
+    
+    #get all unique uids
+    uids <- as.uid(unique(namestax$taxonomy_biosamp), check = F)
+    # this produces a list of data frames, one df per uid
+    taxonomy <- as.list(classification(id = uids, db="ncbi"))
+    # this produces a list of common names. If it can't find a common name though, it assigns `character(0)`
+    # so we overwrite these with NA
+    common_name <- sci2comm(id=uids)
+    common_name[which(common_name=="character(0)")]<-NA
+    # classification gives a class called "classification", change it back to a list
+    class(taxonomy) <- "list"
+    # this will write the common name into each table as a taxonomic rank
+    taxonomy <- Map(function(x,y) {rbind(x,c(y,"common_name",0))}, taxonomy, common_name)
+    # put this into a tibble, then unnest it, so that the name of each list is now a column called `uid`
+    # add some dummy rows so that we always have these particular ranks in our taxonomy lookup
+    # drop the id field, and spread it out (pivot_wider replaces spread) so we have the complete 
+    # taxonomy for each uid
+    # now we have a lookup table!
+    taxonomy_lookup <- tibble(uid = as.numeric(names(taxonomy)), taxonomy = taxonomy) %>%
+                              unnest(cols = taxonomy) %>% 
+                              add_row(uid=0,name = NA, rank = c("phylum","class","order","family", "genus", "species", "subspecies"), 
+                                          id = "0") %>%
+                              select(-id) %>% 
+                              pivot_wider(names_from=rank, values_from = name, values_fn = list(name = list)) %>%
+                              unnest(cols = c(phylum, class,  order, family, genus, species, subspecies, common_name))
+
+    
+    taxonomized <- left_join(tibble(uid=namestax$taxonomy_biosamp), taxonomy_lookup, by = "uid") %>%
+                    select(genus, species,subspecies,phylum,class,order,family,common_name) %>% replace_na(replace = list(subspecies=""))
+
+    #have to write and overwrite here so I can paste subspecies into infraspecies...
+    
+    taxonomized <-  add_column(taxonomized, nomenclaturalCode = paste("NCBI queried:",date(), sep = " "), 
+                    scientificNameID = namestax$taxonomy_biosamp, 
+                    infraspecies = paste(taxonomized$subspecies,namestax$infraspecies_biosamp, sep = " ")) %>%
+                    mutate_all(~na_if(.,"character(0)")) %>% mutate_all(~na_if(.,"NULL")) %>% 
+                    mutate(infraspecies = str_trim(infraspecies,side = "both")) %>%
+                    select(-subspecies)
+                    
+    otherSRA <- workingList[which(workingList$project_acc_bioprj == prj), 
+                           c("library_selection_sra",	"library_strat_sra","read_type_sra", 
+                             "platform", "instrument", "study_acc_sra", "experiment_acc_sra",
+                             "package_biosamp","link")]
+   
+   # Bind it all together to make a single data frame together with blank columns. 
+   # Going to try writing this all at once to reduce the calls to the API
+   metadata<- bind_cols(prjIDs, namestax[,1:2], taxonomized, otherSRA) %>% 
+          add_column(.after = 4,sampleEnteredBy = "") %>% 
+          add_column(.after = 9, locality = "", decimalLatitude = "", decimalLongitude = "",                    
+                    coordinateUncertaintyInMeters = "", country = "", georeferenceProtocol = "",
+                    habitat = "", microHabitat = "", environmental_medium = "",
+                    yearCollected = "", monthCollected = "", dayCollected = "",
+                    establishmentMeans = "",permitInformation = "", associatedReferences = "",
+                    preservative = "", derivedGeneticDataType = "", derivedGeneticDataURI = "", 
+                    derivedDataGeneticDataFormat = "", 
+                    derivedDataGeneticFilename = "", derivedGeneticDataRemarks = "") %>%
+          add_column(.after = 38, lifeStage = "", sex = "", otherCatalogNumbers = "",
+                      associatedMedia = "", samplingProtocol = "",	tissueType = "",
+                      continentOcean = "", island = "",	maximumDepthInMeters = "",
+                      maximumElevationInMeters = "", minimumDepthInMeters = "", 
+                      minimumElevationInMeters = "",	stateProvince = "",	landOwner = ""
+                      )
+     
+          metadata <- add_column(metadata,.before = 1,sheet_index = str_pad(row.names(metadata),width=4,pad="0"))
+  
+  skip_to_next <- FALSE
+  try_try_again <- FALSE
+
+  print("Writing Metadata")
+
+  tryCatch(range_write(ss = gdprj, metadata, sheet = "Samples", range = "A2:BJ4000", col_names = F), 
+            error = function(e) { msg <- conditionMessage(e)
+                                  write_csv(tibble(index,"attempt_1",msg),"failed.txt", append = T)
+                                  try_try_again <<- TRUE
+                                  }
+            )
+  
+  #apparently it works if you try it a second time....
+  
+  if(try_try_again) { print("Sleeping for 100 seconds to deal with API quota")
+                      Sys.sleep(time=100)
+                      tryCatch(range_write(ss = gdprj, metadata, sheet = "Samples", range = "A2:BJ4000", col_names = F), 
+                                error = function(e) { msg <- conditionMessage(e)
+                                  write_csv(tibble(index,"attempt_2",msg),"failed.txt", append = T)
+                                  skip_to_next <<- TRUE
+                                  }
+            ) 
+  }
+  
+  if(skip_to_next) { next } 
+  
+  
+   
+   
+   print("Sleeping for 15 seconds to deal with API quota")
+    Sys.sleep(time=15)
+}
+
+#write_csv(metadata,"E0318.csv")
+```
+
+## Analyzing Failed GoogleSheet Write Operations
+
+Whenever it fails to write, it seems to have something to do with the sample size of the BioProject (# of lines). Also, I can determine which BioProjects have already been found irrelevant.
+
+```{r}
+
+marineSRA <- drive_get(path = "GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/Marine_SRA_BioProjects")
+
+nonmarineSRA <- drive_get(path = "GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/nonMarine_SRA_BioProjects")
+
+failed <- read.csv("failed.txt", header=F, stringsAsFactors = F)
+
+failed <- failed[which(failed[,2]=="attempt_2"),]
+
+colnames(failed) <- c("project_index","write_result","message")
+failed$write_result[which(failed$write_result == "attempt_2")] <- "Failure"
+#113 datasets failed after a second attempt
+
+all5_BioProjects <- bind_rows(Marine_BioProjects[,1:5], nonMarine_BioProjects[,1:5])
+
+
+failed_analysis <- left_join(all5_BioProjects, failed, by = "project_index") %>% replace_na(list(write_result = "Success"))
+
+#failed writes seem to be for datasets with larger than average numbers of runs, samples, but not species....
+ggplot(failed_analysis) + geom_boxplot(mapping = aes(x = write_result, y = Runs)) + ylim(c(0,1000))
+
+failed_analysis$write_result <- as.factor(failed_analysis$write_result)
+
+test <- glm(write_result ~ Runs  , data = failed_analysis, family = "binomial")
+
+summary(test)
+
+```
+
+## Re-Writing Difficult BioProjects as Excel Sheets
+
+I can't figure out why it is failing to write 113 out of 1589 datasets into google sheets. Maybe there is a particular character that it doesn't like? There is clearly a correlation (see above) between the number of rows (Runs) in the dataset and whether it failed, but that could be because datasets with more rows have a higher probability of including a bad character? [shrug]
+
+So I'm just going to adapt my code above to write out Excel worksheets rather than Google Sheets. These can still be edited by the students within Google Sheets.
+
+
+
+```{r}
+#split up the failed dataset into marine and nonmarine
+marineFailed <- failed[grep("M", x = failed$project_index),]
+nonmarineFailed <- failed[grep("E", x = failed$project_index),]
+
+#choose which dataset to work with
+workingFailed <- nonmarineFailed
+workingList <- nonmarinelist
+workingBioProjects <- nonMarine_BioProjects
+path <- "../Datathon_Working_Directory/BioProject_Tables/NonMarine_BioSample_Metadata/"
+gdpath <- "GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/NonMarine_BioSample_Metadata/"
+
+gs4_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
+drive_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
+
+
+
+#c(310,318,348)
+
+for(index in workingFailed$project_index[6:103]){
+
+    #index<-"M0003"
+    
+    #grab the index
+    prj <- workingBioProjects$project_acc_bioprj[which(workingBioProjects$project_index==index)]
+    
+    print(paste("Now Starting",prj,index,sep=" "))
+    #copy the template to a new file name after the BioProject
+    print("Copying Excel Template")
+    #file.copy(from="Datathon_BioSample_Template.xlsx", to = paste0(path, index,"_",prj,".xlsx") )
+    xlprj <- loadWorkbook(file ="Datathon_BioSample_Template.xlsx", isUnzipped = F)
+    cpprj <- copyWorkbook(xlprj)
+    
+    # get the `Dribble` (google drive locator) for this new Google sheet, and delete the google sheet
+    gdprj <- drive_get(path = paste0(gdpath, index,"_",prj))
+    drive_trash(gdprj)
+    
+    # grab the various SRA accession IDs 
+    prjIDs <- workingList[which(workingList$project_acc_bioprj == prj), c("project_acc_bioprj",
+                                                                          "biosample_acc_sra","run_acc_sra")]
+    prjIDs <- cbind(project_index=index,prjIDs)
+    
+    # grab more metadata, collapse first and last names, split the genus and species names and 
+    #write into the sheet
+    namestax <- workingList[which(workingList$project_acc_bioprj == prj), c("contact_first_name_biosamp",	
+                                                                            "contact_last_name_biosamp",
+                                                                            "samplename_identifiers_biosamp", 
+                                                                            "organism_biosamp", 
+                                                                            "taxonomy_biosamp", 
+                                                                            "infraspecies_biosamp")]  %>% 
+                unite("contact_first_name_biosamp", "contact_last_name_biosamp", 
+                                    sep = " ", col = "collectorList", remove = T) 
+    
+    
+    # Taxize - Create a lookup table
+    print("Querying Taxonomy")
+    
+    # my first try using tax_name() required a separate lookup for every sample!
+    #taxonomy <- tax_name(sci=namestax$organism_biosamp, get = c("Phylum","Class","Order","Family"))
+    #common_name <- sci2comm(sci = namestax$organism_biosamp)
+    
+    #get all unique uids
+    uids <- as.uid(unique(namestax$taxonomy_biosamp), check = F)
+    # this produces a list of data frames, one df per uid
+    taxonomy <- as.list(classification(id = uids, db="ncbi"))
+    # this produces a list of common names. If it can't find a common name though, it assigns `character(0)`
+    # so we overwrite these with NA
+    common_name <- sci2comm(id=uids)
+    common_name[which(common_name=="character(0)")]<-NA
+    # classification gives a class called "classification", change it back to a list
+    class(taxonomy) <- "list"
+    # this will write the common name into each table as a taxonomic rank
+    taxonomy <- Map(function(x,y) {rbind(x,c(y,"common_name",0))}, taxonomy, common_name)
+    # put this into a tibble, then unnest it, so that the name of each list is now a column called `uid`
+    # add some dummy rows so that we always have these particular ranks in our taxonomy lookup
+    # drop the id field, and spread it out (pivot_wider replaces spread) so we have the complete 
+    # taxonomy for each uid
+    # now we have a lookup table!
+    taxonomy_lookup <- tibble(uid = as.numeric(names(taxonomy)), taxonomy = taxonomy) %>%
+                              unnest(cols = taxonomy) %>% 
+                              add_row(uid=0,name = NA, rank = c("phylum","class","order","family", "genus",
+                                                                "species", "subspecies"), 
+                                          id = "0") %>%
+                              select(-id) %>% 
+                              pivot_wider(names_from=rank, values_from = name, values_fn = list(name = list)) %>%
+                              unnest(cols = c(phylum, class,  order, family, genus, species, subspecies,
+                                              common_name))
+
+    
+    taxonomized <- left_join(tibble(uid=namestax$taxonomy_biosamp), taxonomy_lookup, by = "uid") %>%
+                    select(genus, species,subspecies,phylum,class,order,family,common_name) %>% 
+                    replace_na(replace = list(subspecies=""))
+
+    #have to write and overwrite here so I can paste subspecies into infraspecies...
+    
+    taxonomized <-  add_column(taxonomized, nomenclaturalCode = paste("NCBI queried:",date(), sep = " "), 
+                    scientificNameID = namestax$taxonomy_biosamp, 
+                    infraspecies = paste(taxonomized$subspecies,namestax$infraspecies_biosamp, sep = " ")) %>%
+                    mutate_all(~na_if(.,"character(0)")) %>% mutate_all(~na_if(.,"NULL")) %>% 
+                    mutate(infraspecies = str_trim(infraspecies,side = "both")) %>%
+                    select(-subspecies)
+                    
+    otherSRA <- workingList[which(workingList$project_acc_bioprj == prj), 
+                           c("library_selection_sra",	"library_strat_sra","read_type_sra", 
+                             "platform", "instrument", "study_acc_sra", "experiment_acc_sra",
+                             "package_biosamp","link")]
+   
+   # Bind it all together to make a single data frame together with blank columns. 
+   # Going to try writing this all at once to reduce the calls to the API
+   metadata<- bind_cols(prjIDs, namestax[,1:2], taxonomized, otherSRA) %>% 
+          add_column(.after = 4,sampleEnteredBy = "") %>% 
+          add_column(.after = 9, locality = "", decimalLatitude = "", decimalLongitude = "",                          
+                    coordinateUncertaintyInMeters = "", country = "", georeferenceProtocol = "",
+                    habitat = "", microHabitat = "", environmental_medium = "",
+                    yearCollected = "", monthCollected = "", dayCollected = "",
+                    establishmentMeans = "",permitInformation = "", associatedReferences = "",
+                    preservative = "", derivedGeneticDataType = "", derivedGeneticDataURI = "",
+                    derivedDataGeneticDataFormat = "", 
+                    derivedDataGeneticFilename = "", derivedGeneticDataRemarks = "") %>%
+                    add_column(.after = 38, lifeStage = "", sex = "", otherCatalogNumbers = "",
+                      associatedMedia = "", samplingProtocol = "",	tissueType = "",
+                      continentOcean = "", island = "",	maximumDepthInMeters = "",
+                      maximumElevationInMeters = "", minimumDepthInMeters = "", 
+                      minimumElevationInMeters = "",	stateProvince = "",	landOwner = ""
+                      )
+     
+          metadata <- add_column(metadata,.before = 1,sheet_index = str_pad(row.names(metadata),width=4,pad="0"))
+  
+  skip_to_next <- FALSE
+  try_try_again <- FALSE
+
+  print("Writing Metadata")
+  
+  writeData(wb = cpprj, sheet = "Samples", x = metadata, startCol = 1, startRow = 2, colNames = F )
+  
+  tryCatch(
+  saveWorkbook(wb = cpprj, file = paste0(path, index,"_",prj,".xlsx"), overwrite = TRUE), 
+            error = function(e) { msg <- conditionMessage(e)
+                                  write_csv(tibble(index,"attempt_1",msg),"failed_excel.txt", append = T)
+                                  try_try_again <<- TRUE
+                                  }
+            )
+  
+  #apparently it works if you try it a second time....
+  
+  if(try_try_again) {
+                      tryCatch(
+                        saveWorkbook(wb = cpprj, file = paste0(path, index,"_",prj,".xlsx"), overwrite = TRUE), 
+                                error = function(e) { msg <- conditionMessage(e)
+                                  write_csv(tibble(index,"attempt_2",msg),"failed_excel.txt", append = T)
+                                  skip_to_next <<- TRUE
+                                  }
+            ) 
+  }
+  
+  if(skip_to_next) { next } 
+  
+  
+   
+}
+
+
+
+```
+
+# Change Ownership of Drive Files
+
+```{r}
+path <- "GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/NonMarine_BioSample_Metadata/"
+
+
+drive_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
+
+nmls <- drive_ls(path)
+
+drive_share(file = nmls, role = "owner", type = "user", emailAddress = "eric.d.crandall@gmail.com", transferOwnership = T )
+```
+
+
+# Pull out Author lists for BioProjects that have DOI's
+
+Cynthia and Rachel want to be able to see author lists for DivDiv projects to determine who is best to contact them.
+
+```{r}
+gs4_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
+drive_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
+
+marineSRA <- drive_get(path = "GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/Marine_SRA_BioProjects")
+
+dois <- range_read(marineSRA, sheet = "Marine_BioProjects", range = "M:M")
+
+#split each field on |, trim off whitespace and get the bib entry from the DOIs
+refs <- dois$Paper_Link %>% strsplit(split  = "\\|") %>% map(str_trim) %>% map(GetBibEntryWithDOI) 
+
+
+authors <- map(refs,function(x){na.pass(x$author)})
+gs
+
+
+```
+
+# Create Mail Merge
+
+Just occurred to me that I can use a mail merge app with Google Sheets and Gmail to make this whole process easier! Going to modify the code above to pull down publication info for all papers with author contact flags.
+
+```{r}
+#authorize
+gs4_auth(path = "GEOME_credentials/non_service_client_auth.json")
+drive_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
+
+#initialize an empty tibble
+mailmerge <- tibble(
+  "ProjectIndex"= character(0),
+  "BioProjectNumber"= character(0),
+  "Email Address"= character(0),
+  "AuthorHonorific"= character(0),
+  "Author Names" = character(0),
+  "FirstAuthorName"= character(0),
+  "Year" = character(0),
+  "ContactAuthorNames"= character(0),
+  "References" = character(0),
+  "Paper_Comments" = character(0),
+  "AuthorContactComments" = character(0),
+  "Reason1"= character(0),
+  "Reason2"= character(0),
+  "GradStudent"= character(0),
+  "GradStudentHonorific"= character(0),
+  "GradStudentInstitution"= character(0),
+  "GradStudentEmail"= character(0)
+  )
+
+refs <- list()
+
+#get the object ids of the non-marine list and the participants list
+nonmarineSRA_object <- drive_get(path =
+                                   "GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/nonMarine_SRA_BioProjects")
+
+participants_object <- drive_get(path =
+                                   "GEOME_Datathon/Participants/GEOME Datathon Application (Responses)")
+
+
+
+#read in the data
+nonmarineSRA <- range_read(nonmarineSRA_object, sheet = 1, range = "A:S")
+
+participants <- range_read(participants_object, sheet = 1, range = "A:F")
+
+#winnow to just contact needed items that also have papers
+nonmarineSRA_contacts <- nonmarineSRA[which(nonmarineSRA$Authors_Contacted == "CONTACT NEEDED" & nonmarineSRA$Paper_Available == "FALSE"),]
+
+
+#split each field on |, trim off whitespace and get the bib entry from the DOIs. If there are multiple DOIs, split again
+# for some reason it doesn't get some references the first time, so you need to run it again.
+
+for(p in nonmarineSRA_contacts$project_index)
+#for(p in names(refs)[which(refs=="NO RESULT")])
+  {
+  print(p)
+  psplit <-  nonmarineSRA_contacts$Paper_Link[which(nonmarineSRA_contacts$project_index == p)] %>% 
+                strsplit(split  = "\\|")  %>%
+                map(str_trim)
+  print(psplit)
+  
+  if(length(psplit[[1]]) > 1){
+    multp <- map(psplit, GetBibEntryWithDOI, temp.file = "ref_temp.bib", delete.file = F)
+    pref <- multp[[1]]
+  }
+  else{
+    pref <- GetBibEntryWithDOI(psplit,temp.file = "ref_temp.bib", delete.file = F)
+    if(is.null(pref$title)){
+      pref <- "NO RESULT"
+    }
+  }
+  refs[[p]] <- pref
+}
+
+
+# now to populate the data frame
+
+for(p in names(refs)){
+  
+  print(p)
+  
+  r <- refs[p][[1]]
+  
+   #look up the student
+  student <- nonmarineSRA_contacts$Metadata_Curator[which(nonmarineSRA_contacts$project_index == p)]
+  
+  honorific <- participants$`Honorific`[which(participants$`Last Name`==str_split(student," ")[[1]][2])]
+  
+  student_institution <- participants$`University that will award your degree`[which(participants$`Last Name`==str_split(student," ")[[1]][2])]
+  
+  grad_student_email <- participants$`Email Address`[which(participants$`Last Name`==str_split(student," ")[[1]][2])]
+  
+  
+   #look up the project number and other items
+   bioprj <- nonmarineSRA_contacts$project_acc_bioprj[which(nonmarineSRA_contacts$project_index == p)]
+   paperComments <- nonmarineSRA_contacts$Paper_Comments[which(nonmarineSRA_contacts$project_index == p)]
+   authorContactComments <- nonmarineSRA_contacts$Author_Contact_Comments[which(nonmarineSRA_contacts$project_index == p)]
+   
+   if(refs[p] == "NO RESULT"){
+    mailinfo <- c(
+  "ProjectIndex"= p,
+  "BioProjectNumber"= bioprj,
+  "Email Address"= "",
+  "AuthorHonorific"= "Dr.",
+  "Author Names" = "",
+  "FirstAuthorName"= "",
+  "Year" = "",
+  "ContactAuthorNames"= "",
+  "References" = "",
+  "Paper_Comments" = paperComments,
+  "AuthorContactComments" = authorContactComments,
+  "Reason1"= "",
+  "Reason2"= "",
+  "GradStudent"= student,
+  "GradStudentHonorific"= honorific,
+  "GradStudentInstitution"= student_institution,
+  "GradStudentEmail"= participants$`Email Address`[which(participants$`Last Name`==str_split(student," ")[[1]][2])]
+  )
+  
+  mailmerge <- bind_rows(mailmerge, mailinfo)
+  next
+   }
+  
+ 
+  #look up the first author name
+  firstauth <- str_split(r$author[1], " ")[[1]]
+  firstauth_last <- firstauth[length(firstauth)]
+  
+
+  
+  mailinfo <- c(
+  "ProjectIndex"= p,
+  "BioProjectNumber"= bioprj,
+  "Email Address"= "",
+  "AuthorHonorific"= "Dr.",
+  "Author Names" = str_flatten(capture.output(r$author), collapse = ","),
+  "FirstAuthorName"= firstauth_last,
+  "Year" = r$year,
+  "ContactAuthorNames"= "",
+  "References" = str_flatten(capture.output(r)),
+  "Paper_Comments" = paperComments,
+  "AuthorContactComments" = authorContactComments,
+  "Reason1"= "",
+  "Reason2"= "",
+  "GradStudent"= student,
+  "GradStudentHonorific"= honorific,
+  "GradStudentInstitution"= student_institution,
+  "GradStudentEmail"= grad_student_email
+  )
+   
+  
+  mailmerge <- bind_rows(mailmerge, mailinfo)
+  
+  
+}
+
+
+mailmerge_old<-read.csv("/Users/eric/Google_Drive/GEOME_Datathon/Code/mailmerge_01082021.csv")
+
+#mailmerge_new<-mailmerge[mailmerge$ProjectIndex %in% setdiff(mailmerge$ProjectIndex,mailmerge_old$ProjectIndex),]
+
+write_excel_csv(mailmerge,"/Users/eric/Google_Drive/GEOME_Datathon/Code/mailmerge_01032021.csv")
+
+
+
+```
+
+# Non-Wild Species
+
+Human Pathogens, Model organisms and Domesticated Species oh my!
+
+After creating a preliminary figure of metadata available in the SRA , Rachel and I discussed that we definitely want to pull model organisms and lab stocks and might also want to pull domesticated species out, so I'm now trying to make a list of these species
+
+
+## Species identified by students
+
+Students determined relevance for >1500 projects and put the non-relevant ones into categories, so that provides a starting place.
+
+```{r}
+droplists <- read.csv("NonWildSpecies/raw_student_generated_drop_lists.csv")
+
+
+droplists$Student_HumPath %>% str_sort() %>% unique()
+
+dom <- sort(unique(droplists$Student_Domesticated[droplists$Student_Domesticated != "" ]))
+dom_common <- sci2comm(dom, db = "itis")
+dom_common <-  paste(lapply(dom_common,function(x) if(identical(x, character(0))) NA_character_ else x),sep=",")
+domesticated <- cbind(dom,dom_common)
+
+humpath <- sort(unique(droplists$Student_HumPath[droplists$Student_HumPath != "" ]))
+humpath_common <- sci2comm(humpath, db = "itis")
+humpath_common <-  paste(lapply(humpath_common,function(x) if(identical(x, character(0))) NA_character_ else x),sep=",")
+humanPathogen <- cbind(humpath,humpath_common)
+
+lab <- sort(unique(droplists$Student_Lab[droplists$Student_Lab != "" ]))
+lab_common <- sci2comm(lab, db = "itis")
+lab_common <-  paste(lapply(lab_common,function(x) if(identical(x, character(0))) NA_character_ else x),sep=",")
+labSpecies <- cbind(lab,lab_common)
+
+write.csv(domesticated,"NonWildSpecies/domesticated_students_taxized.csv", row.names = F, quote = F)
+write.csv(humanPathogen,"NonWildSpecies/humanPathogen_students_taxized.csv", row.names = F, quote = F)
+write.csv(labSpecies,"NonWildSpecies/labSpecies_students_taxized.csv", row.names = F, quote = F)
+
+
+```
+
+Now I'm going to scrape some lists from the web. I pulled in data from:       
+
++ [FAOSTAT](http://www.fao.org/faostat/en/#data/QC) for crop plants, FAO Domesticated Animal Diversity Information System 
++ [DAD-IS](http://www.fao.org/dad-is/en/) for animals.
++ [FAO List of Cereal](http://www.fao.org/es/faodef/fdef01e.htm) - Downloaded into domesticatedPlants_Wikipedia_Cereals_Other.csv
++ [Wikipedia List of Infectious Diseases](https://en.wikipedia.org/wiki/List_of_infectious_diseases) for human pathogens
++ [Wikipedia List of Domesticated Animals](https://en.wikipedia.org/wiki/List_of_domesticated_animals)
++ [Wikipedia List of Fruits](https://en.wikipedia.org/wiki/List_of_culinary_fruits)
++ [Wikipedia List of Domesticated Plants](https://en.wikipedia.org/wiki/List_of_domesticated_plants) Manually copied extras into domesticatedPlants_Wikipedia_Cereals_Other.csv
++ [Wikipedia List of Model Organisms](https://en.wikipedia.org/wiki/List_of_model_organisms)
+
+
+
+## Human Pathogens
+
+```{r}
+#nifty code from Hadley to read in htmls tables
+disease_html <- read_html("https://en.wikipedia.org/wiki/List_of_infectious_diseases")
+diseases <- disease_html %>% html_node("table") %>% html_table()
+diseases$`Infectious agent` <- str_remove(diseases$`Infectious agent`,"usually ") %>% 
+                                              str_remove("most ") %>% 
+                                              str_remove("commonly ")  %>% 
+                                              str_remove("Group A ")  %>% 
+                                              str_remove("multiple ") %>%
+                                              str_remove(regex("\\(.+\\)"))
+
+#need to find the kingdom so we can weed out the bacteria
+kingdoms <- tax_name(diseases$`Infectious agent`, get = "kingdom")
+diseases <- cbind(diseases,kingdoms)
+diseases <- diseases[-grep(x = diseases$kingdom,pattern = "Bacteria"),]
+# and viruses
+diseases <- diseases[-grep(x = diseases$`Infectious agent`,pattern = "vir[iu]",ignore.case = T, perl = T),]
+
+#write.csv(diseases, "humanPathogen_wikipedia_diseases_kingdoms.csv", row.names = F, quote = F)
+write.table(diseases, "NonWildSpecies/humanPathogen_wikipedia_diseases_eukaryotes.tsv", row.names = F, quote = F, sep = "\t")
+
+```
+
+## Domesticated Species
+
+### Animals
+
+```{r}
+# These FAO lists didn't work because its damn near impossible to go from common to Linnaean name programatically
+#animals <- read.csv("FAO_DomesticAnimalDiversitySystem.csv", row.names = F)
+#animals_common <- sort(unique(animals$ISO3))
+#animals_linnaean2 <- comm2sci(animals_common, db = "itis")
+
+#plants <- read.csv("FAOSTAT_data_1-21-2021_crops.csv")
+#plants_common <- sort(unique(plants$Item))
+#plants_linnaean <- comm2sci(plants_common, db = "itis")
+
+
+animal_html <- read_html("https://en.wikipedia.org/wiki/List_of_domesticated_animals")
+animals <- animal_html %>% html_node("table") %>% html_table()
+animals_linnaean <- str_extract(animals$`Species and subspecies`, regex("\\((.+)\\)")) %>% str_extract(regex("[:alpha:]+ [:alpha:]+"))
+animals<-cbind(animals_linnaean, animals)
+
+write.csv(animals, "NonWildSpecies/domesticatedAnimals_wikipedia.csv", row.names = F)
+
+read.csv("NonWildSpecies/FAO_aquaculture.csv")
+
+
+```
+
+### Plants
+
+```{r}
+fruits_html <- read_html("https://en.wikipedia.org/wiki/List_of_culinary_fruits")
+#multiple tables in this page, but purrr comes to the rescue!
+fruits_tables <- fruits_html %>% html_nodes("table") %>% map(html_table) %>% bind_rows()
+fruits_tables$Category<-"Domesticated Fruit"
+fruits_tables<-fruits_tables[,-3]
+fruits_tables <- fruits_tables[,c(2,1,3)]
+names(fruits_tables) <- c("Species","Common","Category")
+write.csv(fruits_tables,"domesticatedPlants_Wikipedia_Fruits.csv", row.names = F)
+
+vegetables_html <- read_html("https://en.wikipedia.org/wiki/List_of_vegetables")
+vegetables_tables <- vegetables_html %>% html_nodes("table") %>% map(html_table) %>% bind_rows()
+#remove the column names that read in wrong
+vegetables_tables <- vegetables_tables[-grep("Species",vegetables_tables$X2),]
+names(vegetables_tables) <- c("Common name", "Species name")
+vegetables_tables$Category<-"Domesticated Vegetable"
+vegetables_tables$`Species name` <- str_remove(vegetables_tables$`Species name`, "\\(.+\\)") %>% 
+                                                          str_remove("\\[>+\\]")
+vegetables_tables <- vegetables_tables[,c(2,1,3)]
+names(vegetables_tables) <- c("Species","Common","Category")
+write.csv(vegetables_tables,"NonWildSpecies/domesticatedPlants_Wikipedia_Vegetables.csv", row.names = F)
+
+
+other_tables <- read.csv("NonWildSpecies/domesticatedPlants_Wikipedia_Cereals_Other.csv")
+
+
+
+domesticatedPlants <- rbind(fruits_tables, vegetables_tables, other_tables)
+
+
+
+write.csv(domesticatedPlants,"NonWildSpecies/domesticatedPlants_Wikipedia_all.csv",row.names=F)
+
+
+
+
+
+```
+
+## Model Organisms
+
+```{r}
+model_html <- read_html("https://en.wikipedia.org/wiki/List_of_model_organisms")
+#used selector gadget (https://selectorgadget.com) to pick out the scientific names, which were italicized. 
+model_list <- model_html %>% html_nodes('.tright+ ul i a , i a+ a , ul a+ i , h3+ ul i a , #Protists , #Eukaryotes') %>% html_text()
+# Then edited manually to remove a few other stray italics
+model_list_edit <- edit(model_list)
+
+model_list_clean <- sort(unique(model_list_edit))
+model_common <- sci2comm(model_list_clean, db = "itis")
+model_common <-  paste(lapply(model_common,function(x) if(identical(x, character(0))) NA_character_ else x),sep=",")
+modelSpecies <- cbind(model_list_clean,model_common)
+
+write.csv(modelSpecies,"NonWildSpecies/labSpecies_wikipedia_taxized.csv", row.names = F)
+
+```
+
+## Combining Lists
+
+```{r}
+# Model Species
+labStudents <- read.csv("NonWildSpecies/labSpecies_students_taxized.csv", row.names = 1)
+labWiki <- read.csv("NonWildSpecies/labSpecies_wikipedia_taxized.csv")
+
+labSpecies <- left_join(labStudents,labWiki,by=c("lab" = "model_list_clean"))
+
+labSpecies <- labSpecies[,-3]
+labSpecies$Category <- "Model Species"
+names(labSpecies) <- c("Species","Common","Category")
+
+write.csv(labSpecies,"labSpecies_joined.csv")
+
+# Human Pathogens
+humpathStudents <- read.table("NonWildSpecies/humanPathogen_students_taxized.csv", sep = ",", header = T, stringsAsFactors = F, row.names = 1)
+humpathWiki <- read.table("NonWildSpecies/humanPathogen_wikipedia_diseases_eukaryotes.tsv", sep = "\t", header = T, stringsAsFactors = F)
+humpathSpecies <- left_join(humpathWiki,humpathStudents,by = c("Infectious.agent"="humpath"))
+humpathSpecies <- humpathSpecies[,1:2]
+humpathSpecies$Category <- "HumanPathogen Species"
+names(humpathSpecies) <- c("Species","Common","Category")
+
+write.csv(humpathSpecies,"NonWildSpecies/humanpathogenSpecies_joined.csv", row.names=F)
+
+# Domesticated Species
+domesticatedPlants <- read.csv("NonWildSpecies/domesticatedPlants_Wikipedia_all.csv")
+domesticatedAnimals <- read.csv("NonWildSpecies/domesticatedAnimals_wikipedia.csv")
+domesticatedAnimals <- domesticatedAnimals[,1:2]
+domesticatedAnimals$Category = "Domesticated Animal"
+names(domesticatedAnimals) <- c("Species","Common","Category")
+domesticatedWiki <- rbind(domesticatedAnimals, domesticatedPlants)
+domesticatedStudents <- read.csv("NonWildSpecies/domesticated_students_taxized.csv", row.names = 1)
+
+domesticatedSpecies <- full_join(domesticatedWiki, domesticatedStudents, by = c("Species"= "dom"))
+
+write.csv(domesticatedSpecies,"NonWildSpecies/domesticatedSpecies_joined.csv", row.names = F)
+
+
+
+```
+
+I took these joined lists and hand-edited them, deleting species which, based on a brief google search seemed to have significant natural populations. One example of this was deleting three-spined stickleback (*Gasterosteus aculeatus*), which is an evolutionary model organism, but still has significant natural populations that are frequently studied as well. This reasoning was in keeping with our use of the wording "potentially relevant" to genetic diversity of natural populations. For genera which I judged to be entirely or almost entirely non-natural, I generally only included the generic name. I left the × character for hybrids.
+
+## Improving Sources
+
+Using just Wikipedia and species identified by students for each category is not exactly authoritative. I've scoured the literature, the web, and FAO reports for more authoritative lists of each of the three categories.
+
++ [FAO The state of the world's biodiversity for food and agriculture 2019](http://www.fao.org/3/CA3129EN/CA3129EN.pdf)
++ [FAO The state of the world's plant genetic resources for food and agriculture 2011](http://www.fao.org/3/i1500e/i1500e00.htm)
++ [The second report on the state of the world's animal genetic resources for food and agriculture](http://www.fao.org/3/a-i4787e.pdf) State of Livestock Diversity Table 1A1
++ [Masfeld's World Database of Agricultural and Horticultural Crops (Cited in FAO)](http://mansfeld.ipk-gatersleben.de/apex/f?p=185:5:)
++ [ARS-GRIN (Germplasm Resources Information Network) World Economic Plants](https://npgsweb.ars-grin.gov/gringlobal/taxon/taxonomysearcheco)
++ [FAO The state of the world's fisheries and aquaculture 2018: Tables 7 & 8](http://www.fao.org/documents/card/en/c/ca9229en/)
++ [VEuPathDB - Eukaryotic Pathogen, Vector & Host Informatics Resource](https://veupathdb.org/veupathdb/app) - Organisms table.
+
+```{r}
+# Start by reading in the list of species that I created from Wikipedia and Students
+allwikispecies <- read.csv("NonWildSpecies/nonNaturalSpecies_joined_preliminary.csv")
+
+
+# Got a solid list of eukaryotic pathogens from VEUpathDB
+
+veupathdb <- read.csv("NonWildSpecies/VEUpathDB_organisms.csv") %>% map(str_trim)
+veupathdb_common <- sci2comm(veupathdb$Species)
+veupathdb_common <-  paste(lapply(veupathdb_common,function(x) if(identical(x, character(0))) NA_character_ else x),sep=",")
+
+veupathdb_final <- data.frame(Species = veupathdb$Species, Common = veupathdb_common )
+veupathdb_final$Category <- "Human Pathogen VEuPathDB"
+wikihumpath <- allwikispecies[grep("HumanPathogen",wikihumpath$Category),]
+wikihumpath$Category <- ("Human Pathogen Wikipedia")
+allhumpath <- full_join(wikihumpath, veupathdb_final)
+allhumpath <- unique(allhumpath)
+
+write.table(allhumpath,file = "NonWildSpecies/HumanPathogens_Final.tsv",sep = "\t", quote=F)
+
+
+# Got top aquaculture species from FAO
+
+FAOaquaculture <- read.csv("NonWildSpecies/FAO_aquaculture.csv",comment.char = "#") %>% map(str_trim) %>% data.frame()
+
+# Got a partial list of domesticated animals from FAO
+
+FAOanimals <- read.csv("NonWildSpecies/FAO_Domesticated_Animals.csv",comment.char = "#") %>% map(str_trim) %>% data.frame()
+
+#Found World Economic Plants from the ARS-GRIN database and downloaded Human Food plants and lawn and turf plants
+
+GRIN_food <- read.table("./NonWildSpecies/ARS_GRIN_HumanFood.txt", header=T, sep = "\t", comment.char = "#")
+GRIN_food_sp <- str_extract(GRIN_food$Species, pattern=regex("^[:alpha:]+ ×* *[:alpha:]+"))
+GRIN_food_sp <- sort(unique(GRIN_human_sp))
+GRIN_food_common <- sci2comm(GRIN_food_sp, db = "itis")
+GRIN_food_common2 <-  paste(lapply(GRIN_food_common,function(x) if(identical(x, character(0))) NA_character_ else x),sep=",")
+GRIN_foodplants <- data.frame(Species = GRIN_food_sp, Common = GRIN_food_common2 )
+GRIN_foodplants$Category <- "Domesticated Plant GRIN Food"
+
+GRIN_lawn <- read.table("./NonWildSpecies/ARS_GRIN_lawn.txt", header=T, sep = "\t", comment.char = "#")
+GRIN_lawn_sp <- str_extract(GRIN_lawn$Species, pattern=regex("^[:alpha:]+ ×* *[:alpha:]+"))
+GRIN_lawn_sp <- sort(unique(GRIN_lawn_sp))
+GRIN_lawn_common <- sci2comm(GRIN_lawn_sp, db = "itis")
+GRIN_lawn_common2 <-  paste(lapply(GRIN_lawn_common,function(x) if(identical(x, character(0))) NA_character_ else x),sep=",")
+GRIN_lawnplants <- data.frame(Species = GRIN_lawn_sp, Common = GRIN_lawn_common2 )
+GRIN_lawnplants$Category <- "Domesticated Plant GRIN Lawn"
+
+GRIN_plants<-rbind(GRIN_foodplants, GRIN_lawnplants)
+
+
+wikidomesticated <- allwikispecies[grep("Domesticated", allwikispecies$Category),]
+wikidomesticated$Category[-grep("Student",wikidomesticated$Category)] <- paste(wikidomesticated$Category[-grep("Student",wikidomesticated$Category)], "Wikipedia", sep = " ")
+
+# Rachel found a list in Khoury et al. 2016 that takes the FAOstat categories (roughly) and gives latin binomials. I edited it into machine readable format
+khouryplants <- read.csv("./NonWildSpecies/Khouri_etal_2016_EDC_edit.csv") %>% map(str_trim) %>% data.frame()
+
+#joining these sources together in rough order of authoritativeness, dropping anything that doesn't have a common name in ITIS
+# or from one of the sources (many GRIN things)
+alldomesticated <- full_join(khouryplants, FAOaquaculture) %>%  full_join(FAOanimals) %>% full_join(GRIN_plants)  %>% 
+                    full_join(wikidomesticated) %>% distinct(Species, .keep_all=T) %>% arrange(Species) %>% 
+                    na_if("") %>% na_if("NA") %>%  drop_na(Common)
+
+# Sort them in this order of authority
+alldomesticated$Category <- factor(alldomesticated$Category, levels = c("Domesticated Plant Khouri et al. 2016", 
+                                                                        "Domesticated Aquaculture FAO", 
+                                                                        "Domesticated Animal FAO",
+                                                                        "Domesticated Plant GRIN Food", 
+                                                                        "Domesticated Plant GRIN Lawn", 
+                                                                        "Domesticated Animal Wikipedia",
+                                                                        "Domesticated Plant Cereal Wikipedia", 
+                                                                        "Domesticated Plant Vegetable Wikipedia",
+                                                                        "Domesticated Plant Fruit Wikipedia",
+                                                                        "Domesticated Plant Other Wikipedia",
+                                                                        "Domesticated Fungus Wikipedia",
+                                                                        "Domesticated Plant Student",
+                                                                        "Domesticated Animal Student"))      
+
+alldomesticated <- alldomesticated[order(alldomesticated$Category),]
+
+write.table(alldomesticated,"NonWildSpecies/Domesticated_AllSources.tsv",sep="\t",quote=F, row.names = F)
+
+```
+
+I then went through this table and basically dropped things I had never heard of, for lack of a better criterion, with the idea being that the minor items I was dropping might have wild populations. I ensured that there weren't duplicates within each of the three categories, but allowed duplicates such as *S. cerevisiae* across the three categories. For genera where I determined that the entire genus was cultivated (e.g. *Citrus*, *Triticum*) I kept only the genus name.
+
+Then I went back and below separated out the source information into its own column so that we can sort by that, or filter on it later if necessary. Because of how I joined the data, each item is attributed to its highest source of authority.
+
+
+```{r}
+all <- read.csv(file = "NonWildSpecies/nonWildSpecies_final.tsv", header = T, sep = "\t", stringsAsFactors = F)
+names(all) <- c("Species", "Common", "Old")
+all$Category <- str_extract(all$Old, regex("^[:alpha:]+ [:alpha:]+"))
+all$Source <- str_replace(all$Old, regex("^[:alpha:]+ [:alpha:]+ "), "")
+all$Old <- NULL
+
+write.table(all,file = "NonWildSpecies/nonWildSpecies_final_sources.tsv", sep = "\t", quote=F,row.names = F)
+```
+
+
+# Discover metadata state for papers that didn't need author contact
+
+When we switched to documenting this effort in a publication, I asked the students to record the state of metadata for BioProjects that they flagged for author contact in the field author_contact_comments. Rachel has written a script to parse these results, but I forgot to ask the students to document the state of metadata for BioProjects that didn't need author contact (because they already had coordinates and dates). So now I need to write some code to go look inside each of these BioProjects for which Relevance = TRUE but Authors_Contacted = FALSE.
+
+```{r}
+gs4_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
+drive_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
+
+#get the object id of the non-marine list 
+nonmarineSRA_dribble <- drive_get(path =
+        "GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/nonMarine_SRA_BioProjects")
+#get the object id of the marine list 
+marineSRA_dribble <- drive_get(path =
+        "GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/Marine_SRA_BioProjects")
+#read in the data
+nonmarineSRA <- range_read(nonmarineSRA_dribble, sheet = 1, range = "A:AA")
+marineSRA <- range_read(marineSRA_dribble, sheet = 1, range = "A:AA")
+
+dataset <- "nonmarine" #or "nonmarine"
+
+if(dataset == "marine"){
+  SRA <- marineSRA
+} else{SRA <- nonmarineSRA}
+
+#filter for datasets that are relevant, but authors haven't been contacted
+lookups <- SRA %>% filter(Relevant == TRUE) # & Authors_Contacted == FALSE)
+
+#function of nested ifs to check completeness of each metadata column
+completeness_check <- function(n,na_count){
+  completeness <- NA
+  incompleteness_prop <- na_count/n
+  if(incompleteness_prop == 0){completeness = "TRUE"}
+    else(if(incompleteness_prop < 0.5){completeness = "MOST"}
+       else(if(incompleteness_prop < 1){completeness = "SOME"}
+            else(if(incompleteness_prop == 1){completeness = "FALSE"}
+                 )))
+  return(completeness)
+}
+
+for(index in lookups$project_index){
+  project_acc <- lookups$project_acc_bioprj[which(lookups$project_index == index)]
+  print(paste0(index,"_",project_acc))
+  
+  if(dataset == "marine"){
+    projectpath <- "GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/Marine_BioSample_Metadata/"
+  }else{ projectpath <-"GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/NonMarine_BioSample_Metadata/"}
+  
+  project_dribble <- drive_get(path =  
+          paste0(projectpath, index,"_",project_acc))
+  
+  if(length(project_dribble$name)==0){
+  metadata <- read.xlsx(paste0("/Users/eric/Google_Drive/",projectpath,index,"_",project_acc,".xlsx"), sheet = 2)
+  }else{metadata <- range_read(project_dribble, sheet = 2)}
+  
+  
+  n <- length(metadata$sheet_index)
+  
+  # count the na's and then measure completeness
+  completeness <- metadata %>% map(function(x) sum(is.na(x))) %>% map(completeness_check, n = n)
+  #pick out categories of interest
+  compall <- completeness[c(8,11,12,13,15,17,19,20,24,25,26,28)]
+  
+  #compose a statement to write back to main sheet
+  completeness_comment <- tibble(paste("materialSampleID = ", compall[1],
+                                "|locality = ", compall[2],
+                                "|coordinates = ", paste(compall[3],compall[4], sep="&"),
+                                "|country = ", compall[5],
+                                "|habitat = ", compall[6],
+                                "|environmentalMedium = ", compall[7],
+                                "|yearCollected = ", compall[8],
+                                "|permitInformation = ", compall[9],
+                                "|preservative = ", compall[11],
+                                "|derivedGeneticDataX = ", compall[12],
+                                "|associatedReferences = ", compall[10],sep = ""))
+  
+  rownum <- which(SRA$project_index == index)+1
+  
+  print(paste("Writing To", "Author_Contact_Comments_Script",rownum))
+  
+  if(dataset == "marine"){
+    range_write(marineSRA_dribble, completeness_comment, sheet=1, range = paste0("Q",rownum), 
+              col_names = F, reformat = F)
+  }else{range_write(nonmarineSRA_dribble, completeness_comment, sheet=1, range = paste0("P",rownum), 
+              col_names = F, reformat = F)}
+  
+  # slow things down so we don't go over reads/minute quota
+  Sys.sleep(10)
+}
+
+
+
+a<-read.table(pipe("pbpaste"),header=F)
+b<-sum(nonmarineSRA$Total_Minutes_Spent, na.rm = T)
+
+
+
+
+```
+
+Now I'm going to borrow Rachel's code for parsing these crazy structured comments into a more sane table.
+
+```{r}
+
+df <- nonmarineSRA
+
+
+# Ran this loop first on Author_Contact_Comments, and then on Author_Contact_Comments_Script
+for (field in rev(c("materialSampleID","locality",
+                   "coordinates","country","habitat",
+                   "environmentalMedium", "yearCollected", 
+                   "permitInformation", "preservative",
+                   "derivedGeneticDataX"))) {
+
+df <- df %>% 
+  separate(., Author_Contact_Comments_Script, into = c("garbage","working"), sep = paste(field), remove = F, extra = "drop") %>% 
+  dplyr::select(-garbage) %>% 
+  mutate(working = gsub("^ ","",working)) %>%
+  mutate(working = gsub("[“”]","\"", working)) %>% 
+  mutate(working = gsub("^=","",working)) %>% 
+  mutate(working = gsub("^ ","",working)) %>% 
+  mutate(working = gsub("^[[:punct:]]","",working)) %>% 
+  separate(., working, into = c("working.1"), sep = "\"", remove = T, extra = "drop") %>% 
+  separate(., working.1, into = c("working"), sep = " \\|", remove = T, extra = "drop") %>% 
+  separate(., working, into = c("working.1"), sep = ",", remove = T, extra = "drop") %>%
+  separate(., working.1, into = c("working"), sep = " ", remove = T, extra = "drop") %>%
+  separate(., working, into = c("working.1"), sep = "\\|", remove = T, extra = "drop") %>%
+  separate(., working.1, into = c("final"), sep = "-", remove = T, extra = "drop") %>%
+  mutate(final = gsub("True","TRUE",final)) %>%
+  mutate(final = gsub("true","TRUE",final)) %>%
+  mutate(final = gsub("most","MOST",final)) %>%
+  mutate(final = gsub("Most","MOST",final)) %>%
+  mutate(final = gsub("MOST;","MOST",final)) %>%
+  mutate(final = gsub("MOSTsee","MOST",final)) %>%
+  mutate(final = gsub("some","SOME",final)) %>%
+  mutate(final = gsub("Some","SOME",final)) %>%
+  mutate(final = gsub("false","FALSE",final)) %>%
+  mutate(final = gsub("False","FALSE",final)) %>% 
+  mutate(final = gsub("FALSEsee","FALSE",final)) %>%
+  mutate(final = gsub("FALSE&FALSE","FALSE",final)) %>%
+  mutate(final = gsub("MOST&MOST","MOST",final)) %>%
+  mutate(final = gsub("SOME&SOME","SOME",final)) %>%
+  mutate(final = gsub("TRUE&TRUE","TRUE",final)) %>%
+  mutate(final = gsub("\\|permitInformation=","",final)) %>% 
+  mutate(final = gsub(";","",final)) %>%
+  mutate(final = gsub("\\.","",final)) %>%
+  mutate(final = gsub(":","",final)) %>% 
+  mutate(final = gsub("'","",final))
+
+names(df)[names(df)=="final"] <- paste("enteredData_has_", field, sep = "")
+
+}
+
+
+#with the resulting dataframe, pick out just a few relevant columns and drop any that didn't have author_contact_comments
+compare <- df %>% select(any_of(contains(c("index","Curator","Paper","student","entered")))) %>%
+                  drop_na(any_of(contains("student")))
+
+#loop through field names, combining the student determined field with what the metadata script found
+# the !! undoes the quasi-quotation for fieldname, allowing the value contained therein to be used to name the column
+for (field in c("materialSampleID","locality",
+                   "coordinates","country","habitat",
+                   "environmentalMedium", "yearCollected", 
+                   "permitInformation", "preservative",
+                   "derivedGeneticDataX")) {
+  fieldname = paste(field,"student_V_entered",sep="_")
+  
+  compare <- compare %>% unite(col = !!fieldname, contains(field), sep = "_V_", remove = T)
+                         
+}
+
+# this command converts all values that have a match between student and script results to NA
+# the last filter command took forever to write, and removes rows that don't have any NAs
+mismatches <- compare %>% mutate_all(list(~na_if(.,"TRUE_V_TRUE"))) %>%
+            mutate_all(list(~na_if(.,"MOST_V_MOST"))) %>%
+            mutate_all(list(~na_if(.,"SOME_V_SOME"))) %>%
+            mutate_all(list(~na_if(.,"FALSE_V_FALSE"))) %>%
+            filter(rowSums(across(contains("student"), ~ is.na(.))) < 10)
+
+  
+
+write_csv(mismatches[,-3], "Student_V_EnteredMetadata.csv")
+
+
+```
+
+# Create a list of all QCd biosamples
+
+```{r}
+
+nm.path <- "/Users/eric/Library/CloudStorage/GoogleDrive-eric.d.crandall@gmail.com/My Drive/GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/NonMarine_BioSample_Metadata/Completed_nonMarine_BioSample_Metadata_Sheets/QCd"
+
+m.path <- "/Users/eric/Library/CloudStorage/GoogleDrive-eric.d.crandall@gmail.com/My Drive/GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/Marine_BioSample_Metadata/Completed_Marine_BioSample_Metadata_Sheets/QCd"
+
+
+
+biosampsQC <- tibble() 
+
+for(file in list.files(nm.path, full.names = T)){
+  print(file)
+  metadata <- read_excel(path = file, 
+                           sheet = "Samples",col_types = "text")
+  biosampsQC <- bind_rows(biosampsQC, metadata)
+}
+
+biosampsQC_nodups <- biosampsQC  %>% distinct(biosample_acc_sra, .keep_all = T) %>%    drop_na(project_index)
+
+biosampsQC_nodups %>% summarize(bioprojects = length(unique(project_index)),
+                       biosamps = length(project_index),
+                       nSpecies= length(unique(specificEpithet)),
+                        phyla = length(unique(phylum)))
+#write_tsv(biosampsQC_nodups, "datathon1_working_files/paper2_all_QCd_biosample_list.tsv")
+setdiff(biosampsQC_nodups$project_index, df$project_index)
+
+biosampsQC_nodups_gathered <- left_join(biosampsQC_nodups,df[,c("project_index","Metadata_Gathered")],by = "project_index")
+count(biosampsQC_nodups_gathered, Metadata_Gathered)
+
+```
+
+## Summarize
+
+```{r}
+biosampsQC_nodups <- read_tsv("datathon1_working_files/paper2_all_QCd_biosample_list.tsv",
+                              col_types = cols(.default =   col_character()))
+
+biosamps<-read_tsv("datathon1_working_files/paper2_all_biosample_list.tsv",col_types = cols(.default = col_character()))
+                                                                                                              
+
+Datathon_Species <- biosampsQC_nodups %>% group_by(project_acc_bioprj,specificEpithet) %>% 
+                      summarize(
+                              genus = first(genus),
+                              phylum = first(phylum),
+                              class = first(class),
+                              specificEpithet = first(specificEpithet),
+                              project_index = first(project_index),
+                              project_acc_bioprj = first(project_acc_bioprj),
+                              BioSamples = n_distinct(biosample_acc_sra),
+                              Localities = n_distinct(locality),
+                              Countries = n_distinct(country),
+                              sampleEnteredBy = first(sampleEnteredBy),
+                              collectorList = first(collectorList),
+                              associatedReferences = first(associatedReferences),
+                              establishmentMeans = paste(unique(establishmentMeans),
+                                                         collapse = "|"),
+                              habitat = paste(unique(habitat),
+                                                         collapse = "|"),
+                              library_selection_sra = paste(unique(library_selection_sra),
+                                                         collapse = "|"),
+                              library_strat_sra = paste(unique(library_strat_sra),
+                                                         collapse = "|"),
+                              sequencing_platform = paste(unique(sequencing_platform),
+                                                         collapse = "|"),
+                              instrument_model = paste(unique(instrument_model),
+                                                         collapse = "|")
+                      )
+
+biosamps$QC <- as.logical(biosamps$QC)
+biosamps_old <- biosamps %>% filter(QC) 
+biosampsQC_nodups %>%  summarize(bioprojects = length(unique(project_acc_bioprj)),
+                                      biosamps = length(project_index), 
+                             nSpecies= length(unique(specificEpithet)), 
+                             phyla = length(unique(phylum)))
+
+newBioProjects <- setdiff(biosampsQC_nodups$project_index,biosamps_old$project_index)
+
+newBioProjects <- setdiff(biosampsQC_nodups$project_acc_bioprj,biosamps$project_acc_bioprj)
+
+
+
+#write_tsv(Datathon_Species, "datathon1_working_files/GEOME_Datathon_Species_datasets.tsv")                          
+                              
+df$Metadata_Gathered[df$project_index %in% unique(biosampsQC_nodups$project_index)] 
+
+test <- df %>% filter(df$project_index %in% unique(biosampsQC_nodups$project_index)) %>% summarize()
+
+biosampsQC_nodup_gathered <- left_join(biosampsQC_nodups,df[,c("project_index","Metadata_Gathered")],by = "project_index") 
+
+ biosampsQC_nodup_gathered %>% filter(project_acc_bioprj %in% newBioProjects) %>% count(Metadata_Gathered)
+
+```
+# Interpreting the logistic models
+
+Gideon created Bayesian logistic models (in ./models) of the effect of BioProject age on the presence of various metadata categories.
+
+## Analysis 1
+
+ P(metadata in SRA or paper aka before author contact) ~ registration date of BioProject
+ 
+ must have year & (locality OR coords) for spatiotemp to be counted as present; inclusion criteria - relevant = T plus a handful of other decisions to get to the N = 492 bioprjs
+
+```{r}
+m1Betas <- read_delim("models/analysis1_betaTable.csv",delim = " ") %>% 
+          #split the CI column
+          mutate(CI95 = str_extract_all(`95% CI`,"-*[0-9]\\.[0-9]+")) %>%
+          # move the resulting list column into two columns
+          unnest_wider(CI95, names_sep = "_") %>% 
+          #change to numeric
+          mutate(across(starts_with("CI"),as.numeric)) %>% 
+          #exponentiate to get odds ratio
+          mutate(OddsMean = exp(mean), OddsLo95CI = exp(CI95_1), OddsHi95CI = exp(CI95_2))
+
+kable(m1Betas[,c(1,2,5,8:10)], digits=3)
+```
+
+## Analysis 2
+
+ P(author response|authors contacted = T) ~ registration date of BioProject
+
+```{r}
+m2Betas <- read_delim("models/analysis2_betaTable.csv",delim = " ") %>% 
+          #split the CI column
+          mutate(CI95 = str_extract_all(`95% CI`,"-*[0-9]\\.[0-9]+")) %>%
+          # move the resulting list column into two columns
+          unnest_wider(CI95, names_sep = "_") %>% 
+          #change to numeric
+          mutate(across(starts_with("CI"),as.numeric)) %>% 
+          #exponentiate to get odds ratio
+          mutate(OddsMean = exp(mean), OddsLo95CI = exp(CI95_1), OddsHi95CI = exp(CI95_2))
+
+kable(m2Betas[,c(1,2,5,8:10)], digits=3)
+```
+## Analysis 3
+
+P(recovered partial data|author response = T) ~ registration date of BioProject
+Recovered metadata = T if spatiotemp (collection date AND (coords or locality)) increases from MID to POST
+
+must have gained year OR (locality OR coords) metadata;
+any amount of gain counts (e.g. F -> SOME, SOME -> T, F -> MOST, etc.);
+inclusion criteria - authors responded and dataset was missing any amount of data in locality or year or coords (after looking in papers)
+
+```{r}
+m3Betas <- read_delim("models/analysis3_betaTable.csv",delim = " ") %>% 
+          #split the CI column
+          mutate(CI95 = str_extract_all(`95% CI`,"-*[0-9]\\.[0-9]+")) %>%
+          # move the resulting list column into two columns
+          unnest_wider(CI95, names_sep = "_") %>% 
+          #change to numeric
+          mutate(across(starts_with("CI"),as.numeric)) %>% 
+          #exponentiate to get odds ratio
+          mutate(OddsMean = exp(mean), OddsLo95CI = exp(CI95_1), OddsHi95CI = exp(CI95_2))
+
+kable(m3Betas[,c(1,2,5,8:10)], digits=3)
+```
+
+## Analysis 4
+
+gained enough metadata to have year & (locality OR coords) for >= 50% of samples;
+only gains that flip metadata from F/SOME to MOST/T count
+P(recovered all data|author response = T) ~ registration date of BioProject
+
+```{r}
+m4Betas <- read_delim("models/analysis4_betaTable.csv",delim = " ") %>% 
+          #split the CI column
+          mutate(CI95 = str_extract_all(`95% CI`,"-*[0-9]\\.[0-9]+")) %>%
+          # move the resulting list column into two columns
+          unnest_wider(CI95, names_sep = "_") %>% 
+          #change to numeric
+          mutate(across(starts_with("CI"),as.numeric)) %>% 
+          #exponentiate to get odds ratio
+          mutate(OddsMean = exp(mean), OddsLo95CI = exp(CI95_1), OddsHi95CI = exp(CI95_2))
+
+kable(m4Betas[,c(1,2,5,8:10)], digits=3)
+```
+
+# How Many BioProjects included publication information, and for how many could we find papers?
+
+```{r}
+gs4_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
+drive_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
+#get path to spreadsheet in GDrive
+nonmarineSRA <- googledrive::drive_ls(path = "BioProject_Tables", pattern =
+"nonMarine_SRA_BioProjects")
+marineSRA <- drive_get(path =
+"GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/Marine_SRA_BioProjects")
+
+
+df.nonmarine <- googlesheets4::range_read(nonmarineSRA, sheet = 1, range = "A:BK", col_types = "c", na = "NA") %>%
+  select(project_acc_bioprj, Paper_Available, publication_ID_bioprj) %>% 
+  mutate(datagroup = "nonmarine")
+df.marine <- googlesheets4::range_read(marineSRA, sheet = 1, range = "A:BK", col_types = "c", na = "NA") %>%
+  select(project_acc_bioprj, Paper_Available, publication_ID_bioprj) %>% 
+  mutate(datagroup = "marine")
+# read in the 848 post-filter bioprojects addressed in the datathon
+p848 <- read_csv("./datathon1_working_files/848_bioprjs_all_datathon.csv")
+df <- bind_rows(df.marine,df.nonmarine) %>% right_join(p848) %>% distinct(project_acc_bioprj, .keep_all = T)
+df$Paper_Available <- as.logical(df$Paper_Available)
+
+bioprojects_with_pub_info <- length(which(!is.na(df$publication_ID_bioprj)))
+length(!which(df$Paper_Available))
+
+bioprojects_with_pub_info/848
+
+
+```
+
+
+# Data Loading
+
+We cannot have spaces or dashes in materialSampleIDs, as they will be part of URIs. So, a quick script to replace spaces with underscores and dashes with . Also, need to remove the genus part of the specificEpithet. Blank localities replaced with "unknown" and blank years replaced with "unknown". Merge projects that appear in both marine and nonmarine sets. Rename biosample_acc_sra to biosampleAccession. Remove duplicates that have different run numbers.
+
+```{r}
+
+nm.path <- "/Users/eric/Library/CloudStorage/GoogleDrive-eric.d.crandall@gmail.com/My Drive/GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/NonMarine_BioSample_Metadata/Completed_nonMarine_BioSample_Metadata_Sheets/QCd"
+
+m.path <- "/Users/eric/Library/CloudStorage/GoogleDrive-eric.d.crandall@gmail.com/My Drive/GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/Marine_BioSample_Metadata/Completed_Marine_BioSample_Metadata_Sheets/QCd"
+
+final_path <- "/Users/eric/Library/CloudStorage/GoogleDrive-eric.d.crandall@gmail.com/My Drive/GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/Final_for_GEOME"
+
+
+
+biosampsQC <- tibble() 
+
+for(file in list.files(nm.path, full.names = T)){
+  print(file)
+  metadata <- read_excel(path = file, 
+                           sheet = "Samples",col_types = "text")
+  biosampsQC <- bind_rows(biosampsQC, metadata)
+}
+
+for(file in list.files(m.path, full.names = T)){
+  print(file)
+  metadata <- read_excel(path = file, 
+                           sheet = "Samples",col_types = "text")
+  biosampsQC <- bind_rows(biosampsQC, metadata)
+}
+
+# remove biosample accessions that were duplicated because of multiple runs, but keep them if they are duplicated 
+# because of multiple derivedGenetic entries. This removes 3,607 entries
+biosampsQC_noruns <- biosampsQC  %>% distinct(biosample_acc_sra, derivedGeneticDataFilename, .keep_all = T) %>%   
+  drop_na(project_index)
+
+
+biosampsQC_noruns_reformat <- biosampsQC_noruns %>% 
+          # replace " " with "_" in materialSampleID
+          mutate(materialSampleID = str_replace_all(materialSampleID," ","_")) %>% 
+          # replace "-" with "." in materialSampleID
+          mutate(materialSampleID = str_replace_all(materialSampleID,"-",".")) %>%
+          # remove genera (starting with a capital letter)
+          mutate(specificEpithet = str_remove(specificEpithet,"^[A-Z][a-z]+ ")) %>%
+          # remove "sp."
+          mutate(specificEpithet = str_remove(specificEpithet, "^sp[\\.]* +")) %>%
+          # remove Genera following x in a hybrid name
+          mutate(specificEpithet = str_remove(specificEpithet, " [A-Z][a-z]+")) %>% 
+          # replace x with × in hybrid names
+          mutate(specificEpithet = str_replace(specificEpithet, regex(" X ", ignore_case = T), " × ")) %>% 
+          # replace blank yearCollected with "unknown"
+          mutate(yearCollected = str_replace(yearCollected,"^ *$", "unknown")) %>%
+          #  replace NA yearCollected with "unknown"
+          mutate(yearCollected = replace_na(yearCollected, "unknown")) %>%
+          # replace blank locality with "unknown"
+          mutate(locality = str_replace(locality,"^ *$", "unknown")) %>% 
+          # replace NA locality with "unknown"
+          mutate(locality = replace_na(locality, "unknown")) %>%
+          # rename biosample_acc_sra to biosampleAccession
+          rename(biosampleAccession = biosample_acc_sra) %>% 
+          rename(bioprojectAccession = project_acc_bioprj)
+
+for(bp in unique(biosampsQC_noruns_reformat$bioprojectAccession)){
+  bioproject <- biosampsQC_noruns_reformat %>% filter(biosampsQC_noruns_reformat$bioprojectAccession == bp)
+  filename <- paste(first(biosampsQC_noruns_reformat$project_index[which(
+                              biosampsQC_noruns_reformat$bioprojectAccession==bp)]), bp, "final.xlsx", sep = "_")
+  write.xlsx(bioproject, file = file.path(final_path, filename), sheetName = "Samples", firstActiveRow = 1)
+}
+                      
+```

@@ -1,0 +1,35 @@
+functions {
+	vector getProb(int N, int nX, vector[] X,  real[] beta, real mu) {
+		vector[N] probs;
+		vector[N] theta;
+		theta = rep_vector(mu,N);
+		for(i in 1:N){
+			for(j in 1:nX){
+				theta[i] += beta[j]*X[j,i];
+			}
+		}
+		for(i in 1:N){
+			probs[i] = 	1 / (1 + exp(-(theta[i])));
+		}
+		return(probs);
+	}
+}
+data {
+	int<lower=2> N; 	  			// number of papers
+	int Y[N];						// boolean vector of response variable
+	int<lower=0> nX;				// number of predictor variables
+	vector[N] X[nX];				// array of predictors with N rows and nX columns
+}
+parameters {
+	real mu;						// mean response	
+	real beta[nX];					// effects of predictors on response variable
+}
+transformed parameters {
+	vector<lower=0,upper=1>[N] p;
+	p = getProb(N,nX,X,beta,mu);
+}
+model {
+	beta ~ normal(0,10);								// prior on beta
+	mu ~ normal(0,10);								// prior on mu
+	for(i in 1:N) Y[i] ~ binomial(1,p[i]);				// binomial likelihood
+}

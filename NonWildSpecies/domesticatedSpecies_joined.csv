@@ -1,0 +1,948 @@
+"Species","Common","Category","dom_common"
+"Canis lupus","Domestic dog (Canis lupus familiaris)[3]","Domesticated Animal","c(""Wolf"", ""Gray Wolf"", ""Lobo gris"", ""loup"")"
+"Capra aegagrus","Domestic goat (Capra aegagrus hircus)","Domesticated Animal",NA
+"Sus scrofa","Domestic pig (Sus scrofa domesticus)","Domesticated Animal","c(""wild boar"", ""pig"", ""pig (feral)"", ""Wild Boar"")"
+"Ovis aries","Domestic sheep (Ovis aries)[3]","Domesticated Animal","c(""Red Sheep"", ""domestic sheep"", ""mouflon"", ""sheep (feral)"")"
+"Bos primigenius","European cattle or taurine cattle (Bos primigenius taurus)[3][23][24]","Domesticated Animal",NA
+"Bos primigenius","Zebu, Brahman cattle, indicine cattle or humped cattle (Bos primigenius indicus)[3]","Domesticated Animal",NA
+"Felis catus","Domestic cat or house cat (Felis catus)[3]","Domesticated Animal","Domestic Cat"
+"Gallus gallus","Domestic chicken (Gallus gallus domesticus)","Domesticated Animal","Red Junglefowl"
+"Cavia porcellus","Guinea pig (Cavia porcellus)","Domesticated Animal",NA
+"Equus africanus","Domestic donkey or domestic ass (Equus africanus asinus)","Domesticated Animal",NA
+"Anas platyrhynchos","Domestic duck (Anas platyrhynchos domesticus)","Domesticated Animal","c(""Pato de collar"", ""Mallard"", ""canard colvert"")"
+"Bubalus bubalis","Domestic water buffalo (Bubalus bubalis)[3]","Domesticated Animal","c(""water buffalo"", ""water buffalo (feral)"", ""Water Buffalo"", ""domestic water buffalo"")"
+"Camelus dromedarius","Dromedary or Arabian camel (Camelus dromedarius)[33]","Domesticated Animal",NA
+"Equus ferus","Domestic horse (Equus ferus caballus)","Domesticated Animal","c(""Russian wild horse"", ""Tarpan"")"
+"Bombyx mori","Domestic silkmoth (Bombyx mori)","Domesticated Animal","c(""silkworm"", ""ver à soie"")"
+"Columba livia","Domestic pigeon (Columba livia domestica)","Domesticated Animal","c(""Paloma doméstica"", ""Rock Dove"", ""pigeon biset"", ""Common Pigeon"", ""Rock Pigeon"")"
+"Anser anser","Domestic goose and domestic swan goose (Anser anser domesticus and Anser cygnoides domesticus)","Domesticated Animal",NA
+"Bos grunniens","Domestic yak (Bos grunniens)[3]","Domesticated Animal","c(""grunting ox"", ""yak"", ""Yak"", ""domestic yak"")"
+"Camelus bactrianus","Domestic Bactrian camel (Camelus bactrianus)","Domesticated Animal","c(""Bactrian camel"", ""Bactrian Camel"")"
+"Lama glama","Llama (Lama glama)[3]","Domesticated Animal",NA
+"Vicugna pacos","Alpaca (Vicugna pacos)[3]","Domesticated Animal",NA
+"Numida meleagris","Domestic guineafowl (Numida meleagris domesticus)","Domesticated Animal","Helmeted Guineafowl"
+"Lycalopex culpaeus","Fuegian dog (Lycalopex culpaeus)†","Domesticated Animal",NA
+"Mustela putorius","Domestic ferret (Mustela putorius furo)","Domesticated Animal",NA
+"Cairina moschata","Domestic Muscovy duck (Cairina moschata domestica)","Domesticated Animal",NA
+"Streptopelia risoria","Barbary dove or ringed turtle dove (Streptopelia risoria)","Domesticated Animal",NA
+"Bos javanicus","Bali cattle (Bos javanicus domesticus)","Domesticated Animal",NA
+"Bos frontalis","Gayal (Bos frontalis)[3]","Domesticated Animal",NA
+"Meleagris gallopavo","Domestic turkey (Meleagris gallopavo domesticus)","Domesticated Animal","c(""Guajolote norteño"", ""Wild Turkey"", ""dindon sauvage"")"
+"Carassius auratus","Domestic goldfish (Carassius auratus)","Domesticated Animal",NA
+"Oryctolagus cuniculus","Domestic rabbit (Oryctolagus cuniculus domesticus)","Domesticated Animal",NA
+"Cyprinus rubrofuscus","Koi (Cyprinus rubrofuscus)","Domesticated Animal",NA
+"Serinus canaria","Domestic canary (Serinus canaria domestica)","Domesticated Animal",NA
+"Lonchura striata","Society finch (Lonchura striata domestica)","Domesticated Animal",NA
+"Mus musculus","Fancy mouse and laboratory mouse (Mus musculus domestica)","Domesticated Animal",NA
+"Poecilia reticulata","Guppy (Poecilia reticulata);[47]Cauca (P. caucana), Amazon (P. formosa), sailfin (P. latipinna), shortfin (P. mexicana), liberty (P. salvatoris), common (P. sphenops), and Yucatan mollies (P. velifera); Endler's livebearer (P. wingei)","Domesticated Animal",NA
+"Rattus norvegicus","Fancy rat and laboratory rat (Rattus norvegicus domestica)","Domesticated Animal","c(""rat surmulot"", ""Brown Rat"", ""Norway Rat"")"
+"Neovison vison","Domestic mink (Neovison vison domesticus)[49]","Domesticated Animal",NA
+"Vulpes vulpes","Domesticated silver fox (Vulpes vulpes amicus)","Domesticated Animal",NA
+"Atelerix albiventris","Domesticated hedgehog (Atelerix albiventris)","Domesticated Animal",NA
+"Mephitis mephitis","Domesticated striped skunk (Mephitis mephitis)","Domesticated Animal",NA
+"Malus pumila","Apple","Domesticated Plant Fruit",NA
+"Pseudocydonia sinensis","Chinese quince","Domesticated Plant Fruit",NA
+"Aronia melanocarpa","Chokeberry","Domesticated Plant Fruit",NA
+"Planchonia careya","Cocky apple","Domesticated Plant Fruit",NA
+"Crataegus aestivalis","Eastern mayhaw","Domesticated Plant Fruit",NA
+"Crataegus rhipidophylla","Hawthorn","Domesticated Plant Fruit",NA
+"Genipa americana","Jagua","Domesticated Plant Fruit",NA
+"Eriobotrya japonica","Loquat","Domesticated Plant Fruit",NA
+"Flacourtia inermis","Lovi-lovi","Domesticated Plant Fruit",NA
+"Mespilus germanica","Medlar","Domesticated Plant Fruit",NA
+"Malus niedzwetzkyana","Niedzwetzky's apple","Domesticated Plant Fruit",NA
+"Pyrus communis","Pear","Domesticated Plant Fruit",NA
+"Cydonia oblonga","Quince","Domesticated Plant Fruit",NA
+"Flacourtia indica","Ramontchi","Domesticated Plant Fruit",NA
+"Rosa rugosa","Rose hip","Domesticated Plant Fruit",NA
+"Sorbus aucuparia","Rowan","Domesticated Plant Fruit",NA
+"Manilkara zapota","Sapodilla","Domesticated Plant Fruit",NA
+"Pyracantha coccinea","Scarlet firethorn","Domesticated Plant Fruit",NA
+"Amelanchier alnifolia","Serviceberry","Domesticated Plant Fruit",NA
+"× Sorbopyrus irregularis","Shipova","Domesticated Plant Fruit",NA
+"Sorbus domestica","Sorb","Domesticated Plant Fruit",NA
+"Malus angustifolia","Southern crabapple","Domesticated Plant Fruit",NA
+"Heteromeles arbutifolia","Toyon","Domesticated Plant Fruit",NA
+"Euterpe oleracea","Açaí","Domesticated Plant Fruit",NA
+"Malpighia emarginata","Acerola","Domesticated Plant Fruit",NA
+"Irvingia gabonensis","African mango","Domesticated Plant Fruit",NA
+"Garcinia livingstonei","African mangosteen","Domesticated Plant Fruit",NA
+"Elaeis guineensis","African oil palm fruit","Domesticated Plant Fruit",NA
+"Cornus × unalaschkensis","Alaskan bunchberry","Domesticated Plant Fruit",NA
+"Spondias dulcis","Ambarella","Domesticated Plant Fruit",NA
+"Elaeis oleifera","American oil palm fruit","Domesticated Plant Fruit",NA
+"Prunus americana","American plum","Domesticated Plant Fruit",NA
+"Prunus armeniaca","Apricot","Domesticated Plant Fruit",NA
+"Mangifera pajang","Bambangan","Domesticated Plant Fruit",NA
+"Prunus maritima","Beach plum","Domesticated Plant Fruit",NA
+"Antidesma bunius","Bignay","Domesticated Plant Fruit",NA
+"Mangifera caesia","Binjai","Domesticated Plant Fruit",NA
+"Prunus serotina","Black cherry","Domesticated Plant Fruit",NA
+"Parajubaea torallyi","Bolivian mountain coconut","Domesticated Plant Fruit",NA
+"Syzygium australe","Brush cherry","Domesticated Plant Fruit",NA
+"Dacryodes edulis","Bush butter fruit","Domesticated Plant Fruit",NA
+"Cornus canadensis","Canadian bunchberry","Domesticated Plant Fruit",NA
+"Casimiroa edulis","Casimiroa","Domesticated Plant Fruit",NA
+"Eugenia reinwardtiana","Cedar Bay cherry","Domesticated Plant Fruit",NA
+"Byrsonima crassifolia","Changunga","Domesticated Plant Fruit",NA
+"Prunus avium","Cherry","Domesticated Plant Fruit","sweet cherry"
+"Elaeagnus multiflora","Cherry elaeagnus","Domesticated Plant Fruit",NA
+"Eugenia involucrata","Cherry of the Rio Grande","Domesticated Plant Fruit",NA
+"Ziziphus mauritiana","Chinese date","Domesticated Plant Fruit",NA
+"Prunus virginiana","Choke cherry","Domesticated Plant Fruit",NA
+"Chrysobalanus icaco","Cocoplum","Domesticated Plant Fruit",NA
+"Cocos nucifera","Coconut","Domesticated Plant Fruit","c(""coconut palm"", ""Palma de Coco"")"
+"Cornus mas","Cornelian cherry","Domesticated Plant Fruit",NA
+"Terminalia catappa","Country-almond","Domesticated Plant Fruit",NA
+"Prunus rivularis","Creek plum","Domesticated Plant Fruit",NA
+"Empetrum nigrum","Crowberry","Domesticated Plant Fruit",NA
+"Murraya koenigii","Curry berry","Domesticated Plant Fruit",NA
+"Prunus domestica subsp. insititia","Damson","Domesticated Plant Fruit",NA
+"Phoenix dactylifera","Date","Domesticated Plant Fruit","date palm"
+"Santalum acuminatum","Desert quandong","Domesticated Plant Fruit",NA
+"Phyllanthus emblica","Emblic","Domesticated Plant Fruit",NA
+"Owenia acidula","Emu apple","Domesticated Plant Fruit",NA
+"Litsea garciae","Engkala","Domesticated Plant Fruit",NA
+"Syzygium fibrosum","Fibrous satinash","Domesticated Plant Fruit",NA
+"Prunus umbellata","Flatwoods plum","Domesticated Plant Fruit",NA
+"Gomortega keule","Gomortega","Domesticated Plant Fruit",NA
+"Prunus domestica subsp. italica","Greengage","Domesticated Plant Fruit",NA
+"Buchanania obovata","Green plum","Domesticated Plant Fruit",NA
+"Myrciaria floribunda","Guavaberry","Domesticated Plant Fruit",NA
+"Terminalia ferdinandiana","Gubinge","Domesticated Plant Fruit",NA
+"Nephelium xerospermoides","Hairless rambutan","Domesticated Plant Fruit",NA
+"Syzygium cumini","Jambolan","Domesticated Plant Fruit",NA
+"Butia capitata","Jelly palm fruit","Domesticated Plant Fruit",NA
+"Spondias purpurea","Jocote","Domesticated Plant Fruit",NA
+"Ziziphus jujuba","Jujube","Domesticated Plant Fruit",NA
+"Prunus salicina spp.","Kelsey plum","Domesticated Plant Fruit",NA
+"Cocos nucifera var. aurantiaca","King coconut","Domesticated Plant Fruit",NA
+"Nephelium hypoleucum","Korlan","Domesticated Plant Fruit",NA
+"Buchanania arborescens","Little gooseberry","Domesticated Plant Fruit",NA
+"Dimocarpus Longan","Longan","Domesticated Plant Fruit",NA
+"Litchi chinensis","Lychee","Domesticated Plant Fruit",NA
+"Syzygium malaccense","Malay rose apple","Domesticated Plant Fruit",NA
+"Pouteria sapota","Mamey sapote","Domesticated Plant Fruit",NA
+"Mangifera indica","Mango","Domesticated Plant Fruit",NA
+"Bouea macrophylla","Maprang","Domesticated Plant Fruit",NA
+"Sclerocarya birrea","Marula","Domesticated Plant Fruit",NA
+"Synsepalum dulcificum","Miracle fruit","Domesticated Plant Fruit",NA
+"Mauritia flexuosa","Moriche palm fruit","Domesticated Plant Fruit",NA
+"Prunus persica var. nucipersica","Nectarine","Domesticated Plant Fruit",NA
+"Azadirachta indica","Neem","Domesticated Plant Fruit",NA
+"Choerospondias axillaris","Nepali hog plum","Domesticated Plant Fruit",NA
+"Myristica fragrans","Nutmeg","Domesticated Plant Fruit",NA
+"Phyllanthus acidus","Otaheite gooseberry","Domesticated Plant Fruit",NA
+"Prunus persica","Peach","Domesticated Plant Fruit","peach"
+"Bunchosia glandulifera","Peanut butter fruit","Domesticated Plant Fruit",NA
+"Caryocar brasiliense","Pequi","Domesticated Plant Fruit",NA
+"Coccoloba diversifolia","Pigeon plum","Domesticated Plant Fruit",NA
+"Canarium ovatum","Pili","Domesticated Plant Fruit",NA
+"Eugenia uniflora","Pitanga","Domesticated Plant Fruit",NA
+"Prunus domestica","Plum","Domesticated Plant Fruit","European plum"
+"Nephelium mutabile","Pulasan","Domesticated Plant Fruit",NA
+"Nephelium lappaceum","Rambutan","Domesticated Plant Fruit",NA
+"Syzygium suborbiculare","Red bush apple","Domesticated Plant Fruit",NA
+"Syzygium luehmannii","Riberry","Domesticated Plant Fruit",NA
+"Sageretia theezans","Sageretia","Domesticated Plant Fruit",NA
+"Serenoa repens","Saw palmetto fruit","Domesticated Plant Fruit",NA
+"Lodoicea maldivica","Sea coconut","Domesticated Plant Fruit",NA
+"Ardisia elliptica","Shoebutton ardisia","Domesticated Plant Fruit",NA
+"Shepherdia argentea","Silver buffaloberry","Domesticated Plant Fruit",NA
+"Prunus spinosa","Sloe","Domesticated Plant Fruit","blackthorn"
+"Mimusops elengi","Spanish cherry","Domesticated Plant Fruit",NA
+"Melicoccus bijugatus","Spanish lime","Domesticated Plant Fruit",NA
+"Dialium indum","Tamarind-plum","Domesticated Plant Fruit",NA
+"Dialium cochinchinense","Velvet tamarind","Domesticated Plant Fruit",NA
+"Dialium guineense","Velvet tamarind","Domesticated Plant Fruit",NA
+"Syzygium aqueum","Watery rose apple","Domesticated Plant Fruit",NA
+"Syzygium samarangense","Wax apple","Domesticated Plant Fruit",NA
+"Terminalia carpentariae","Wild peach","Domesticated Plant Fruit",NA
+"Manilkara kauki","Wongi","Domesticated Plant Fruit",NA
+"Myrica rubra","Yangmei","Domesticated Plant Fruit",NA
+"Ximenia americana","Yellow plum","Domesticated Plant Fruit",NA
+"Prunus domestica subsp. domestica","Zwetschge","Domesticated Plant Fruit",NA
+"Citropsis articulata","African cherry orange","Domesticated Plant Fruit",NA
+"Citrus × natsudaidai","Amanatsu","Domesticated Plant Fruit",NA
+"Citrus medica ssp. bajoura","Bajoura citron","Domesticated Plant Fruit",NA
+"Citrus bergamia","Bergamot orange","Domesticated Plant Fruit",NA
+"Citrus × aurantium","Bitter orange","Domesticated Plant Fruit",NA
+"Citrus australasica var. sanguinea × 'Ellendale Mandarin'","Blood lime","Domesticated Plant Fruit",NA
+"Citrus × sinensis 'Blood Orange'","Blood orange","Domesticated Plant Fruit",NA
+"Citrus medica var. sarcodactylis","Buddha's hand","Domesticated Plant Fruit",NA
+"× Citrofortunella microcarpa","Calamondin","Domesticated Plant Fruit",NA
+"Citrus reticulata × sinensis","Cam sành","Domesticated Plant Fruit",NA
+"Citrus margarita 'Centennial Variegated Kumquat'","Centennial variegated kumquat","Domesticated Plant Fruit",NA
+"Citrus medica","Citron","Domesticated Plant Fruit","citron"
+"Citrus × clementina","Clementine","Domesticated Plant Fruit",NA
+"Citrus glauca","Desert lime","Domesticated Plant Fruit",NA
+"Citrus medica var. ethrog","Etrog","Domesticated Plant Fruit",NA
+"Citrus australasica","Finger lime","Domesticated Plant Fruit",NA
+"Citrus × limonimedica","Florentine citron","Domesticated Plant Fruit",NA
+"Citrus × paradisi","Grapefruit","Domesticated Plant Fruit",NA
+"Citrus tamurana","Hyuganatsu","Domesticated Plant Fruit",NA
+"Citrus cavaleriei","Ichang papeda","Domesticated Plant Fruit",NA
+"Citrus × iyo","Iyokan","Domesticated Plant Fruit",NA
+"Citrus obovata","Jiangsu kumquat","Domesticated Plant Fruit",NA
+"Citrus sphaerocarpa","Kabosu","Domesticated Plant Fruit",NA
+"Citrus hystrix","Kaffir lime","Domesticated Plant Fruit",NA
+"Citrus × aurantiifolia","Key lime","Domesticated Plant Fruit",NA
+"Citrus nobilis × citrus × deliciosa","Kinnow","Domesticated Plant Fruit",NA
+"Citrus unshiu × citrus sinensis","Kiyomi","Domesticated Plant Fruit",NA
+"Citrus japonica","Kumquat","Domesticated Plant Fruit",NA
+"Citrus limon","Lemon","Domesticated Plant Fruit",NA
+"Citrus × latifolia","Lime","Domesticated Plant Fruit",NA
+"Citrus × floridana","Limequat","Domesticated Plant Fruit",NA
+"Citrus reticulata","Mandarin orange","Domesticated Plant Fruit","tangerine"
+"Citrus mangshanensis","Mangshanyegan","Domesticated Plant Fruit",NA
+"Citrus × meyeri","Meyer lemon","Domesticated Plant Fruit",NA
+"Citrus myrtifolia","Myrtle-leaved orange","Domesticated Plant Fruit",NA
+"Citrus flaviculpus","Ōgonkan","Domesticated Plant Fruit",NA
+"Citrus × sinensis","Orange","Domesticated Plant Fruit",NA
+"Citrus grandis × citrus paradisi","Oroblanco","Domesticated Plant Fruit",NA
+"Citrus margarita","Oval kumquat","Domesticated Plant Fruit",NA
+"Citrus × latifolia","Persian lime","Domesticated Plant Fruit",NA
+"Citrus maxima","Pomelo","Domesticated Plant Fruit","c(""shaddock"", ""pomelo"", ""pummelo"")"
+"Citrus × pyriformis","Ponderosa lemon","Domesticated Plant Fruit",NA
+"Citrus × limonia","Rangpur","Domesticated Plant Fruit",NA
+"Citrus australis","Round lime","Domesticated Plant Fruit",NA
+"Citrus unshiu","Satsuma mandarin","Domesticated Plant Fruit",NA
+"Citrus cavaleriei × citrus","Shangjuan","Domesticated Plant Fruit",NA
+"Citrus flaviculpus × citrus unshiu","Shonan gold","Domesticated Plant Fruit",NA
+"Citrus sudachi","Sudachi","Domesticated Plant Fruit",NA
+"Citrus limetta","Sweet limetta","Domesticated Plant Fruit",NA
+"Citrus × depressa","Taiwan tangerine","Domesticated Plant Fruit",NA
+"Citrus × tangelo","Tangelo","Domesticated Plant Fruit",NA
+"Citrus tangerina","Tangerine","Domesticated Plant Fruit",NA
+"Citrus reticulata × sinensis","Tangor","Domesticated Plant Fruit",NA
+"Citrus reticulata × citrus paradisi","Ugli fruit","Domesticated Plant Fruit",NA
+"Citrus junos","Yuzu","Domesticated Plant Fruit",NA
+"Garcinia humilis","Achacha","Domesticated Plant Fruit",NA
+"Pourouma cecropiifolia","Amazon grape","Domesticated Plant Fruit",NA
+"Sambucus canadensis","American black elderberry","Domesticated Plant Fruit",NA
+"Sambucus pubens","American red elderberry","Domesticated Plant Fruit",NA
+"Rubus strigosus","American red raspberry","Domesticated Plant Fruit",NA
+"Carpobrotus glaucescens","Angular sea-fig","Domesticated Plant Fruit",NA
+"Billardiera scandens","Apple berry","Domesticated Plant Fruit",NA
+"Coffea arabica","Arabian coffee","Domesticated Plant Fruit",NA
+"Eugenia stipitata","Araza","Domesticated Plant Fruit",NA
+"Rubus probus","Atherton raspberry","Domesticated Plant Fruit",NA
+"Berberis vulgaris","Barberry","Domesticated Plant Fruit",NA
+"Arctostaphylos uva-ursi","Bearberry","Domesticated Plant Fruit",NA
+"Carissa carandas","Bengal currant","Domesticated Plant Fruit",NA
+"Vaccinium myrtillus","Bilberry","Domesticated Plant Fruit",NA
+"Ribes nigrum","Black currant","Domesticated Plant Fruit",NA
+"Morus nigra","Black mulberry","Domesticated Plant Fruit",NA
+"Rubus allegheniensis","Blackberry","Domesticated Plant Fruit",NA
+"Euclea crispa","Blue guarri","Domesticated Plant Fruit",NA
+"Melastoma affine","Blue tongue","Domesticated Plant Fruit",NA
+"Vaccinium corymbosum","Blueberry","Domesticated Plant Fruit",NA
+"Eupomatia laurina","Bolwarra","Domesticated Plant Fruit",NA
+"Boquila trifoliolata","Boquila","Domesticated Plant Fruit",NA
+"Rubus ursinus × rubus idaeus","Boysenberry","Domesticated Plant Fruit",NA
+"Eugenia brasiliensis","Brazil cherry","Domesticated Plant Fruit",NA
+"Muntingia calabura","Calabur fruit","Domesticated Plant Fruit",NA
+"Calligonum junceum","Calligonum junceum","Domesticated Plant Fruit",NA
+"Myrciaria dubia","Camu camu","Domesticated Plant Fruit",NA
+"Physalis peruviana","Cape gooseberry","Domesticated Plant Fruit",NA
+"Psidium cattleyanum","Cattley guava","Domesticated Plant Fruit",NA
+"Dovyalis hebecarpa","Ceylon gooseberry","Domesticated Plant Fruit",NA
+"Ugni molinae","Chilean guava","Domesticated Plant Fruit",NA
+"Rubus chamaemorus","Cloudberry","Domesticated Plant Fruit",NA
+"Cassytha melantha","Coarse dodder-laurel fruit","Domesticated Plant Fruit",NA
+"Gaultheria hispida","Copperleaf snowberry","Domesticated Plant Fruit",NA
+"Carissa spinarum","Conkerberry","Domesticated Plant Fruit",NA
+"Vaccinium macrocarpon","Cranberry","Domesticated Plant Fruit",NA
+"Rubus hayata-koidzumii","Creeping raspberry","Domesticated Plant Fruit",NA
+"Maclura tricuspidata","Cudrang","Domesticated Plant Fruit",NA
+"Berberis darwinii","Darwin's barberry","Domesticated Plant Fruit",NA
+"Diospyros lotus","Date-plum","Domesticated Plant Fruit",NA
+"Rubus flagellaris","Dewberry","Domesticated Plant Fruit",NA
+"Gaultheria procumbens","Eastern teaberry","Domesticated Plant Fruit",NA
+"Sambucus nigra","Elderberry","Domesticated Plant Fruit",NA
+"Grewia retusifolia","Emu berry","Domesticated Plant Fruit",NA
+"Vitis labrusca","Fox grape","Domesticated Plant Fruit",NA
+"Actinidia chinensis","Golden kiwifruit","Domesticated Plant Fruit","kiwi"
+"Ribes uva-crispa","Gooseberry","Domesticated Plant Fruit",NA
+"Vitis vinifera","Grape","Domesticated Plant Fruit","wine grape"
+"Celtis occidentalis","Hackberry","Domesticated Plant Fruit",NA
+"Actinidia arguta","Hardy kiwi","Domesticated Plant Fruit",NA
+"Lonicera caerulea","Honeyberry","Domesticated Plant Fruit",NA
+"Lonicera periclymenum","Honeysuckle","Domesticated Plant Fruit",NA
+"Vaccinium ovatum","Huckleberry","Domesticated Plant Fruit",NA
+"Plinia cauliflora","Jabuticaba","Domesticated Plant Fruit",NA
+"Rubus parvifolius","Japanese bramble berry","Domesticated Plant Fruit",NA
+"Dovyalis caffra","Kei apple","Domesticated Plant Fruit",NA
+"Actinidia deliciosa","Kiwifruit","Domesticated Plant Fruit",NA
+"Garcinia indica","Kokum","Domesticated Plant Fruit",NA
+"Artocarpus hypargyreus","Kwai muk","Domesticated Plant Fruit",NA
+"Lansium parasiticum","Langsat","Domesticated Plant Fruit",NA
+"Acronychia acidula","Lemon aspen fruit","Domesticated Plant Fruit",NA
+"Triphasia trifolia","Limeberry","Domesticated Plant Fruit",NA
+"Vaccinium vitis-idaea","Lingonberry","Domesticated Plant Fruit",NA
+"Rubus × loganobaccus","Loganberry","Domesticated Plant Fruit",NA
+"Hancornia speciosa","Mangaba","Domesticated Plant Fruit",NA
+"Aristotelia chilensis","Maqui berry","Domesticated Plant Fruit",NA
+"Podophyllum peltatum","Mayapple","Domesticated Plant Fruit",NA
+"Austromyrtus dulcis","Midgen berry","Domesticated Plant Fruit",NA
+"Rubus moluccanus","Molucca bramble berry","Domesticated Plant Fruit",NA
+"Rubus adenotrichos","Mora común","Domesticated Plant Fruit",NA
+"Rubus glaucus","Mora de Castilla","Domesticated Plant Fruit",NA
+"Vaccinium floribundum","Mortiño","Domesticated Plant Fruit",NA
+"Kunzea pomifera","Muntrie","Domesticated Plant Fruit",NA
+"Vitis rotundifolia","Muscadine","Domesticated Plant Fruit",NA
+"Viburnum lentago","Nannyberry","Domesticated Plant Fruit",NA
+"Exocarpos cupressiformis","Native cherry","Domesticated Plant Fruit",NA
+"Acrotriche depressa","Native currant","Domesticated Plant Fruit",NA
+"Mahonia aquifolium","Oregon grape","Domesticated Plant Fruit",NA
+"Pentadiplandra brazzeana","Pentadiplandra brazzeana","Domesticated Plant Fruit",NA
+"Grewia asiatica","Phalsa","Domesticated Plant Fruit",NA
+"Eugenia luschnathiana","Pitomba-da-bahia","Domesticated Plant Fruit",NA
+"Billardiera longiflora","Purple apple-berry","Domesticated Plant Fruit",NA
+"Psidium rufum","Purple guava","Domesticated Plant Fruit",NA
+"Rubus strigosus","Raspberry","Domesticated Plant Fruit",NA
+"Ribes rubrum","Red currant","Domesticated Plant Fruit",NA
+"Vaccinium parvifolium","Red huckleberry","Domesticated Plant Fruit",NA
+"Morus rubra","Red mulberry","Domesticated Plant Fruit",NA
+"Rubus rosifolius","Roseleaf bramble berry","Domesticated Plant Fruit",NA
+"Flacourtia rukam","Rukam","Domesticated Plant Fruit",NA
+"Gaultheria shallon","Salal","Domesticated Plant Fruit",NA
+"Rubus spectabilis","Salmonberry","Domesticated Plant Fruit",NA
+"Amelanchier alnifolia","Saskatoon","Domesticated Plant Fruit",NA
+"Hippophae rhamnoides","Sea buckthorn","Domesticated Plant Fruit",NA
+"Coccoloba uvifera","Sea grape","Domesticated Plant Fruit",NA
+"Archirhodomyrtus beckleri","Small-leaved myrtle berry","Domesticated Plant Fruit",NA
+"Diploglottis campbellii","Small-leaved tamarind","Domesticated Plant Fruit",NA
+"Vangueria madagascariensis","Spanish tamarind","Domesticated Plant Fruit",NA
+"Fragaria","Strawberry","Domesticated Plant Fruit",NA
+"Arbutus unedo","Strawberry tree fruit","Domesticated Plant Fruit",NA
+"Billardiera cymosa","Sweet apple-berry","Domesticated Plant Fruit",NA
+"Solanum betaceum","Tamarillo","Domesticated Plant Fruit",NA
+"Rubus fruticosus × rubus idaeus","Tayberry","Domesticated Plant Fruit",NA
+"Diospyros texana","Texas persimmon","Domesticated Plant Fruit",NA
+"Rubus parviflorus","Thimbleberry","Domesticated Plant Fruit",NA
+"Clausena lansium","Wampee","Domesticated Plant Fruit",NA
+"Acronychia oblongifolia","White aspen berry","Domesticated Plant Fruit",NA
+"Rubus leucodermis","White bark raspberry","Domesticated Plant Fruit",NA
+"Morus alba","White mulberry","Domesticated Plant Fruit",NA
+"Capparis mitchellii","Wild orange","Domesticated Plant Fruit",NA
+"Fragaria vesca","Wild strawberry","Domesticated Plant Fruit","woodland strawberry"
+"Rubus phoenicolasius","Wineberry","Domesticated Plant Fruit",NA
+"Lycium barbarum","Wolfberry","Domesticated Plant Fruit",NA
+"Calamus manillensis","Yantok","Domesticated Plant Fruit",NA
+"Spondias mombin","Yellow mombin","Domesticated Plant Fruit",NA
+"Rubus caesius 'Youngberry'","Youngberry","Domesticated Plant Fruit",NA
+"Melodorum leichhardtii","Zig-zag vine fruit","Domesticated Plant Fruit",NA
+"Cucumis melo var. inodorus 'Bailan Melon'","Bailan melon","Domesticated Plant Fruit",NA
+"Cucumis melo var. inodorus 'Canary Melon'","Canary melon","Domesticated Plant Fruit",NA
+"Sicana odorifera","Cassabanana","Domesticated Plant Fruit",NA
+"Cucumis melo 'Collective Farm Woman Melon'","Collective farm woman melon","Domesticated Plant Fruit",NA
+"Cucumis melo 'Crane Melon'","Crane melon","Domesticated Plant Fruit",NA
+"Cucumis melo 'Crenshaw Melon'","Crenshaw melon","Domesticated Plant Fruit",NA
+"Cucumis melo var. cantalupensis","European cantaloupe","Domesticated Plant Fruit",NA
+"Cucumis melo var. inodorus","Honeydew melon","Domesticated Plant Fruit",NA
+"Cucumis metuliferus","Horned melon","Domesticated Plant Fruit",NA
+"Cucumis melo var. makuwa","Korean melon","Domesticated Plant Fruit",NA
+"Cucumis melo","Muskmelon","Domesticated Plant Fruit","cantaloupe"
+"Cucumis melo var. reticulatus","North American cantaloupe","Domesticated Plant Fruit",NA
+"Cucumis melo var. inodorus 'Santa Claus Melon'","Santa Claus melon","Domesticated Plant Fruit",NA
+"Cucumis melo 'Sprite Melon'","Sprite melon","Domesticated Plant Fruit",NA
+"Cucumis melo 'Tigger Melon'","Tigger melon","Domesticated Plant Fruit",NA
+"Citrullus lanatus","Watermelon","Domesticated Plant Fruit",NA
+"Pouteria caimito","Abiu","Domesticated Plant Fruit",NA
+"Blighia sapida","Ackee","Domesticated Plant Fruit",NA
+"Annona senegalensis","African custard-apple","Domesticated Plant Fruit",NA
+"Parkia biglobosa","African locust bean","Domesticated Plant Fruit",NA
+"Aglaia teysmanniana","Aglaia teysmanniana","Domesticated Plant Fruit",NA
+"Diospyros virginiana","American persimmon","Domesticated Plant Fruit",NA
+"Annona conica","Annona conica","Domesticated Plant Fruit",NA
+"Garcinia atroviridis","Asam gelugur","Domesticated Plant Fruit",NA
+"Eleiodoxa conferta","Asam kelubi","Domesticated Plant Fruit",NA
+"Annona squamosa × annona cherimola","Atemoya","Domesticated Plant Fruit",NA
+"Vasconcellea × heilbornii","Babaco","Domesticated Plant Fruit",NA
+"Platonia insignis","Bacuri","Domesticated Plant Fruit",NA
+"Aegle marmelos","Bael","Domesticated Plant Fruit",NA
+"Musa acuminata 'Cavendish'","Banana","Domesticated Plant Fruit",NA
+"Averrhoa bilimbi","Bilimbi","Domesticated Plant Fruit",NA
+"Rollinia deliciosa","Biribá","Domesticated Plant Fruit",NA
+"Pouteria australis","Black apple","Domesticated Plant Fruit",NA
+"Diospyros nigra","Black sapote","Domesticated Plant Fruit",NA
+"Psidium guineense","Brazilian guava","Domesticated Plant Fruit",NA
+"Artocarpus altilis","Breadfruit","Domesticated Plant Fruit",NA
+"Artocarpus camansi","Breadnut","Domesticated Plant Fruit",NA
+"Stelechocarpus burahol","Burahol","Domesticated Plant Fruit",NA
+"Pleiogynium timoriense","Burdekin plum","Domesticated Plant Fruit",NA
+"Baccaurea ramiflora","Burmese grape","Domesticated Plant Fruit",NA
+"Garcinia prainiana","Button mangosteen","Domesticated Plant Fruit",NA
+"Theobroma cacao","Cacao","Domesticated Plant Fruit","cacao"
+"Chrysophyllum cainito","Cainito","Domesticated Plant Fruit",NA
+"Pouteria campechiana","Canistel","Domesticated Plant Fruit",NA
+"Anacardium occidentale","Cashew apple","Domesticated Plant Fruit",NA
+"Annona scleroderma","Cawesh","Domesticated Plant Fruit",NA
+"Artocarpus integer","Cempedak","Domesticated Plant Fruit",NA
+"Garcinia madruno","Charichuelo","Domesticated Plant Fruit",NA
+"Annona cherimola","Cherimoya","Domesticated Plant Fruit",NA
+"Ficus racemosa","Cluster fig","Domesticated Plant Fruit",NA
+"Psidium friedrichsthalianum","Costa Rican guava","Domesticated Plant Fruit",NA
+"Hymenaea courbaril","Courbaril","Domesticated Plant Fruit",NA
+"Theobroma grandiflorum","Cupuaçu","Domesticated Plant Fruit",NA
+"Annona reticulata","Custard apple","Domesticated Plant Fruit",NA
+"Davidsonia jerseyana","Davidson's plum","Domesticated Plant Fruit",NA
+"Decaisnea insignis","Dead man's fingers","Domesticated Plant Fruit",NA
+"Ficus platypoda","Desert fig","Domesticated Plant Fruit",NA
+"Borassus flabellifer","Doub palm fruit","Domesticated Plant Fruit",NA
+"Duguetia confinis","Duguetia confinis","Domesticated Plant Fruit",NA
+"Duguetia spixiana","Duguetia spixiana","Domesticated Plant Fruit",NA
+"Durio zibethinus","Durian","Domesticated Plant Fruit",NA
+"Dillenia indica","Elephant apple","Domesticated Plant Fruit",NA
+"Feijoa sellowiana","Feijoa","Domesticated Plant Fruit",NA
+"Ficus carrii","Ficus carrii","Domesticated Plant Fruit",NA
+"Ficus carica","Fig","Domesticated Plant Fruit",NA
+"Momordica cochinchinensis","Gấc","Domesticated Plant Fruit",NA
+"Garcinia morella","Gamboge","Domesticated Plant Fruit",NA
+"Garcinia gummi-gutta","Garcinia cambogia","Domesticated Plant Fruit",NA
+"Garcinia forbesii","Garcinia forbesii","Domesticated Plant Fruit",NA
+"Passiflora quadrangularis","Giant granadilla","Domesticated Plant Fruit",NA
+"Glenniea philippinensis","Glenniea philippinensis","Domesticated Plant Fruit",NA
+"Psidium guajava","Guava","Domesticated Plant Fruit",NA
+"Pandanus tectorius","Hala fruit","Domesticated Plant Fruit",NA
+"Hydnora abyssinica","Hydnora abyssinica","Domesticated Plant Fruit",NA
+"Inga edulis","Ice-cream bean","Domesticated Plant Fruit",NA
+"Annona diversifolia","Ilama","Domesticated Plant Fruit",NA
+"Artocarpus heterophyllus","Jackfruit","Domesticated Plant Fruit",NA
+"Crescentia cujete","Jícara","Domesticated Plant Fruit",NA
+"Cola nitida","Kola nut","Domesticated Plant Fruit",NA
+"Pangium edule","Keluak","Domesticated Plant Fruit",NA
+"Garcinia parvifolia","Kundong","Domesticated Plant Fruit",NA
+"Lardizabala biternata","Lardizabala","Domesticated Plant Fruit",NA
+"Pouteria lucuma","Lúcuma","Domesticated Plant Fruit",NA
+"Siraitia grosvenorii","Luóhàn guǒ","Domesticated Plant Fruit",NA
+"Syzygium jambos","Malabar plum","Domesticated Plant Fruit",NA
+"Mammea americana","Mammee","Domesticated Plant Fruit",NA
+"Annona crassiflora","Marolo","Domesticated Plant Fruit",NA
+"Passiflora incarnata","Maypop","Domesticated Plant Fruit",NA
+"Baccaurea racemosa","Menteng","Domesticated Plant Fruit",NA
+"Artocarpus lacucha","Monkey fruit","Domesticated Plant Fruit",NA
+"Artocarpus rigidus","Monkey jackfruit","Domesticated Plant Fruit",NA
+"Pithecellobium dulce","Monkeypod","Domesticated Plant Fruit",NA
+"Monstera deliciosa","Monstera deliciosa","Domesticated Plant Fruit",NA
+"Annona montana","Mountain soursop","Domesticated Plant Fruit",NA
+"Garcinia dulcis","Mundu","Domesticated Plant Fruit",NA
+"Solanum quitoense","Naranjilla","Domesticated Plant Fruit",NA
+"Strychnos spinosa","Natal orange","Domesticated Plant Fruit",NA
+"Morinda citrifolia","Noni","Domesticated Plant Fruit",NA
+"Davidsonia pruriens","Ooray","Domesticated Plant Fruit",NA
+"Carica papaya","Papaya","Domesticated Plant Fruit","c(""papaya"", ""pawpaw"")"
+"Passiflora platyloba","Passiflora platyloba","Domesticated Plant Fruit",NA
+"Passiflora edulis","Passionfruit","Domesticated Plant Fruit",NA
+"Asimina triloba","Pawpaw","Domesticated Plant Fruit",NA
+"Solanum muricatum","Pepino","Domesticated Plant Fruit",NA
+"Diospyros kaki","Persimmon","Domesticated Plant Fruit",NA
+"Ananas comosus","Pineapple","Domesticated Plant Fruit","c(""Piña"", ""pineapple"")"
+"Punica granatum","Pomegranate","Domesticated Plant Fruit",NA
+"Annona glabra","Pond apple","Domesticated Plant Fruit",NA
+"Garcinia mangostana","Purple mangosteen","Domesticated Plant Fruit",NA
+"Pandanus conoideus","Red fruit","Domesticated Plant Fruit",NA
+"Salacca zalacca","Salak","Domesticated Plant Fruit",NA
+"Ficus coronata","Sandpaper fig","Domesticated Plant Fruit",NA
+"Sandoricum koetjape","Santol","Domesticated Plant Fruit",NA
+"Davidsonia johnsonii","Smooth davidson's plum","Domesticated Plant Fruit",NA
+"Annona purpurea","Soncoya","Domesticated Plant Fruit",NA
+"Annona muricata","Soursop","Domesticated Plant Fruit",NA
+"Quararibea cordata","South American sapote","Domesticated Plant Fruit",NA
+"Averrhoa carambola","Star fruit","Domesticated Plant Fruit",NA
+"Ficus aurea","Strangler fig","Domesticated Plant Fruit",NA
+"Annona squamosa","Sugar-apple","Domesticated Plant Fruit",NA
+"Passiflora ligularis","Sweet granadilla","Domesticated Plant Fruit",NA
+"Ficus sycomorus","Sycamore fig","Domesticated Plant Fruit",NA
+"Tamarindus indica","Tamarind","Domesticated Plant Fruit",NA
+"Artocarpus odoratissimus","Terap","Domesticated Plant Fruit",NA
+"Trichosanthes beccariana","Trichosanthes beccariana","Domesticated Plant Fruit",NA
+"Vanilla planifolia","Vanilla","Domesticated Plant Fruit","c(""vanilla"", ""Vainilla tlilxóchil"")"
+"Diospyros blancoi","Velvet apple","Domesticated Plant Fruit",NA
+"Ficus virens","White fig","Domesticated Plant Fruit",NA
+"Artocarpus hirsutus","Wild jack","Domesticated Plant Fruit",NA
+"Limonia acidissima","Wood-apple","Domesticated Plant Fruit",NA
+"Passiflora edulis f flavicarpa","Yellow granadilla","Domesticated Plant Fruit",NA
+"Myrtillocactus geometrizans","Bilberry cactus fruit","Domesticated Plant Fruit",NA
+"Pachycereus pringlei","Cardón fruit","Domesticated Plant Fruit",NA
+"Hylocereus undatus","Dragon fruit","Domesticated Plant Fruit",NA
+"Carpobrotus rossii","Karkalla fruit","Domesticated Plant Fruit",NA
+"Cereus repandus","Peruvian apple cactus fruit","Domesticated Plant Fruit",NA
+"Opuntia ficus-indica","Prickly pear fruit","Domesticated Plant Fruit",NA
+"Carnegiea gigantea","Saguaro fruit","Domesticated Plant Fruit",NA
+"Juniperus communis","Juniper berry","Domesticated Plant Fruit",NA
+"Dacrycarpus dacrydioides","Kahikatea","Domesticated Plant Fruit",NA
+"Manoao colensoi","Manoao","Domesticated Plant Fruit",NA
+"Nageia nagi","Nageia","Domesticated Plant Fruit",NA
+"Podocarpus elatus","Plum pine fruit","Domesticated Plant Fruit",NA
+"Podocarpus elongatus","Podocarpus","Domesticated Plant Fruit",NA
+"Prumnopitys andina","Prumnopitys","Domesticated Plant Fruit",NA
+"Hovenia dulcis","Raisin tree fruit","Domesticated Plant Fruit",NA
+"Rheum × hybridum","Rhubarb","Domesticated Plant Fruit",NA
+"Dacrydium cupressinum","Rimu","Domesticated Plant Fruit",NA
+"Podocarpus totara","Totara","Domesticated Plant Fruit",NA
+"Amaranthus cruentus","Amaranth","Domesticated Plant Vegetable",NA
+"Eruca sativa","Arugula","Domesticated Plant Vegetable",NA
+"Beta vulgaris vulgaris","Beet (greens)","Domesticated Plant Vegetable",NA
+"Brassica rapa ","Bok choy (白菜)","Domesticated Plant Vegetable",NA
+"Borago officinalis","Borage greens","Domesticated Plant Vegetable",NA
+"Brassica oleracea","Broccoli (leaves / stalks)","Domesticated Plant Vegetable","cabbage"
+"Veronica beccabunga","Brooklime","Domesticated Plant Vegetable",NA
+"Brassica oleracea ","Brussels sprouts","Domesticated Plant Vegetable",NA
+"Brassica oleracea ","Cabbage","Domesticated Plant Vegetable",NA
+"Hypochaeris radicata","Catsear","Domesticated Plant Vegetable",NA
+"Apium graveolens","Celery","Domesticated Plant Vegetable",NA
+"Lactuca sativa ","Celtuce","Domesticated Plant Vegetable",NA
+"Cnidoscolus aconitifolius aconitifolius","Chaya","Domesticated Plant Vegetable",NA
+"Stellaria","Chickweed","Domesticated Plant Vegetable",NA
+"Cichorium intybus","Chicory","Domesticated Plant Vegetable",NA
+"Malva verticillata","Chinese mallow","Domesticated Plant Vegetable",NA
+"Chrysanthemum coronarium","Garland Chrysanthemum","Domesticated Plant Vegetable",NA
+"Brassica oleracea","Collard greens","Domesticated Plant Vegetable","cabbage"
+"Portulaca oleracea","Common purslane","Domesticated Plant Vegetable",NA
+"Valerianella locusta","Corn salad","Domesticated Plant Vegetable",NA
+"Lepidium sativum","Cress","Domesticated Plant Vegetable",NA
+"Taraxacum officinale","Dandelion","Domesticated Plant Vegetable",NA
+"Anethum graveolens","Dill","Domesticated Plant Vegetable",NA
+"Cichorium endivia","Endive","Domesticated Plant Vegetable",NA
+"Chenopodium album","Fat hen","Domesticated Plant Vegetable",NA
+"Pteridium aquilinumAthyrium esculentum","Fiddlehead","Domesticated Plant Vegetable",NA
+"Telfairia occidentalis","Fluted pumpkin","Domesticated Plant Vegetable",NA
+"Inula crithmoides","Golden samphire","Domesticated Plant Vegetable",NA
+"Chenopodium bonus-henricus","Good King Henry","Domesticated Plant Vegetable",NA
+"Vitis","Grape (leaves)","Domesticated Plant Vegetable",NA
+"Plantago major","Greater plantain","Domesticated Plant Vegetable",NA
+"Brassica rapa ","Kai-lan (芥蘭 Gai lan)","Domesticated Plant Vegetable",NA
+"Brassica oleracea ","Kale","Domesticated Plant Vegetable",NA
+"Brassica rapa ","Komatsuna","Domesticated Plant Vegetable",NA
+"Adansonia","Kuka","Domesticated Plant Vegetable",NA
+"Talinum fruticosum","Lagos bologi","Domesticated Plant Vegetable",NA
+"Valerianella locusta","Lamb's lettuce","Domesticated Plant Vegetable",NA
+"Chenopodium album","Lamb's quarters","Domesticated Plant Vegetable",NA
+"Barbarea verna","Land cress","Domesticated Plant Vegetable",NA
+"Lactuca sativa","Lettuce","Domesticated Plant Vegetable","c(""garden lettuce"", ""lettuce"")"
+"Houttuynia cordata","Lizard's tail","Domesticated Plant Vegetable",NA
+"Basella alba","Malabar spinach","Domesticated Plant Vegetable",NA
+"Malvaceae","Mallow","Domesticated Plant Vegetable",NA
+"Corchorus olitoriusCorchorus capsularis","Melokhia","Domesticated Plant Vegetable",NA
+"Claytonia perfoliata","Miner's lettuce (Winter purslane)","Domesticated Plant Vegetable",NA
+"Brassica rapa ","Mizuna greens","Domesticated Plant Vegetable",NA
+"Sinapis alba","Mustard","Domesticated Plant Vegetable",NA
+"Brassica rapa ","Napa cabbage","Domesticated Plant Vegetable",NA
+"Tetragonia tetragonioides","New Zealand Spinach","Domesticated Plant Vegetable",NA
+"Atriplex hortensis","Orache","Domesticated Plant Vegetable",NA
+"Brassica rapa ","Pak choy (白菜 Bok choy)","Domesticated Plant Vegetable",NA
+"Acmella oleracea","Paracress","Domesticated Plant Vegetable",NA
+"Pisum sativum","Pea (sprouts / leaves)","Domesticated Plant Vegetable","garden pea"
+"Phytolacca americana","Poke","Domesticated Plant Vegetable",NA
+"Cichorium intybus","Radicchio","Domesticated Plant Vegetable",NA
+"Brassica rapa rapa","Rapini (broccoli rabe)","Domesticated Plant Vegetable",NA
+"Crithmum maritimum","Samphire","Domesticated Plant Vegetable",NA
+"Silene inflata","Sculpit / Stridolo","Domesticated Plant Vegetable",NA
+"Beta vulgaris maritima","Sea beet","Domesticated Plant Vegetable",NA
+"Crambe maritima","Sea kale","Domesticated Plant Vegetable",NA
+"Capsella bursa-pastoris","Shepherd's purse","Domesticated Plant Vegetable",NA
+"Crassocephalum","Sierra Leone bologi","Domesticated Plant Vegetable",NA
+"Celosia argentea","Soko","Domesticated Plant Vegetable",NA
+"Rumex acetosa","Sorrel","Domesticated Plant Vegetable",NA
+"Brassica oleracea","Sour cabbage","Domesticated Plant Vegetable","cabbage"
+"Spinacia oleracea","Spinach","Domesticated Plant Vegetable",NA
+"Portulaca oleracea","Summer purslane","Domesticated Plant Vegetable",NA
+"Beta vulgaris cicla ","Swiss chard","Domesticated Plant Vegetable",NA
+"Brassica rapa ","Tatsoi","Domesticated Plant Vegetable",NA
+"Brassica rapa ","Turnip greens","Domesticated Plant Vegetable",NA
+"Nasturtium officinale","Watercress","Domesticated Plant Vegetable",NA
+"Ipomoea aquatica","Water spinach","Domesticated Plant Vegetable",NA
+"Triticum aestivum","Wheatgrass","Domesticated Plant Vegetable","c(""common wheat"", ""wheat"")"
+"Achillea millefolium","Yarrow","Domesticated Plant Vegetable",NA
+"Brassica napus","Yao choy (油菜 Yu choy)","Domesticated Plant Vegetable","c(""turnip"", ""rape"")"
+"Cucumis melo var. flexuosus","Armenian cucumber","Domesticated Plant Vegetable",NA
+"Capsicum annuum","Bell pepper","Domesticated Plant Vegetable","cayenne pepper"
+"Momordica charantia","Bitter melon / Bitter gourd","Domesticated Plant Vegetable",NA
+"Cyclanthera pedata","Caigua / Achocha","Domesticated Plant Vegetable",NA
+"Lagenaria siceraria","Calabash / Bottle gourd","Domesticated Plant Vegetable",NA
+"Sechium edule","Chayote","Domesticated Plant Vegetable",NA
+"Melothria scabra","Cucamelon / Mouse melon","Domesticated Plant Vegetable",NA
+"Cucumis sativus","Cucumber","Domesticated Plant Vegetable","garden cucumber"
+"Solanum melongena","Eggplant / Aubergine / Brinjal","Domesticated Plant Vegetable","eggplant"
+"Coccinia grandis","Ivy gourd","Domesticated Plant Vegetable",NA
+"Cucumis metuliferus","Kiwano / Horned melon","Domesticated Plant Vegetable",NA
+"Luffa cylindrica","Luffa","Domesticated Plant Vegetable",NA
+"Olea europaea","Olive fruit","Domesticated Plant Vegetable","olive"
+"Cucurbita","Pumpkin","Domesticated Plant Vegetable",NA
+"Trichosanthes dioica","Pointed gourd","Domesticated Plant Vegetable",NA
+"Luffa acutangula","Ridged gourd","Domesticated Plant Vegetable",NA
+"Trichosanthes cucumerina","Snake gourd","Domesticated Plant Vegetable",NA
+"Momordica dioica","Spine gourd / Kantola","Domesticated Plant Vegetable",NA
+"Cucurbita","Squash","Domesticated Plant Vegetable",NA
+"Capsicum annuum ","Sweet pepper","Domesticated Plant Vegetable",NA
+"Praecitrullus fistulosus","Tinda","Domesticated Plant Vegetable",NA
+"Physalis philadelphica","Tomatillo","Domesticated Plant Vegetable",NA
+"Solanum lycopersicum","Tomato","Domesticated Plant Vegetable","garden tomato"
+"Vanilla","Vanilla","Domesticated Plant Vegetable",NA
+"Cucumis anguria","West Indian gherkin","Domesticated Plant Vegetable",NA
+"Citrullus Lanatus","Water melon","Domesticated Plant Vegetable",NA
+"Benincasa hispida","Winter melon","Domesticated Plant Vegetable","waxgourd"
+"Cucurbita pepo","Zucchini / Courgette / Marrow","Domesticated Plant Vegetable","c(""vegetable marrow"", ""field pumpkin"")"
+"Cynara cardunculus / scolymus","Artichoke","Domesticated Plant Vegetable",NA
+"Brassica oleracea","Broccoli","Domesticated Plant Vegetable","cabbage"
+"Brassica oleracea","Broccolini flowers","Domesticated Plant Vegetable","cabbage"
+"Capparis spinosa","Caper","Domesticated Plant Vegetable",NA
+"Brassica oleracea","Cauliflower","Domesticated Plant Vegetable","cabbage"
+"Cucurbita","Pumpkin flower","Domesticated Plant Vegetable",NA
+"Hemerocallis fulva","Daylily[1]","Domesticated Plant Vegetable",NA
+"Fernaldia pandurata","Loroco","Domesticated Plant Vegetable",NA
+"Cucurbita","Courgette flowers","Domesticated Plant Vegetable",NA
+"Cucurbita","Squash blossoms","Domesticated Plant Vegetable",NA
+"Apios americana","American groundnut","Domesticated Plant Vegetable",NA
+"Vigna unguiculata ","Asparagus bean","Domesticated Plant Vegetable",NA
+"Vigna angularis","Azuki bean","Domesticated Plant Vegetable",NA
+"Vigna unguiculata unguiculata","Black-eyed pea","Domesticated Plant Vegetable",NA
+"Cicer arietinum","Chickpea","Domesticated Plant Vegetable","chick pea"
+"Phaseolus vulgaris","Common bean","Domesticated Plant Vegetable","kidney bean"
+"Moringa oleifera","Drumstick","Domesticated Plant Vegetable",NA
+"Lablab purpureus","Dolichos bean","Domesticated Plant Vegetable",NA
+"Vicia faba","Fava bean","Domesticated Plant Vegetable",NA
+"Cicer arietinum","Garbanzo","Domesticated Plant Vegetable","chick pea"
+"Phaseolus vulgaris","Green bean (French bean)","Domesticated Plant Vegetable","kidney bean"
+"Cyamopsis tetragonoloba","Guar","Domesticated Plant Vegetable",NA
+"Macrotyloma uniflorum","Horse gram","Domesticated Plant Vegetable",NA
+"Lathyrus sativus","Indian pea","Domesticated Plant Vegetable",NA
+"Lens culinaris","Lentil","Domesticated Plant Vegetable",NA
+"Phaseolus lunatus","Lima bean","Domesticated Plant Vegetable",NA
+"Vigna acontifolia","Moth bean","Domesticated Plant Vegetable",NA
+"Vigna radiata","Mung bean","Domesticated Plant Vegetable",NA
+"Abelmoschus esculentus","Okra","Domesticated Plant Vegetable",NA
+"Pisum sativum","Pea","Domesticated Plant Vegetable","garden pea"
+"Arachis hypogaea","Peanut","Domesticated Plant Vegetable","peanut"
+"Cajanus cajan","Pigeon pea","Domesticated Plant Vegetable",NA
+"Vigna umbellata","Ricebean","Domesticated Plant Vegetable",NA
+"Phaseolus coccineus","Runner bean","Domesticated Plant Vegetable",NA
+"Pisum sativum ","Snap pea (sugarsnap, mangetout)","Domesticated Plant Vegetable",NA
+"Pisum sativum ","Snow pea (mangetout)","Domesticated Plant Vegetable",NA
+"Glycine max","Soybean","Domesticated Plant Vegetable","c(""soybean"", ""wild soybean"", ""reseeding soybean"")"
+"Lupinus mutabilis","Tarwi (Tarhui / Chocho)","Domesticated Plant Vegetable",NA
+"Phaseolus acutifolius","Tepary bean","Domesticated Plant Vegetable",NA
+"Vigna mungo","Urad bean","Domesticated Plant Vegetable",NA
+"Mucuna pruriens","Velvet bean","Domesticated Plant Vegetable",NA
+"Psophocarpus tetragonolobus","Winged bean","Domesticated Plant Vegetable",NA
+"Asparagus officinalis","Asparagus","Domesticated Plant Vegetable","c(""asparagus"", ""garden-asparagus"", ""garden asparagus"")"
+"Cynara cardunculus","Cardoon","Domesticated Plant Vegetable",NA
+"Apium graveolens ","Celeriac","Domesticated Plant Vegetable",NA
+"Apium graveolens","Celery","Domesticated Plant Vegetable",NA
+"Allium schoenoprasum","Chives","Domesticated Plant Vegetable",NA
+"Allium ampeloprasum ","Elephant garlic","Domesticated Plant Vegetable",NA
+"Foeniculum vulgare ","Florence fennel","Domesticated Plant Vegetable",NA
+"Allium sativum","Garlic","Domesticated Plant Vegetable",NA
+"Allium tuberosum","Garlic chives","Domesticated Plant Vegetable",NA
+"Brassica oleracea ","Kohlrabi","Domesticated Plant Vegetable",NA
+"Allium ampeloprasum ","Kurrat","Domesticated Plant Vegetable",NA
+"Cymbopogon citratus","Lemongrass","Domesticated Plant Vegetable",NA
+"Allium porrum","Leek","Domesticated Plant Vegetable",NA
+"Nelumbo nucifera","Lotus root","Domesticated Plant Vegetable",NA
+"Opuntia ficus-indica","Nopal","Domesticated Plant Vegetable",NA
+"Allium cepa","Onion","Domesticated Plant Vegetable","garden onion"
+"Allium ampeloprasum ","Pearl onion","Domesticated Plant Vegetable",NA
+"Allium cepa ","Potato onion","Domesticated Plant Vegetable",NA
+"Ornithogalum pyrenaicum","Prussian asparagus","Domesticated Plant Vegetable",NA
+"Allium wakegi","Spring onion / Scallion","Domesticated Plant Vegetable",NA
+"Allium cepa ","Shallot","Domesticated Plant Vegetable",NA
+"Allium × proliferum","Tree onion[2]","Domesticated Plant Vegetable",NA
+"Allium fistulosum","Welsh onion","Domesticated Plant Vegetable",NA
+"Allium tricoccum","Wild leek","Domesticated Plant Vegetable",NA
+"Zizania latifolia","Manchurian wild rice","Domesticated Plant Vegetable",NA
+"Pachyrhizus ahipa","Ahipa","Domesticated Plant Vegetable",NA
+"Arracacia xanthorrhiza","Arracacha","Domesticated Plant Vegetable",NA
+"Bambusa vulgarisPhyllostachys edulis","Bamboo shoot","Domesticated Plant Vegetable",NA
+"Beta vulgaris vulgaris","Beetroot","Domesticated Plant Vegetable",NA
+"Arctium lappa","Burdock","Domesticated Plant Vegetable",NA
+"Sagittaria latifolia","Broadleaf arrowhead","Domesticated Plant Vegetable",NA
+"Camassia","Camas","Domesticated Plant Vegetable",NA
+"Canna","Canna","Domesticated Plant Vegetable",NA
+"Daucus carota","Carrot","Domesticated Plant Vegetable",NA
+"Manihot esculenta","Cassava","Domesticated Plant Vegetable","c(""manioc"", ""bitter cassava"", ""tapioca"", ""cassava"")"
+"Stachys affinis","Chinese artichoke","Domesticated Plant Vegetable",NA
+"Raphanus sativus ","Daikon","Domesticated Plant Vegetable",NA
+"Lathyrus tuberosus","Earthnut pea","Domesticated Plant Vegetable",NA
+"Amorphophallus paeoniifolius","Elephant foot yam","Domesticated Plant Vegetable","whitespot giant arum"
+"Ensete ventricosum","Ensete","Domesticated Plant Vegetable","Abyssinian banana"
+"Alpinia galanga","Galangal","Domesticated Plant Vegetable",NA
+"Zingiber officinale","Ginger","Domesticated Plant Vegetable",NA
+"Petroselinum crispum tuberosum","Hamburg parsley","Domesticated Plant Vegetable",NA
+"Armoracia rusticana","Horseradish","Domesticated Plant Vegetable",NA
+"Helianthus tuberosus","Jerusalem artichoke","Domesticated Plant Vegetable",NA
+"Pachyrhizus erosus","Jícama","Domesticated Plant Vegetable",NA
+"Tropaeolum tuberosum","Mashua","Domesticated Plant Vegetable",NA
+"Pastinaca sativa","Parsnip","Domesticated Plant Vegetable",NA
+"Conopodium majus","Pignut","Domesticated Plant Vegetable",NA
+"Solanum tuberosum","Potato","Domesticated Plant Vegetable","Irish potato"
+"Psoralea esculenta","Prairie turnip","Domesticated Plant Vegetable",NA
+"Raphanus sativus","Radish","Domesticated Plant Vegetable","c(""cultivated radish"", ""radish"", ""garden radish"", ""wild radish"")"
+"Brassica napus ","Rutabaga (swede)","Domesticated Plant Vegetable",NA
+"Tragopogon porrifolius","Salsify","Domesticated Plant Vegetable",NA
+"Scorzonera hispanica","Scorzonera","Domesticated Plant Vegetable",NA
+"Sium sisarum","Skirret","Domesticated Plant Vegetable",NA
+"Brassica napus ","Swede","Domesticated Plant Vegetable",NA
+"Ipomoea batatas","Sweet potato (Kumara)","Domesticated Plant Vegetable","c(""`uala"", ""sweet potato"", ""sweet-potato"", ""sweetpotato"")"
+"Colocasia esculenta","Taro","Domesticated Plant Vegetable","c(""coco yam"", ""wild taro"")"
+"Cordyline fruticosa","Ti","Domesticated Plant Vegetable",NA
+"Cyperus esculentus","Tigernut","Domesticated Plant Vegetable",NA
+"Curcuma longa","Turmeric","Domesticated Plant Vegetable",NA
+"Brassica rapa ","Turnip","Domesticated Plant Vegetable",NA
+"Ullucus tuberosus","Ulluco","Domesticated Plant Vegetable",NA
+"Wasabia japonica","Wasabi","Domesticated Plant Vegetable",NA
+"Trapa natansTrapa bicornis","Water caltrop","Domesticated Plant Vegetable",NA
+"Eleocharis dulcis","Water chestnut","Domesticated Plant Vegetable",NA
+"Smallanthus sonchifolius","Yacón","Domesticated Plant Vegetable",NA
+"Dioscorea [3]","Yam","Domesticated Plant Vegetable",NA
+"MonostromaEnteromorpha","Aonori","Domesticated Plant Vegetable",NA
+"Eisenia bicyclis","Arame","Domesticated Plant Vegetable",NA
+"Callophyllis variegata","Carola","Domesticated Plant Vegetable",NA
+"Alaria esculenta","Dabberlocks (Badderlocks)","Domesticated Plant Vegetable",NA
+"Palmaria palmata","Dulse (Dillisk)","Domesticated Plant Vegetable",NA
+"Hizikia fusiformis","Hijiki","Domesticated Plant Vegetable",NA
+"Laminaria japonica","Kombu","Domesticated Plant Vegetable",NA
+"Porphyra","Laver / Gim","Domesticated Plant Vegetable",NA
+"Cladosiphon okamuranus","Mozuku","Domesticated Plant Vegetable",NA
+"Porphyra","Nori","Domesticated Plant Vegetable",NA
+"Gracilaria","Ogonori","Domesticated Plant Vegetable",NA
+"Caulerpa","Sea grape","Domesticated Plant Vegetable",NA
+"Ulva lactuca","Sea lettuce","Domesticated Plant Vegetable",NA
+"Undaria pinnatifida","Wakame","Domesticated Plant Vegetable",NA
+"Triticum","Wheat","Domesticated Plant Cereal",NA
+"Oryza","Rice","Domesticated Plant Cereal",NA
+"Hordeum","Barley","Domesticated Plant Cereal",NA
+"Zea mays","Corn","Domesticated Plant Cereal","corn"
+"Secale cereale","Rye","Domesticated Plant Cereal",NA
+"Avena","Oats","Domesticated Plant Cereal",NA
+"Echinocloa frumentacea","Millet","Domesticated Plant Cereal",NA
+"Eleusine coracana","Japanese Millet","Domesticated Plant Cereal",NA
+"Eragrostis abyssinica","Teff","Domesticated Plant Cereal",NA
+"Panicum miliaceum","Golden Millet","Domesticated Plant Cereal",NA
+"Paspalum scrobiculatum","Ditch Millet","Domesticated Plant Cereal",NA
+"Pennisetum glaucum","Pearl Millet","Domesticated Plant Cereal",NA
+"Setaria italica","Foxtail Millet","Domesticated Plant Cereal","c(""Italian bristle grass"", ""Italian foxtail"", ""foxtail bristlegrass"", ""foxtail millet"")"
+"Sorghum","Sorghum","Domesticated Plant Cereal",NA
+"Fagopyrum","Buckwheat","Domesticated Plant Cereal",NA
+"Chenopodum quinoa","Quinoa","Domesticated Plant Cereal",NA
+"Digitaria","Fonio","Domesticated Plant Cereal",NA
+"Phalaris canariensis","Canary Seed","Domesticated Plant Cereal",NA
+"Gylcine max","Soybean","Domesticated Plant Other",NA
+"Medicago sativa","Alfalfa","Domesticated Plant Other",NA
+"Lagenaria siceraria","Calabash","Domesticated Plant Other",NA
+"Cannabis sativa","Marijuana","Domesticated Plant Other","c(""hemp"", ""grass"", ""hashish"", ""Mary Jane"", ""pot"", ""marijuana"")"
+"Cannabis indica","Marijuana","Domesticated Plant Other",NA
+"Theobroma cacoa","Chocolate","Domesticated Plant Other",NA
+"Cola acuminata","Cola","Domesticated Plant Other",NA
+"Cola nitida","Cola","Domesticated Plant Other",NA
+"Coffea arabica","Coffee","Domesticated Plant Other",NA
+"Papaver somniferum","Opium","Domesticated Plant Other",NA
+"Nicotiana tabacum","Tobacco","Domesticated Plant Other","cultivated tobacco"
+"Camellia sinensis","Tea","Domesticated Plant Other","tea"
+"Gossypium","Cotton","Domesticated Plant Other","cotton"
+"Linum usitatissimum","Flax","Domesticated Plant Other","c(""cultivated flax"", ""common flax"")"
+"Agave fourcroydes","Sisal","Domesticated Plant Other",NA
+"Corchorus capsularis","White Jute","Domesticated Plant Other",NA
+"Corchorus capsularis","Tossa Jute","Domesticated Plant Other",NA
+"Hibiscus cannabinus","Kenaf","Domesticated Plant Other",NA
+"Cinnamomum verum","Cinnamon","Domesticated Plant Other",NA
+"Pimenta dioica","Allspice","Domesticated Plant Other",NA
+"Coriandrum sativum","Cilantro","Domesticated Plant Other",NA
+"Cuminum cyminum","Cumin","Domesticated Plant Other",NA
+"Jasminum","Jasmine","Domesticated Plant Other",NA
+"Cymbopogon","Lemongrass","Domesticated Plant Other",NA
+"Myristica fragrans","Nutmeg","Domesticated Plant Other",NA
+"Origanum vulgare","Oregano","Domesticated Plant Other",NA
+"Petroselinum crispum","Parsley","Domesticated Plant Other",NA
+"Mentha balsamea","Peppermint","Domesticated Plant Other",NA
+"Salvia rosmarinus","Rosemary","Domesticated Plant Other",NA
+"Croceus sativus","Saffron","Domesticated Plant Other",NA
+"Mentha spicata","Spearmint","Domesticated Plant Other",NA
+"Thymus vulgaris","Thyme","Domesticated Plant Other",NA
+"Saccharum officinarum","Sugar Cane","Domesticated Plant Other",NA
+"Amaranthus",NA,NA,"pigweed"
+"Amaranthus caudatus",NA,NA,"c(""quelite"", ""love-lies-bleeding"")"
+"Amaranthus dubius",NA,NA,"spleen amaranth"
+"Amaranthus hybridus",NA,NA,"c(""green pigweed"", ""smooth amaranth"", ""smooth pigweed"", ""slim amaranth"")"
+"Amaranthus hypochondriacus",NA,NA,"c(""Prince-of-Wales-feather"", ""Prince-of-Wales feather"")"
+"Amaranthus tricolor",NA,NA,"Joseph's-coat"
+"Ananas comosus var. bracteatus",NA,NA,NA
+"Ananas comosus var. microstachys",NA,NA,NA
+"Anser cygnoides",NA,NA,"Swan Goose"
+"Anser cygnoides domesticus",NA,NA,NA
+"Apis mellifera",NA,NA,"c(""honey bee"", ""abeille domestique"")"
+"Ascomycota",NA,NA,"c(""ascomiceto"", ""ascomycètes"", ""asco's"", ""ascomycetes"", ""sac fungi"")"
+"Aspergillus niger",NA,NA,NA
+"Aspergillus oryzae",NA,NA,NA
+"Begonia x hiemalis",NA,NA,NA
+"Beta vulgaris",NA,NA,"common beet"
+"Beta vulgaris subsp. vulgaris",NA,NA,NA
+"Bison bison",NA,NA,"c(""American bison"", ""bison"", ""Bisonte americano"", ""American Bison"")"
+"Bombyx mandarina",NA,NA,NA
+"Bos indicus",NA,NA,"c(""Brahma cattle"", ""zebu cattle"")"
+"Bos taurus",NA,NA,"c(""aurochs"", ""domesticated cattle"", ""domestic cattle (feral)"", ""Aurochs"")"
+"Brachypodium distachyon",NA,NA,"c(""purple false brome"", ""purple falsebrome"")"
+"Brassica juncea",NA,NA,"c(""India mustard"", ""Chinese mustard"", ""Indian mustard"")"
+"Brassica napus subsp. rapifera",NA,NA,NA
+"Brassica napus var. napus",NA,NA,"c(""rape"", ""winter rape"", ""summer rape"")"
+"Brassica napus var. pabularia",NA,NA,"Siberian kale"
+"Brassica oleracea var. botrytis",NA,NA,"broccoli"
+"Brassica oleracea var. capitata",NA,NA,"cabbage"
+"Brassica rapa",NA,NA,"c(""rape mustard"", ""rape"", ""bird's rape"", ""birdsrape mustard"", ""wild mustard"", ""wild rutabaga"", ""wild turnip"", ""turnip rape"", ""field mustard"")"
+"Brassica rapa Broccoletto Group",NA,NA,NA
+"Brassica rapa subsp. chinensis",NA,NA,NA
+"Brassica rapa subsp. dichotoma",NA,NA,NA
+"Brassica rapa subsp. oleifera",NA,NA,NA
+"Brassica rapa subsp. pekinensis",NA,NA,NA
+"Brassica rapa subsp. trilocularis",NA,NA,NA
+"Brassica rupestris",NA,NA,"mustard"
+"Camelus ferus",NA,NA,NA
+"Canis latrans",NA,NA,"c(""Coyote"", ""coyote"", ""Coyote"")"
+"Canis lupus chanco",NA,NA,NA
+"Canis lupus familiaris",NA,NA,"domestic dog"
+"Canis lupus lupus",NA,NA,NA
+"Canis lupus lycaon",NA,NA,NA
+"Canis sp.",NA,NA,NA
+"Capra hircus",NA,NA,"c(""domestic goat"", ""goat (feral)"", ""Goat"")"
+"Capra ibex",NA,NA,"c(""Alpine Ibex"", ""ibex"")"
+"Capra sibirica x Capra hircus",NA,NA,NA
+"Capsicum frutescens",NA,NA,NA
+"Carya illinoinensis",NA,NA,"c(""nuez encarcelada"", ""nogal morado"", ""pecanier"", ""pecan"")"
+"Castanea dentata",NA,NA,"American chestnut"
+"Castanea dentata x Castanea mollissima",NA,NA,NA
+"Castanea mollissima",NA,NA,"Chinese chestnut"
+"Cenchrus americanus",NA,NA,"pearl millet"
+"Cercocebus atys",NA,NA,"Sooty Mangabey"
+"Cervus canadensis canadensis",NA,NA,NA
+"Cervus canadensis sibiricus",NA,NA,NA
+"Cervus canadensis songaricus",NA,NA,NA
+"Cervus elaphus",NA,NA,"c(""elk"", ""wapiti"", ""Ciervo común"", ""wapiti or elk"", ""wapiti"", ""Red Deer (see comments)"")"
+"Cervus elaphus kansuensis",NA,NA,NA
+"Cervus elaphus xanthopygus",NA,NA,NA
+"Cervus hanglu yarkandensis",NA,NA,NA
+"Cervus nippon",NA,NA,"c(""Sika deer"", ""Sika"")"
+"Citrus aurantiifolia",NA,NA,NA
+"Citrus aurantium",NA,NA,"sour orange"
+"Citrus sinensis",NA,NA,NA
+"Citrus sinensis x Citrus reticulata",NA,NA,NA
+"Citrus x tangelo",NA,NA,"tangelo"
+"Corchorus olitorius",NA,NA,"nalta jute"
+"Corylus avellana",NA,NA,"common filbert"
+"Coturnix japonica",NA,NA,"Japanese Quail"
+"Cucumis sativus var. sativus",NA,NA,NA
+"Cucurbita argyrosperma",NA,NA,NA
+"Cucurbita moschata",NA,NA,"crookneck squash"
+"Cucurbita pepo subsp. fraterna",NA,NA,NA
+"Cucurbita pepo subsp. ovifera",NA,NA,NA
+"Cucurbita pepo subsp. pepo",NA,NA,NA
+"Cucurbita pepo var. ovifera",NA,NA,"field pumpkin"
+"Cucurbita pepo var. ozarkana",NA,NA,"Ozark melon"
+"Cucurbita pepo var. texana",NA,NA,"Texas gourd"
+"Cyprinus carpio",NA,NA,"c(""common carp"", ""European carp"", ""carpa común"", ""carpe"")"
+"Daucus carota subsp. sativus",NA,NA,NA
+"Dioscorea abyssinica",NA,NA,NA
+"Dioscorea alata",NA,NA,"c(""winged yam"", ""water yam"")"
+"Dioscorea baya",NA,NA,NA
+"Dioscorea bulbifera",NA,NA,"c(""air potato"", ""bitter yam"", ""air yam"")"
+"Dioscorea praehensilis",NA,NA,"bush yam"
+"Dioscorea rotundata",NA,NA,"Guinea yam"
+"Dioscorea togoensis",NA,NA,NA
+"Equus caballus",NA,NA,"c(""feral horse"", ""Horse"")"
+"Fragaria x ananassa",NA,NA,"hybrid strawberry"
+"Globodera rostochiensis",NA,NA,NA
+"Glycine soja",NA,NA,"c(""wild soybean"", ""reseeding soybean"")"
+"Gossypium arboreum",NA,NA,"tree cotton"
+"Gossypium barbadense",NA,NA,"Creole cotton"
+"Gossypium ekmanianum",NA,NA,NA
+"Gossypium herbaceum",NA,NA,"Levant cotton"
+"Gossypium hirsutum",NA,NA,"c(""upland cotton"", ""algodón"")"
+"Gossypium hirsutum subsp. hirsutum",NA,NA,NA
+"Gossypium tomentosum",NA,NA,"c(""mao"", ""Hawaiian cotton"", ""Hawai'i cotton"")"
+"Helianthus annuus",NA,NA,"c(""common sunflower"", ""sunflower"", ""wild sunflower"", ""annual sunflower"")"
+"Hordeum vulgare",NA,NA,"c(""common barley"", ""barley"", ""cereal barley"")"
+"Hordeum vulgare subsp. vulgare",NA,NA,NA
+"Humulus lupulus var. lupulus",NA,NA,"common hop"
+"Leptosiphon androsaceus",NA,NA,"false babystars"
+"Leptosiphon lemmonii",NA,NA,"Lemmon's linanthus"
+"Leptosiphon parviflorus",NA,NA,"variable linanthus"
+"Linanthus pungens",NA,NA,"granite prickly phlox"
+"Linum bienne",NA,NA,"pale flax"
+"Macaca mulatta",NA,NA,"c(""Rhesus Monkey"", ""Rhesus Macaque"")"
+"Malus domestica",NA,NA,NA
+"Malus ioensis",NA,NA,"c(""prairie crabapple"", ""prairie crab apple"")"
+"Melopsittacus undulatus",NA,NA,"Budgerigar"
+"Musa AAB Group",NA,NA,NA
+"Musa acuminata",NA,NA,"edible banana"
+"Musa acuminata AAA Group",NA,NA,NA
+"Musa hybrid cultivar",NA,NA,NA
+"Musa itinerans",NA,NA,NA
+"Oryza rufipogon",NA,NA,"c(""wild red rice"", ""red rice"", ""brownbeard rice"")"
+"Oryza sativa",NA,NA,"rice"
+"Oryza sativa Indica Group",NA,NA,NA
+"Oryza sativa Japonica Group",NA,NA,NA
+"Ovis ammon",NA,NA,"c(""argali"", ""Argali"")"
+"Ovis canadensis",NA,NA,"c(""bighorn sheep"", ""Borrego cimarrón"", ""Bighorn Sheep"")"
+"Papio anubis",NA,NA,"Olive Baboon"
+"Papio cynocephalus",NA,NA,"Yellow Baboon"
+"Parahyaena brunnea",NA,NA,"c(""brown hyaena"", ""brown hyena"")"
+"Paralichthys olivaceus",NA,NA,"c(""bastard halibut"", ""false halibut"", ""hirame"", ""olive flounder"")"
+"Parthenium",NA,NA,"feverfew"
+"Parthenium argentatum",NA,NA,"guayule"
+"Parthenium incanum",NA,NA,"mariola"
+"Paspalum vaginatum",NA,NA,"seashore paspalum"
+"Persea americana",NA,NA,"avocado"
+"Petunia",NA,NA,"petunia"
+"Phoenix canariensis",NA,NA,"Canary Island date palm"
+"Phoenix sylvestris",NA,NA,"wild date palm"
+"Phoenix theophrasti",NA,NA,NA
+"Phytophthora ramorum",NA,NA,NA
+"Pisum sativum subsp. sativum",NA,NA,NA
+"Platycladus orientalis",NA,NA,"oriental arborvitae"
+"Podococcus barteri",NA,NA,NA
+"Pogostemon cablin",NA,NA,"patchouli"
+"Prunus cerasifera",NA,NA,"c(""myrobalan plum"", ""ciruela chabacana"", ""cherry plum"")"
+"Prunus dulcis",NA,NA,"c(""sweet almond"", ""almond"", ""almendro"")"
+"Prunus mira",NA,NA,NA
+"Prunus mume",NA,NA,"Japanese apricot"
+"Prunus tenella",NA,NA,"c(""prunus"", ""dwarf Russian almond"", ""Russian almond"")"
+"Przewalskium albirostris",NA,NA,"c(""White-lipped Deer"", ""Thorold's deer"")"
+"Pyrus",NA,NA,"pear"
+"Rangifer tarandus",NA,NA,"c(""reindeer"", ""caribou"", ""caribou"", ""Reindeer"")"
+"Rattus rattus",NA,NA,"c(""rat noir"", ""House Rat"", ""Black Rat"", ""Roof Rat"")"
+"Rosa chinensis",NA,NA,"Chinese rose"
+"Rucervus eldii",NA,NA,"Eld's Deer"
+"Rusa unicolor",NA,NA,"Sambar"
+"Saccharomyces cerevisiae x Saccharomyces eubayanus",NA,NA,NA
+"Saccharomyces cerevisiae x Saccharomyces kudriavzevii",NA,NA,NA
+"Saccharomyces pastorianus",NA,NA,NA
+"Saccharomyces uvarum",NA,NA,NA
+"Saccharomyces uvarum x Saccharomyces eubayanus",NA,NA,NA
+"Salix suchowensis",NA,NA,NA
+"Salmo salar",NA,NA,"c(""Atlantic salmon"", ""saumon atlantique"")"
+"Salmo trutta",NA,NA,"c(""brown trout"", ""truite brune"")"
+"Salvia miltiorrhiza",NA,NA,NA
+"Sclerotinia sclerotiorum",NA,NA,NA
+"Solanum habrochaites",NA,NA,NA
+"Solanum lycopersicum var. cerasiforme",NA,NA,"garden tomato"
+"Solanum pimpinellifolium",NA,NA,"currant tomato"
+"Sorghum bicolor",NA,NA,"c(""broom-corn"", ""black amber"", ""chicken corn"", ""shattercane"", ""wild cane"", ""shatter cane"", ""sorghum"", ""broomcorn"")"
+"Sphenostylis stenocarpa",NA,NA,"African yam bean"
+"Sus scrofa domesticus",NA,NA,"domestic pig"
+"Sus scrofa scrofa",NA,NA,NA
+"Thamnaconus septentrionalis",NA,NA,NA
+"Triticum turgidum",NA,NA,"rivet wheat"
+"Triticum turgidum subsp. durum",NA,NA,NA
+"Vanilla barbellata",NA,NA,"wormvine orchid"
+"Vanilla dilloniana",NA,NA,"leafless vanilla"
+"Vanilla imperialis",NA,NA,NA
+"Vanilla odorata",NA,NA,NA
+"Vanilla palmarum",NA,NA,NA
+"Vanilla phaeantha",NA,NA,"leafy vanilla"
+"Vanilla pompona",NA,NA,"c(""West Indian vanilla"", ""Vainilla grande"")"
+"Vanilla x tahitensis",NA,NA,NA
+"Vigna angularis var. angularis x Vigna nakashimae",NA,NA,NA
+"Vigna unguiculata",NA,NA,"blackeyed pea"
+"Vitis aestivalis",NA,NA,"summer grape"
+"Vitis vinifera subsp. sylvestris",NA,NA,NA
+"Zea mays subsp. mays",NA,NA,NA
