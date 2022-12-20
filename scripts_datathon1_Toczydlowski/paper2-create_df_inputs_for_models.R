@@ -19,14 +19,14 @@ gc()
 #get parsed metadata statuses at bioprj level for paper 2
 #filtered by: relevant = T, not a domestic or other species we don't care about, not a duplicated project (or one we lost btw 2019 and 2020)
 
-df.full <- read.csv("working_files/justrelevantdatathon-bioprjlevel-premidpost-metadatastatuses-1-24-2022.csv")
+df.full <- read.table("Supplemental_Materials_S6-Datathon_Anonymized_Author_Response.tsv", sep = "\t", header = T)
 
 #recode date to continuous variable: year + julianDay/365 -> year.julianDayFraction
 #	then recorde dataset age as (November 7, 2019) - (bioproject registration year)
 presentDate <- as.numeric(paste0(2019,substr(as.numeric(format(as.Date("2019-11-07"), "%j"))/365,2,7)))
 
 
-df.full <- df.full %>% mutate(registration_date_bioprj = as.Date(registration_date_bioprj)) %>% 
+df.full <- df.full %>% mutate(registration_date_bioprj = as.Date(registration_date_bioprj, format = "%m/%d/%y")) %>% 
   mutate(registration_date_bioprj_julianday = format(registration_date_bioprj, "%j")) %>% 
   mutate(registration_date_bioprj_juliandayfrac = round(as.numeric(registration_date_bioprj_julianday)/365,5)) %>% 
   mutate(registration_date_bioprj_juliandayfracchar = substr(as.character(registration_date_bioprj_juliandayfrac),2,7)) %>% 
@@ -49,7 +49,7 @@ df.full <- df.full %>% mutate(registration_date_bioprj = as.Date(registration_da
 # aka collapsing these below
 
 #Eric wants to recode to be binary metadata present or absent (present if at least 50% of biosamps have data, absent if not)
-df.1 <- df.full %>% dplyr::select(project_acc_bioprj, project_index, registration_date_bioprj_julian,
+df.1 <- df.full %>% dplyr::select(registration_date_bioprj_julian,
                                   registration_date_bioprj_julianCont, Authors_Contacted,
                                   contains("MID", ignore.case = F)) %>%
   mutate_all(list(~str_replace(., "SOME", "FALSE"))) %>% 
@@ -98,7 +98,7 @@ save(df.1,file="models/dataObjs/df1.Robj")
 
 #get subsetted df - filtered to just bioprjs we contacted authors for
 df.2 <- df.full %>% filter(Authors_Contacted == "TRUE") %>% 
-  dplyr::select(project_acc_bioprj, project_index, Authors_Contacted, 
+  dplyr::select(Authors_Contacted, 
                 registration_date_bioprj, registration_date_bioprj_julianCont, 
                 author_response)
   
@@ -142,7 +142,7 @@ save(df.2,file="models/dataObjs/df2.Robj")
 
 #get subsetted df - only keep datasets that authors responded for
 df.3 <- df.full %>% filter(author_response == "TRUE") %>% 
-  dplyr::select(project_acc_bioprj, project_index, registration_date_bioprj_julianCont, author_response, contains("MID"), contains("POST")) %>% 
+  dplyr::select(registration_date_bioprj_julianCont, author_response, contains("MID"), contains("POST")) %>% 
   mutate(hasMIDdatathonpublication = as.factor(hasMIDdatathonpublication),
          hasPOSTdatathonpublication = as.factor(hasPOSTdatathonpublication))
 #build col that says whether we gained metadata from MID to POST or not
@@ -160,12 +160,12 @@ df.3 <- df.3 %>% dplyr::select(-status) %>% pivot_wider(., names_from = stage, v
   mutate(metadata_gained = as.factor(ifelse(POST > MID, "1", "0")))
 #build a correct/finer scale spatiotemp category here that counts metadata gained if any increase in collection yr 
 #and any increase in coords or locality
-df.3.spatiotemp <- df.3 %>% dplyr::select(project_acc_bioprj, project_index, registration_date_bioprj_julianCont, 
+df.3.spatiotemp <- df.3 %>% dplyr::select(registration_date_bioprj_julianCont, 
                                           author_response, metadata, metadata_gained, MID) %>% 
   filter(metadata %in% c("datathonyearCollected","datathoncoordinates","datathonlocality")) %>% distinct() %>% 
   #filter out projects that already had all time, coord, and locality info (no metadata to be gained)
   #and only put a value in for spatiotemp category for projs that didn't already have complete data
-  group_by(project_acc_bioprj,project_index) %>% mutate(sum = sum(MID)) %>% filter(sum < 9) %>% 
+  mutate(sum = sum(MID)) %>% filter(sum < 9) %>% 
   ungroup() %>% dplyr::select(-MID, -sum) %>% 
   pivot_wider(., names_from = metadata, values_from = metadata_gained) %>% 
   mutate(gained_space = ifelse(datathoncoordinates == 1 | datathonlocality == 1, 1, 0)) %>% 
@@ -175,7 +175,7 @@ df.3.spatiotemp <- df.3 %>% dplyr::select(project_acc_bioprj, project_index, reg
 df.3.spatiotemp %>% group_by(datathonyearCollected, datathoncoordinates, datathonlocality, metadata_gained) %>% 
   summarise(n=n())
 #merge back onto full df
-df.3.spatiotemp <- df.3.spatiotemp %>% dplyr::select(project_acc_bioprj, project_index, registration_date_bioprj_julianCont, 
+df.3.spatiotemp <- df.3.spatiotemp %>% dplyr::select(registration_date_bioprj_julianCont, 
                                                      author_response, metadata, MID, POST, metadata_gained)
 df.3 <- rbind(df.3, df.3.spatiotemp)
 #check variable coding
@@ -229,8 +229,7 @@ save(df.3,file="models/dataObjs/df3.Robj")
 #subset to just datasets we got a response from authors for
 #recode to be binary metadata present or absent (present if at least 50% of biosamps have data, absent if not)
 df.4 <- df.full %>% filter(author_response == "TRUE") %>% 
-  dplyr::select(project_acc_bioprj, project_index, 
-                                  registration_date_bioprj_julianCont, Authors_Contacted,
+  dplyr::select(registration_date_bioprj_julianCont, Authors_Contacted,
                                   contains("MID", ignore.case = F),
                                   contains("POST", ignore.case = F)) %>%
   mutate_all(list(~str_replace(., "SOME", "FALSE"))) %>% 
