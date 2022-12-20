@@ -114,7 +114,7 @@ label_key <- data.frame(metadata.df1 = c("hasMIDdatathonpublication", "hasMIDdat
 #		metadata for each category of metadata
 ################################
 
-load("models/dataObjs/df1.Robj")
+load("logistic_models_Bradburd/dataObjs/df1.Robj")
 #str(df.1)
 
 responseVars <- names(df.1)[grep("has",names(df.1))]
@@ -162,7 +162,7 @@ write.table(betaTable,file="models/analysis1_betaTable.csv")
 #		author response when we contacted them
 ################################
 
-load("models/dataObjs/df2.Robj")
+load("logistic_models_Bradburd/dataObjs/df2.Robj")
 #str(df.2)
 
 betaTable <- matrix(NA,nrow=1,ncol=4)
@@ -206,7 +206,7 @@ write.table(betaTable,file="models/analysis2_betaTable.csv")
 #		for datasets for which authors responded to our request
 ################################
 
-load("models/dataObjs/df3.Robj")
+load("logistic_models_Bradburd/dataObjs/df3.Robj")
 #str(df.3)
 
 responseVars <- names(df.3)[grep("datathon",names(df.3))]
@@ -259,7 +259,7 @@ write.table(betaTable,file="models/analysis3_betaTable.csv")
 #		for datasets for which authors responded to our request
 ################################
 
-load("models/dataObjs/df4.Robj")
+load("logistic_models_Bradburd/dataObjs/df4.Robj")
 #str(df.4)
 
 responseVars <- names(df.4)[grep("datathon",names(df.4))]
