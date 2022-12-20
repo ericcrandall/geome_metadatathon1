@@ -1,3 +1,5 @@
+#written by R.H. Toczydlowski (rhtoczydlowski@gmail.com, ORCID: 0000-0002-8141-2036)
+
 #idea - run some models to explore if age of bioprj predicts if we 
 #recovered metadata (that we couldn't find on our own, aka we had to contact authors to try to get it)
 
