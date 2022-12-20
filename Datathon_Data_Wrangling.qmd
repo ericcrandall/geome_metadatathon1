@@ -1,13 +1,19 @@
 ---
 title: "Metadata Wrangling Code for GEOME Metadatathon"
-author: "Eric Crandall"
-format: html
+author: "Eric Crandall 0000-0001-8580-3651"
+format:
+  html:
+    theme: solar
+    toc: true
+    toc-float: true
+    df-print: paged
 editor: visual
 execute:
   eval: false
 ---
 
 ```{r Setup}
+#| eval: true
 
 library(tidyverse)
 library(googlesheets4)
@@ -27,32 +33,29 @@ library(knitr)
 
 ```
 
-
 # Purpose
 
-This notebook documents the steps to go from raw csv's pulled down from INSDC Sequence Read Archive by Rachel to the spreadsheets necessary for GEOME Datathon project management. I'm also going to try to learn to work better in the Tidyverse.
+This notebook documents the steps to go from raw csv's pulled down from INSDC Sequence Read Archive by Rachel to the spreadsheets necessary for GEOME Datathon project management. I'm also going to try to learn to work better in the Tidyverse. The raw INSDC data and other datasets contain some sensitive information, and so are not available in this repository. The raw data that are available for reconstructing the Figure 4 results are in the `data` directory of this repository. Please contact me at eric.d.crandall@gmail.com if you would like to examine other raw data files mentioned in this notebook.
 
 ## From Rachel's Email of June 24, 2020:
 
->I generated these four spreadsheets for now (note these are different than our previous list numbering):  
-> * list1 - divdiv datasets with lat/longs located outside of NCBI (n indivs per dataset > 9)  
-> * list2 - divdiv datasets for which we haven't yet searched for lat/long outside of NCBI (n indivs per dataset > 9)  
-> * list3 - divdiv datasets where we looked for lat/long outside of NCBI and couldn't find it (n indivs per dataset > 9)   
-> (aka we know we need to contact author for if we want to try and get lat/long)  
-> * list4 - eukaryotes sans model organisms removed for which we haven't yet > assessed data relevance (n indivs per dataset > 4)
-  
-  
-> The order of operations (I think also laid out in Cynthia's flow chart in divdiv materials) as I see it is something like:  
-> 1. Assess if dataset is relevant for popgen (natural populations, multiple populations, not hybrids?, etc.)  
-> 2. For those passing #1, try to locate lat/long outside of NCBI and see if sample names can be matched to NCBI metadata we have  
-> 3a. For those passing #2, gather the data from sources outside NCBI  
-> 3b. For those not passing #2, contact authors.  
+> I generated these four spreadsheets for now (note these are different than our previous list numbering):\
+> \* list1 - divdiv datasets with lat/longs located outside of NCBI (n indivs per dataset \> 9)\
+> \* list2 - divdiv datasets for which we haven't yet searched for lat/long outside of NCBI (n indivs per dataset \> 9)\
+> \* list3 - divdiv datasets where we looked for lat/long outside of NCBI and couldn't find it (n indivs per dataset \> 9)\
+> (aka we know we need to contact author for if we want to try and get lat/long)\
+> \* list4 - eukaryotes sans model organisms removed for which we haven't yet \> assessed data relevance (n indivs per dataset \> 4)
 
-> list1 needs to enter the pipeline at step #3a.  
-> list2 needs to enter the pipeline at step #2.  
-> list3 needs to enter the pipeline at step #3b.  
-> list4 needs to enter the pipeline at step #1.  
+> The order of operations (I think also laid out in Cynthia's flow chart in divdiv materials) as I see it is something like:\
+> 1. Assess if dataset is relevant for popgen (natural populations, multiple populations, not hybrids?, etc.)\
+> 2. For those passing #1, try to locate lat/long outside of NCBI and see if sample names can be matched to NCBI metadata we have\
+> 3a. For those passing #2, gather the data from sources outside NCBI\
+> 3b. For those not passing #2, contact authors.
 
+> list1 needs to enter the pipeline at step #3a.\
+> list2 needs to enter the pipeline at step #2.\
+> list3 needs to enter the pipeline at step #3b.\
+> list4 needs to enter the pipeline at step #1.
 
 # Read In The Lists
 
@@ -276,10 +279,10 @@ drops <- c("uid_bioprj", "taxid_bioprj", "project_type_bioprj",
 "vernaculartitle_pubmed, issue_pubmed")
 ```
 
-Now I'm going to try a new way to drop columns in `dplyr`. Using all_of removes potential ambiguity from `drops` being also a column name. I am then adding in columns for student notations using `add_column()`. For the marine dataset, some of this work has already been done, so I need to add these columns with appropriate T/F values to the original lists, before summarizing. 
+Now I'm going to try a new way to drop columns in `dplyr`. Using all_of removes potential ambiguity from `drops` being also a column name. I am then adding in columns for student notations using `add_column()`. For the marine dataset, some of this work has already been done, so I need to add these columns with appropriate T/F values to the original lists, before summarizing.
 
 ```{r Drop and Add Columns}
-
+#| eval: false
 
 list1 <- select(list1,-all_of(drops)) %>% add_column(.after = "link", Metadata_Curator = "",
                                                      Relevant = "TRUE", 
@@ -571,7 +574,6 @@ nonMarine_BioProjects <- add_column(nonMarine_BioProjects,.before = "project_acc
  
 ```
 
-
 # Write to Google Sheets
 
 ## Write BioProject Summaries
@@ -597,13 +599,12 @@ write_csv(nonMarine_BioProjects, "nonMarine_BioProjects_20200714.csv")
 
 After writing these sheets:
 
-1. Move sheets to `/GEOME_Datathon/Datathon_Working_Directory/BioProject/Table`
-2. Protect Columns A:E, X:CA. Color columns in between.
-3. Format `email_date` as `Date`
-5. Set up validation on Boolean columns
-4. Freeze up to column F
-5. Set up `Metadata_Gathered`validation: (From Author, From Paper)
-
+1.  Move sheets to `/GEOME_Datathon/Datathon_Working_Directory/BioProject/Table`
+2.  Protect Columns A:E, X:CA. Color columns in between.
+3.  Format `email_date` as `Date`
+4.  Set up validation on Boolean columns
+5.  Freeze up to column F
+6.  Set up `Metadata_Gathered`validation: (From Author, From Paper)
 
 ## Write BioSample metadata
 
@@ -614,10 +615,6 @@ Now I will loop through all of the BioProjects, using the `googledrive` package 
 workingList <- nonmarinelist
 workingBioProjects <- nonMarine_BioProjects
 path <- "GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/NonMarine_BioSample_Metadata/"
-
-gs4_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
-drive_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
-
 
 
 #c(310,318,348)
@@ -649,15 +646,14 @@ for(prj in workingBioProjects$project_acc_bioprj[55]){
     
     # grab more metadata, collapse first and last names, split the genus and species names and 
     #write into the sheet
-    namestax <- workingList[which(workingList$project_acc_bioprj == prj), c("contact_first_name_biosamp",	
-                                                                            "contact_last_name_biosamp",
-                                                                          "samplename_identifiers_biosamp",
-                                                                            "organism_biosamp", 
-                                                                            "taxonomy_biosamp", 
-                                                                            "infraspecies_biosamp")]  %>% 
-                unite("contact_first_name_biosamp", "contact_last_name_biosamp", 
+    namestax <- workingList[which(workingList$project_acc_bioprj == prj), c("contact_first_name_biosamp",
+   "contact_last_name_biosamp",
+   "samplename_identifiers_biosamp",
+   "organism_biosamp", 
+   "taxonomy_biosamp", 
+   "infraspecies_biosamp")]  %>% 
+    unite("contact_first_name_biosamp", "contact_last_name_biosamp", 
                                     sep = " ", col = "collectorList", remove = T) 
-    
     
     # Taxize - Create a lookup table
     print("Querying Taxonomy")
@@ -688,18 +684,24 @@ for(prj in workingBioProjects$project_acc_bioprj[55]){
                               add_row(uid=0,name = NA, rank = c("phylum","class","order","family", "genus", "species", "subspecies"), 
                                           id = "0") %>%
                               select(-id) %>% 
-                              pivot_wider(names_from=rank, values_from = name, values_fn = list(name = list)) %>%
-                              unnest(cols = c(phylum, class,  order, family, genus, species, subspecies, common_name))
+                              pivot_wider(names_from=rank, values_from = name,
+                                          values_fn = list(name = list)) %>%
+                              unnest(cols = c(phylum, class,  order, family,
+                                              genus, species, subspecies, common_name))
 
     
-    taxonomized <- left_join(tibble(uid=namestax$taxonomy_biosamp), taxonomy_lookup, by = "uid") %>%
-                    select(genus, species,subspecies,phylum,class,order,family,common_name) %>% replace_na(replace = list(subspecies=""))
+    taxonomized <- left_join(tibble(uid=namestax$taxonomy_biosamp), taxonomy_lookup, 
+                             by = "uid") %>%
+                select(genus, species,subspecies,phylum,class,order,family,common_name) %>%
+                replace_na(replace = list(subspecies=""))
 
     #have to write and overwrite here so I can paste subspecies into infraspecies...
     
-    taxonomized <-  add_column(taxonomized, nomenclaturalCode = paste("NCBI queried:",date(), sep = " "), 
+    taxonomized <-  add_column(taxonomized, nomenclaturalCode = paste("NCBI queried:",date(),
+                                                                      sep = " "), 
                     scientificNameID = namestax$taxonomy_biosamp, 
-                    infraspecies = paste(taxonomized$subspecies,namestax$infraspecies_biosamp, sep = " ")) %>%
+                    infraspecies = paste(taxonomized$subspecies,namestax$infraspecies_biosamp,
+                                         sep = " ")) %>%
                     mutate_all(~na_if(.,"character(0)")) %>% mutate_all(~na_if(.,"NULL")) %>% 
                     mutate(infraspecies = str_trim(infraspecies,side = "both")) %>%
                     select(-subspecies)
@@ -713,12 +715,14 @@ for(prj in workingBioProjects$project_acc_bioprj[55]){
    # Going to try writing this all at once to reduce the calls to the API
    metadata<- bind_cols(prjIDs, namestax[,1:2], taxonomized, otherSRA) %>% 
           add_column(.after = 4,sampleEnteredBy = "") %>% 
-          add_column(.after = 9, locality = "", decimalLatitude = "", decimalLongitude = "",                    
-                    coordinateUncertaintyInMeters = "", country = "", georeferenceProtocol = "",
+          add_column(.after = 9, locality = "", decimalLatitude = "", decimalLongitude = "",
+                    coordinateUncertaintyInMeters = "", country = "",
+                    georeferenceProtocol = "",
                     habitat = "", microHabitat = "", environmental_medium = "",
                     yearCollected = "", monthCollected = "", dayCollected = "",
                     establishmentMeans = "",permitInformation = "", associatedReferences = "",
-                    preservative = "", derivedGeneticDataType = "", derivedGeneticDataURI = "", 
+                    preservative = "", derivedGeneticDataType = "", 
+                    derivedGeneticDataURI = "", 
                     derivedDataGeneticDataFormat = "", 
                     derivedDataGeneticFilename = "", derivedGeneticDataRemarks = "") %>%
           add_column(.after = 38, lifeStage = "", sex = "", otherCatalogNumbers = "",
@@ -728,16 +732,19 @@ for(prj in workingBioProjects$project_acc_bioprj[55]){
                       minimumElevationInMeters = "",	stateProvince = "",	landOwner = ""
                       )
      
-          metadata <- add_column(metadata,.before = 1,sheet_index = str_pad(row.names(metadata),width=4,pad="0"))
+          metadata <- add_column(metadata,.before = 1,
+                                 sheet_index = str_pad(row.names(metadata),width=4,pad="0"))
   
   skip_to_next <- FALSE
   try_try_again <- FALSE
 
   print("Writing Metadata")
 
-  tryCatch(range_write(ss = gdprj, metadata, sheet = "Samples", range = "A2:BJ4000", col_names = F), 
+  tryCatch(range_write(ss = gdprj, metadata, sheet = "Samples", range = "A2:BJ4000", 
+                       col_names = F), 
             error = function(e) { msg <- conditionMessage(e)
-                                  write_csv(tibble(index,"attempt_1",msg),"failed.txt", append = T)
+                                  write_csv(tibble(index,"attempt_1",msg),
+                                            "failed.txt", append = T)
                                   try_try_again <<- TRUE
                                   }
             )
@@ -746,9 +753,12 @@ for(prj in workingBioProjects$project_acc_bioprj[55]){
   
   if(try_try_again) { print("Sleeping for 100 seconds to deal with API quota")
                       Sys.sleep(time=100)
-                      tryCatch(range_write(ss = gdprj, metadata, sheet = "Samples", range = "A2:BJ4000", col_names = F), 
+                      tryCatch(range_write(ss = gdprj, metadata, 
+                                           sheet = "Samples", 
+                                           range = "A2:BJ4000", col_names = F), 
                                 error = function(e) { msg <- conditionMessage(e)
-                                  write_csv(tibble(index,"attempt_2",msg),"failed.txt", append = T)
+                                  write_csv(tibble(index,"attempt_2",msg),"failed.txt", 
+                                            append = T)
                                   skip_to_next <<- TRUE
                                   }
             ) 
@@ -756,9 +766,6 @@ for(prj in workingBioProjects$project_acc_bioprj[55]){
   
   if(skip_to_next) { next } 
   
-  
-   
-   
    print("Sleeping for 15 seconds to deal with API quota")
     Sys.sleep(time=15)
 }
@@ -772,9 +779,11 @@ Whenever it fails to write, it seems to have something to do with the sample siz
 
 ```{r}
 
-marineSRA <- drive_get(path = "GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/Marine_SRA_BioProjects")
+marineSRA <- drive_get(path =
+      "GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/Marine_SRA_BioProjects")
 
-nonmarineSRA <- drive_get(path = "GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/nonMarine_SRA_BioProjects")
+nonmarineSRA <- drive_get(path =
+    "GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/nonMarine_SRA_BioProjects")
 
 failed <- read.csv("failed.txt", header=F, stringsAsFactors = F)
 
@@ -787,10 +796,13 @@ failed$write_result[which(failed$write_result == "attempt_2")] <- "Failure"
 all5_BioProjects <- bind_rows(Marine_BioProjects[,1:5], nonMarine_BioProjects[,1:5])
 
 
-failed_analysis <- left_join(all5_BioProjects, failed, by = "project_index") %>% replace_na(list(write_result = "Success"))
+failed_analysis <- left_join(all5_BioProjects, failed, by = "project_index") %>%
+  replace_na(list(write_result = "Success"))
 
-#failed writes seem to be for datasets with larger than average numbers of runs, samples, but not species....
-ggplot(failed_analysis) + geom_boxplot(mapping = aes(x = write_result, y = Runs)) + ylim(c(0,1000))
+#failed writes seem to be for datasets with larger than average numbers of runs, 
+#samples, but not species....
+ggplot(failed_analysis) + geom_boxplot(mapping = aes(x = write_result, y = Runs)) +
+  ylim(c(0,1000))
 
 failed_analysis$write_result <- as.factor(failed_analysis$write_result)
 
@@ -802,11 +814,9 @@ summary(test)
 
 ## Re-Writing Difficult BioProjects as Excel Sheets
 
-I can't figure out why it is failing to write 113 out of 1589 datasets into google sheets. Maybe there is a particular character that it doesn't like? There is clearly a correlation (see above) between the number of rows (Runs) in the dataset and whether it failed, but that could be because datasets with more rows have a higher probability of including a bad character? [shrug]
+I can't figure out why it is failing to write 113 out of 1589 datasets into google sheets. Maybe there is a particular character that it doesn't like? There is clearly a correlation (see above) between the number of rows (Runs) in the dataset and whether it failed, but that could be because datasets with more rows have a higher probability of including a bad character? \[shrug\]
 
 So I'm just going to adapt my code above to write out Excel worksheets rather than Google Sheets. These can still be edited by the students within Google Sheets.
-
-
 
 ```{r}
 #split up the failed dataset into marine and nonmarine
@@ -820,8 +830,6 @@ workingBioProjects <- nonMarine_BioProjects
 path <- "../Datathon_Working_Directory/BioProject_Tables/NonMarine_BioSample_Metadata/"
 gdpath <- "GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/NonMarine_BioSample_Metadata/"
 
-gs4_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
-drive_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
 
 
 
@@ -838,7 +846,8 @@ for(index in workingFailed$project_index[6:103]){
     #copy the template to a new file name after the BioProject
     print("Copying Excel Template")
     #file.copy(from="Datathon_BioSample_Template.xlsx", to = paste0(path, index,"_",prj,".xlsx") )
-    xlprj <- loadWorkbook(file ="Datathon_BioSample_Template.xlsx", isUnzipped = F)
+    xlprj <- loadWorkbook(file ="Datathon_BioSample_Template.xlsx", 
+                          isUnzipped = F)
     cpprj <- copyWorkbook(xlprj)
     
     # get the `Dribble` (google drive locator) for this new Google sheet, and delete the google sheet
@@ -846,18 +855,18 @@ for(index in workingFailed$project_index[6:103]){
     drive_trash(gdprj)
     
     # grab the various SRA accession IDs 
-    prjIDs <- workingList[which(workingList$project_acc_bioprj == prj), c("project_acc_bioprj",
-                                                                          "biosample_acc_sra","run_acc_sra")]
+    prjIDs <- workingList[which(workingList$project_acc_bioprj == prj), 
+                          c("project_acc_bioprj","biosample_acc_sra","run_acc_sra")]
     prjIDs <- cbind(project_index=index,prjIDs)
     
     # grab more metadata, collapse first and last names, split the genus and species names and 
     #write into the sheet
-    namestax <- workingList[which(workingList$project_acc_bioprj == prj), c("contact_first_name_biosamp",	
-                                                                            "contact_last_name_biosamp",
-                                                                            "samplename_identifiers_biosamp", 
-                                                                            "organism_biosamp", 
-                                                                            "taxonomy_biosamp", 
-                                                                            "infraspecies_biosamp")]  %>% 
+    namestax <- workingList[which(workingList$project_acc_bioprj == prj),
+                            c("contact_first_name_biosamp",	
+                              "contact_last_name_biosamp",
+                              "samplename_identifiers_biosamp", 
+                              "organism_biosamp", 
+                              "taxonomy_biosamp","infraspecies_biosamp")]  %>% 
                 unite("contact_first_name_biosamp", "contact_last_name_biosamp", 
                                     sep = " ", col = "collectorList", remove = T) 
     
@@ -882,30 +891,38 @@ for(index in workingFailed$project_index[6:103]){
     # this will write the common name into each table as a taxonomic rank
     taxonomy <- Map(function(x,y) {rbind(x,c(y,"common_name",0))}, taxonomy, common_name)
     # put this into a tibble, then unnest it, so that the name of each list is now a column called `uid`
-    # add some dummy rows so that we always have these particular ranks in our taxonomy lookup
+    # add some dummy rows so that we always have these particular ranks 
+    #in our taxonomy lookup
     # drop the id field, and spread it out (pivot_wider replaces spread) so we have the complete 
     # taxonomy for each uid
     # now we have a lookup table!
     taxonomy_lookup <- tibble(uid = as.numeric(names(taxonomy)), taxonomy = taxonomy) %>%
                               unnest(cols = taxonomy) %>% 
-                              add_row(uid=0,name = NA, rank = c("phylum","class","order","family", "genus",
+                              add_row(uid=0,name = NA, 
+                                      rank = c("phylum","class","order","family", "genus",
                                                                 "species", "subspecies"), 
                                           id = "0") %>%
                               select(-id) %>% 
-                              pivot_wider(names_from=rank, values_from = name, values_fn = list(name = list)) %>%
-                              unnest(cols = c(phylum, class,  order, family, genus, species, subspecies,
+                              pivot_wider(names_from=rank, values_from = name, 
+                                          values_fn = list(name = list)) %>%
+                              unnest(cols = c(phylum, class,  order, family, genus, 
+                                              species, subspecies,
                                               common_name))
 
     
-    taxonomized <- left_join(tibble(uid=namestax$taxonomy_biosamp), taxonomy_lookup, by = "uid") %>%
-                    select(genus, species,subspecies,phylum,class,order,family,common_name) %>% 
+    taxonomized <- left_join(tibble(uid=namestax$taxonomy_biosamp), 
+                             taxonomy_lookup, by = "uid") %>%
+                    select(genus, species,subspecies,phylum,class,order,
+                                        family,common_name) %>% 
                     replace_na(replace = list(subspecies=""))
 
     #have to write and overwrite here so I can paste subspecies into infraspecies...
     
-    taxonomized <-  add_column(taxonomized, nomenclaturalCode = paste("NCBI queried:",date(), sep = " "), 
+    taxonomized <-  add_column(taxonomized, 
+                               nomenclaturalCode = paste("NCBI queried:",date(), sep = " "), 
                     scientificNameID = namestax$taxonomy_biosamp, 
-                    infraspecies = paste(taxonomized$subspecies,namestax$infraspecies_biosamp, sep = " ")) %>%
+                    infraspecies = paste(taxonomized$subspecies,namestax$infraspecies_biosamp,
+                                         sep = " ")) %>%
                     mutate_all(~na_if(.,"character(0)")) %>% mutate_all(~na_if(.,"NULL")) %>% 
                     mutate(infraspecies = str_trim(infraspecies,side = "both")) %>%
                     select(-subspecies)
@@ -919,8 +936,10 @@ for(index in workingFailed$project_index[6:103]){
    # Going to try writing this all at once to reduce the calls to the API
    metadata<- bind_cols(prjIDs, namestax[,1:2], taxonomized, otherSRA) %>% 
           add_column(.after = 4,sampleEnteredBy = "") %>% 
-          add_column(.after = 9, locality = "", decimalLatitude = "", decimalLongitude = "",                          
-                    coordinateUncertaintyInMeters = "", country = "", georeferenceProtocol = "",
+          add_column(.after = 9, locality = "", 
+                     decimalLatitude = "", decimalLongitude = "",                          
+                    coordinateUncertaintyInMeters = "", country = "", 
+                    georeferenceProtocol = "",
                     habitat = "", microHabitat = "", environmental_medium = "",
                     yearCollected = "", monthCollected = "", dayCollected = "",
                     establishmentMeans = "",permitInformation = "", associatedReferences = "",
@@ -934,19 +953,22 @@ for(index in workingFailed$project_index[6:103]){
                       minimumElevationInMeters = "",	stateProvince = "",	landOwner = ""
                       )
      
-          metadata <- add_column(metadata,.before = 1,sheet_index = str_pad(row.names(metadata),width=4,pad="0"))
+          metadata <- add_column(metadata,.before = 1,
+                                 sheet_index = str_pad(row.names(metadata),width=4,pad="0"))
   
   skip_to_next <- FALSE
   try_try_again <- FALSE
 
   print("Writing Metadata")
   
-  writeData(wb = cpprj, sheet = "Samples", x = metadata, startCol = 1, startRow = 2, colNames = F )
+  writeData(wb = cpprj, sheet = "Samples", 
+            x = metadata, startCol = 1, startRow = 2, colNames = F )
   
   tryCatch(
   saveWorkbook(wb = cpprj, file = paste0(path, index,"_",prj,".xlsx"), overwrite = TRUE), 
             error = function(e) { msg <- conditionMessage(e)
-                                  write_csv(tibble(index,"attempt_1",msg),"failed_excel.txt", append = T)
+                                  write_csv(tibble(index,"attempt_1",msg),
+                                            "failed_excel.txt", append = T)
                                   try_try_again <<- TRUE
                                   }
             )
@@ -955,9 +977,13 @@ for(index in workingFailed$project_index[6:103]){
   
   if(try_try_again) {
                       tryCatch(
-                        saveWorkbook(wb = cpprj, file = paste0(path, index,"_",prj,".xlsx"), overwrite = TRUE), 
+                        saveWorkbook(wb = cpprj, file = paste0(path, 
+                                                               index,"_",prj,".xlsx"),
+                                     overwrite = TRUE), 
+                        
                                 error = function(e) { msg <- conditionMessage(e)
-                                  write_csv(tibble(index,"attempt_2",msg),"failed_excel.txt", append = T)
+                                  write_csv(tibble(index,"attempt_2",msg),
+                                            "failed_excel.txt", append = T)
                                   skip_to_next <<- TRUE
                                   }
             ) 
@@ -979,21 +1005,17 @@ for(index in workingFailed$project_index[6:103]){
 path <- "GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/NonMarine_BioSample_Metadata/"
 
 
-drive_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
 
 nmls <- drive_ls(path)
 
 drive_share(file = nmls, role = "owner", type = "user", emailAddress = "eric.d.crandall@gmail.com", transferOwnership = T )
 ```
 
-
 # Pull out Author lists for BioProjects that have DOI's
 
 Cynthia and Rachel want to be able to see author lists for DivDiv projects to determine who is best to contact them.
 
 ```{r}
-gs4_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
-drive_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
 
 marineSRA <- drive_get(path = "GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/Marine_SRA_BioProjects")
 
@@ -1015,8 +1037,6 @@ Just occurred to me that I can use a mail merge app with Google Sheets and Gmail
 
 ```{r}
 #authorize
-gs4_auth(path = "GEOME_credentials/non_service_client_auth.json")
-drive_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
 
 #initialize an empty tibble
 mailmerge <- tibble(
@@ -1183,10 +1203,9 @@ Human Pathogens, Model organisms and Domesticated Species oh my!
 
 After creating a preliminary figure of metadata available in the SRA , Rachel and I discussed that we definitely want to pull model organisms and lab stocks and might also want to pull domesticated species out, so I'm now trying to make a list of these species
 
-
 ## Species identified by students
 
-Students determined relevance for >1500 projects and put the non-relevant ones into categories, so that provides a starting place.
+Students determined relevance for \>1500 projects and put the non-relevant ones into categories, so that provides a starting place.
 
 ```{r}
 droplists <- read.csv("NonWildSpecies/raw_student_generated_drop_lists.csv")
@@ -1216,18 +1235,16 @@ write.csv(labSpecies,"NonWildSpecies/labSpecies_students_taxized.csv", row.names
 
 ```
 
-Now I'm going to scrape some lists from the web. I pulled in data from:       
+Now I'm going to scrape some lists from the web. I pulled in data from:
 
-+ [FAOSTAT](http://www.fao.org/faostat/en/#data/QC) for crop plants, FAO Domesticated Animal Diversity Information System 
-+ [DAD-IS](http://www.fao.org/dad-is/en/) for animals.
-+ [FAO List of Cereal](http://www.fao.org/es/faodef/fdef01e.htm) - Downloaded into domesticatedPlants_Wikipedia_Cereals_Other.csv
-+ [Wikipedia List of Infectious Diseases](https://en.wikipedia.org/wiki/List_of_infectious_diseases) for human pathogens
-+ [Wikipedia List of Domesticated Animals](https://en.wikipedia.org/wiki/List_of_domesticated_animals)
-+ [Wikipedia List of Fruits](https://en.wikipedia.org/wiki/List_of_culinary_fruits)
-+ [Wikipedia List of Domesticated Plants](https://en.wikipedia.org/wiki/List_of_domesticated_plants) Manually copied extras into domesticatedPlants_Wikipedia_Cereals_Other.csv
-+ [Wikipedia List of Model Organisms](https://en.wikipedia.org/wiki/List_of_model_organisms)
-
-
+-   [FAOSTAT](http://www.fao.org/faostat/en/#data/QC) for crop plants, FAO Domesticated Animal Diversity Information System
+-   [DAD-IS](http://www.fao.org/dad-is/en/) for animals.
+-   [FAO List of Cereal](http://www.fao.org/es/faodef/fdef01e.htm) - Downloaded into domesticatedPlants_Wikipedia_Cereals_Other.csv
+-   [Wikipedia List of Infectious Diseases](https://en.wikipedia.org/wiki/List_of_infectious_diseases) for human pathogens
+-   [Wikipedia List of Domesticated Animals](https://en.wikipedia.org/wiki/List_of_domesticated_animals)
+-   [Wikipedia List of Fruits](https://en.wikipedia.org/wiki/List_of_culinary_fruits)
+-   [Wikipedia List of Domesticated Plants](https://en.wikipedia.org/wiki/List_of_domesticated_plants) Manually copied extras into domesticatedPlants_Wikipedia_Cereals_Other.csv
+-   [Wikipedia List of Model Organisms](https://en.wikipedia.org/wiki/List_of_model_organisms)
 
 ## Human Pathogens
 
@@ -1294,16 +1311,19 @@ names(fruits_tables) <- c("Species","Common","Category")
 write.csv(fruits_tables,"domesticatedPlants_Wikipedia_Fruits.csv", row.names = F)
 
 vegetables_html <- read_html("https://en.wikipedia.org/wiki/List_of_vegetables")
-vegetables_tables <- vegetables_html %>% html_nodes("table") %>% map(html_table) %>% bind_rows()
+vegetables_tables <- vegetables_html %>% html_nodes("table") %>% 
+                      map(html_table) %>% bind_rows()
 #remove the column names that read in wrong
 vegetables_tables <- vegetables_tables[-grep("Species",vegetables_tables$X2),]
 names(vegetables_tables) <- c("Common name", "Species name")
 vegetables_tables$Category<-"Domesticated Vegetable"
-vegetables_tables$`Species name` <- str_remove(vegetables_tables$`Species name`, "\\(.+\\)") %>% 
+vegetables_tables$`Species name` <- str_remove(vegetables_tables$`Species name`, 
+                                               "\\(.+\\)") %>% 
                                                           str_remove("\\[>+\\]")
 vegetables_tables <- vegetables_tables[,c(2,1,3)]
 names(vegetables_tables) <- c("Species","Common","Category")
-write.csv(vegetables_tables,"NonWildSpecies/domesticatedPlants_Wikipedia_Vegetables.csv", row.names = F)
+write.csv(vegetables_tables,"NonWildSpecies/domesticatedPlants_Wikipedia_Vegetables.csv",
+          row.names = F)
 
 
 other_tables <- read.csv("NonWildSpecies/domesticatedPlants_Wikipedia_Cereals_Other.csv")
@@ -1356,8 +1376,10 @@ names(labSpecies) <- c("Species","Common","Category")
 write.csv(labSpecies,"labSpecies_joined.csv")
 
 # Human Pathogens
-humpathStudents <- read.table("NonWildSpecies/humanPathogen_students_taxized.csv", sep = ",", header = T, stringsAsFactors = F, row.names = 1)
-humpathWiki <- read.table("NonWildSpecies/humanPathogen_wikipedia_diseases_eukaryotes.tsv", sep = "\t", header = T, stringsAsFactors = F)
+humpathStudents <- read.table("NonWildSpecies/humanPathogen_students_taxized.csv", 
+                              sep = ",", header = T, stringsAsFactors = F, row.names = 1)
+humpathWiki <- read.table("NonWildSpecies/humanPathogen_wikipedia_diseases_eukaryotes.tsv", 
+                          sep = "\t", header = T, stringsAsFactors = F)
 humpathSpecies <- left_join(humpathWiki,humpathStudents,by = c("Infectious.agent"="humpath"))
 humpathSpecies <- humpathSpecies[,1:2]
 humpathSpecies$Category <- "HumanPathogen Species"
@@ -1372,9 +1394,11 @@ domesticatedAnimals <- domesticatedAnimals[,1:2]
 domesticatedAnimals$Category = "Domesticated Animal"
 names(domesticatedAnimals) <- c("Species","Common","Category")
 domesticatedWiki <- rbind(domesticatedAnimals, domesticatedPlants)
-domesticatedStudents <- read.csv("NonWildSpecies/domesticated_students_taxized.csv", row.names = 1)
+domesticatedStudents <- read.csv("NonWildSpecies/domesticated_students_taxized.csv", 
+                                 row.names = 1)
 
-domesticatedSpecies <- full_join(domesticatedWiki, domesticatedStudents, by = c("Species"= "dom"))
+domesticatedSpecies <- full_join(domesticatedWiki, domesticatedStudents, 
+                                 by = c("Species"= "dom"))
 
 write.csv(domesticatedSpecies,"NonWildSpecies/domesticatedSpecies_joined.csv", row.names = F)
 
@@ -1388,13 +1412,13 @@ I took these joined lists and hand-edited them, deleting species which, based on
 
 Using just Wikipedia and species identified by students for each category is not exactly authoritative. I've scoured the literature, the web, and FAO reports for more authoritative lists of each of the three categories.
 
-+ [FAO The state of the world's biodiversity for food and agriculture 2019](http://www.fao.org/3/CA3129EN/CA3129EN.pdf)
-+ [FAO The state of the world's plant genetic resources for food and agriculture 2011](http://www.fao.org/3/i1500e/i1500e00.htm)
-+ [The second report on the state of the world's animal genetic resources for food and agriculture](http://www.fao.org/3/a-i4787e.pdf) State of Livestock Diversity Table 1A1
-+ [Masfeld's World Database of Agricultural and Horticultural Crops (Cited in FAO)](http://mansfeld.ipk-gatersleben.de/apex/f?p=185:5:)
-+ [ARS-GRIN (Germplasm Resources Information Network) World Economic Plants](https://npgsweb.ars-grin.gov/gringlobal/taxon/taxonomysearcheco)
-+ [FAO The state of the world's fisheries and aquaculture 2018: Tables 7 & 8](http://www.fao.org/documents/card/en/c/ca9229en/)
-+ [VEuPathDB - Eukaryotic Pathogen, Vector & Host Informatics Resource](https://veupathdb.org/veupathdb/app) - Organisms table.
+-   [FAO The state of the world's biodiversity for food and agriculture 2019](http://www.fao.org/3/CA3129EN/CA3129EN.pdf)
+-   [FAO The state of the world's plant genetic resources for food and agriculture 2011](http://www.fao.org/3/i1500e/i1500e00.htm)
+-   [The second report on the state of the world's animal genetic resources for food and agriculture](http://www.fao.org/3/a-i4787e.pdf) State of Livestock Diversity Table 1A1
+-   [Masfeld's World Database of Agricultural and Horticultural Crops (Cited in FAO)](http://mansfeld.ipk-gatersleben.de/apex/f?p=185:5:)
+-   [ARS-GRIN (Germplasm Resources Information Network) World Economic Plants](https://npgsweb.ars-grin.gov/gringlobal/taxon/taxonomysearcheco)
+-   [FAO The state of the world's fisheries and aquaculture 2018: Tables 7 & 8](http://www.fao.org/documents/card/en/c/ca9229en/)
+-   [VEuPathDB - Eukaryotic Pathogen, Vector & Host Informatics Resource](https://veupathdb.org/veupathdb/app) - Organisms table.
 
 ```{r}
 # Start by reading in the list of species that I created from Wikipedia and Students
@@ -1459,19 +1483,20 @@ alldomesticated <- full_join(khouryplants, FAOaquaculture) %>%  full_join(FAOani
                     na_if("") %>% na_if("NA") %>%  drop_na(Common)
 
 # Sort them in this order of authority
-alldomesticated$Category <- factor(alldomesticated$Category, levels = c("Domesticated Plant Khouri et al. 2016", 
-                                                                        "Domesticated Aquaculture FAO", 
-                                                                        "Domesticated Animal FAO",
-                                                                        "Domesticated Plant GRIN Food", 
-                                                                        "Domesticated Plant GRIN Lawn", 
-                                                                        "Domesticated Animal Wikipedia",
-                                                                        "Domesticated Plant Cereal Wikipedia", 
-                                                                        "Domesticated Plant Vegetable Wikipedia",
-                                                                        "Domesticated Plant Fruit Wikipedia",
-                                                                        "Domesticated Plant Other Wikipedia",
-                                                                        "Domesticated Fungus Wikipedia",
-                                                                        "Domesticated Plant Student",
-                                                                        "Domesticated Animal Student"))      
+alldomesticated$Category <- factor(alldomesticated$Category, 
+                                   levels = c("Domesticated Plant Khouri et al. 2016", 
+                                              "Domesticated Aquaculture FAO",  
+                                              "Domesticated Animal FAO",
+                                              "Domesticated Plant GRIN Food", 
+                                              "Domesticated Plant GRIN Lawn", 
+                                              "Domesticated Animal Wikipedia",
+                                              "Domesticated Plant Cereal Wikipedia", 
+                                              "Domesticated Plant Vegetable Wikipedia",
+                                              "Domesticated Plant Fruit Wikipedia",
+                                              "Domesticated Plant Other Wikipedia",
+                                              "Domesticated Fungus Wikipedia",
+                                              "Domesticated Plant Student",
+                                              "Domesticated Animal Student"))      
 
 alldomesticated <- alldomesticated[order(alldomesticated$Category),]
 
@@ -1483,25 +1508,23 @@ I then went through this table and basically dropped things I had never heard of
 
 Then I went back and below separated out the source information into its own column so that we can sort by that, or filter on it later if necessary. Because of how I joined the data, each item is attributed to its highest source of authority.
 
-
 ```{r}
-all <- read.csv(file = "NonWildSpecies/nonWildSpecies_final.tsv", header = T, sep = "\t", stringsAsFactors = F)
+all <- read.csv(file = "NonWildSpecies/nonWildSpecies_final.tsv", header = T, 
+                sep = "\t", stringsAsFactors = F)
 names(all) <- c("Species", "Common", "Old")
 all$Category <- str_extract(all$Old, regex("^[:alpha:]+ [:alpha:]+"))
 all$Source <- str_replace(all$Old, regex("^[:alpha:]+ [:alpha:]+ "), "")
 all$Old <- NULL
 
-write.table(all,file = "NonWildSpecies/nonWildSpecies_final_sources.tsv", sep = "\t", quote=F,row.names = F)
+write.table(all,file = "NonWildSpecies/nonWildSpecies_final_sources.tsv", 
+            sep = "\t", quote=F,row.names = F)
 ```
-
 
 # Discover metadata state for papers that didn't need author contact
 
 When we switched to documenting this effort in a publication, I asked the students to record the state of metadata for BioProjects that they flagged for author contact in the field author_contact_comments. Rachel has written a script to parse these results, but I forgot to ask the students to document the state of metadata for BioProjects that didn't need author contact (because they already had coordinates and dates). So now I need to write some code to go look inside each of these BioProjects for which Relevance = TRUE but Authors_Contacted = FALSE.
 
 ```{r}
-gs4_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
-drive_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
 
 #get the object id of the non-marine list 
 nonmarineSRA_dribble <- drive_get(path =
@@ -1774,18 +1797,22 @@ biosampsQC_nodup_gathered <- left_join(biosampsQC_nodups,df[,c("project_index","
  biosampsQC_nodup_gathered %>% filter(project_acc_bioprj %in% newBioProjects) %>% count(Metadata_Gathered)
 
 ```
+
 # Interpreting the logistic models
 
 Gideon created Bayesian logistic models (in ./models) of the effect of BioProject age on the presence of various metadata categories.
 
 ## Analysis 1
 
- P(metadata in SRA or paper aka before author contact) ~ registration date of BioProject
- 
- must have year & (locality OR coords) for spatiotemp to be counted as present; inclusion criteria - relevant = T plus a handful of other decisions to get to the N = 492 bioprjs
+P(metadata in SRA or paper aka before author contact) \~ registration date of BioProject
+
+must have year & (locality OR coords) for spatiotemp to be counted as present; inclusion criteria - relevant = T plus a handful of other decisions to get to the N = 492 bioprjs
 
 ```{r}
-m1Betas <- read_delim("models/analysis1_betaTable.csv",delim = " ") %>% 
+#| eval: true
+
+m1Betas <- read_delim("figures_and_outputs/analysis1_betaTable.csv",
+                      delim = " ") %>% 
           #split the CI column
           mutate(CI95 = str_extract_all(`95% CI`,"-*[0-9]\\.[0-9]+")) %>%
           # move the resulting list column into two columns
@@ -1793,17 +1820,21 @@ m1Betas <- read_delim("models/analysis1_betaTable.csv",delim = " ") %>%
           #change to numeric
           mutate(across(starts_with("CI"),as.numeric)) %>% 
           #exponentiate to get odds ratio
-          mutate(OddsMean = exp(mean), OddsLo95CI = exp(CI95_1), OddsHi95CI = exp(CI95_2))
+          mutate(OddsMean = exp(mean), OddsLo95CI = exp(CI95_1), 
+                 OddsHi95CI = exp(CI95_2))
 
 kable(m1Betas[,c(1,2,5,8:10)], digits=3)
 ```
 
 ## Analysis 2
 
- P(author response|authors contacted = T) ~ registration date of BioProject
+P(author response\|authors contacted = T) \~ registration date of BioProject
 
 ```{r}
-m2Betas <- read_delim("models/analysis2_betaTable.csv",delim = " ") %>% 
+#| eval: true
+#| 
+m2Betas <- read_delim("figures_and_outputs/analysis2_betaTable.csv",
+                      delim = " ") %>% 
           #split the CI column
           mutate(CI95 = str_extract_all(`95% CI`,"-*[0-9]\\.[0-9]+")) %>%
           # move the resulting list column into two columns
@@ -1811,21 +1842,23 @@ m2Betas <- read_delim("models/analysis2_betaTable.csv",delim = " ") %>%
           #change to numeric
           mutate(across(starts_with("CI"),as.numeric)) %>% 
           #exponentiate to get odds ratio
-          mutate(OddsMean = exp(mean), OddsLo95CI = exp(CI95_1), OddsHi95CI = exp(CI95_2))
+          mutate(OddsMean = exp(mean), OddsLo95CI = exp(CI95_1), 
+                 OddsHi95CI = exp(CI95_2))
 
 kable(m2Betas[,c(1,2,5,8:10)], digits=3)
 ```
+
 ## Analysis 3
 
-P(recovered partial data|author response = T) ~ registration date of BioProject
-Recovered metadata = T if spatiotemp (collection date AND (coords or locality)) increases from MID to POST
+P(recovered partial data\|author response = T) \~ registration date of BioProject Recovered metadata = T if spatiotemp (collection date AND (coords or locality)) increases from MID to POST
 
-must have gained year OR (locality OR coords) metadata;
-any amount of gain counts (e.g. F -> SOME, SOME -> T, F -> MOST, etc.);
-inclusion criteria - authors responded and dataset was missing any amount of data in locality or year or coords (after looking in papers)
+must have gained year OR (locality OR coords) metadata; any amount of gain counts (e.g. F -\> SOME, SOME -\> T, F -\> MOST, etc.); inclusion criteria - authors responded and dataset was missing any amount of data in locality or year or coords (after looking in papers)
 
 ```{r}
-m3Betas <- read_delim("models/analysis3_betaTable.csv",delim = " ") %>% 
+#| eval: true
+
+m3Betas <- read_delim("figures_and_outputs/analysis3_betaTable.csv",
+                      delim = " ") %>% 
           #split the CI column
           mutate(CI95 = str_extract_all(`95% CI`,"-*[0-9]\\.[0-9]+")) %>%
           # move the resulting list column into two columns
@@ -1833,19 +1866,21 @@ m3Betas <- read_delim("models/analysis3_betaTable.csv",delim = " ") %>%
           #change to numeric
           mutate(across(starts_with("CI"),as.numeric)) %>% 
           #exponentiate to get odds ratio
-          mutate(OddsMean = exp(mean), OddsLo95CI = exp(CI95_1), OddsHi95CI = exp(CI95_2))
+          mutate(OddsMean = exp(mean), OddsLo95CI = exp(CI95_1), 
+                 OddsHi95CI = exp(CI95_2))
 
 kable(m3Betas[,c(1,2,5,8:10)], digits=3)
 ```
 
 ## Analysis 4
 
-gained enough metadata to have year & (locality OR coords) for >= 50% of samples;
-only gains that flip metadata from F/SOME to MOST/T count
-P(recovered all data|author response = T) ~ registration date of BioProject
+gained enough metadata to have year & (locality OR coords) for \>= 50% of samples; only gains that flip metadata from F/SOME to MOST/T count P(recovered all data\|author response = T) \~ registration date of BioProject
 
 ```{r}
-m4Betas <- read_delim("models/analysis4_betaTable.csv",delim = " ") %>% 
+#| eval: true
+
+m4Betas <- read_delim("figures_and_outputs/analysis4_betaTable.csv",
+                      delim = " ") %>% 
           #split the CI column
           mutate(CI95 = str_extract_all(`95% CI`,"-*[0-9]\\.[0-9]+")) %>%
           # move the resulting list column into two columns
@@ -1853,7 +1888,8 @@ m4Betas <- read_delim("models/analysis4_betaTable.csv",delim = " ") %>%
           #change to numeric
           mutate(across(starts_with("CI"),as.numeric)) %>% 
           #exponentiate to get odds ratio
-          mutate(OddsMean = exp(mean), OddsLo95CI = exp(CI95_1), OddsHi95CI = exp(CI95_2))
+          mutate(OddsMean = exp(mean), OddsLo95CI = exp(CI95_1), 
+                 OddsHi95CI = exp(CI95_2))
 
 kable(m4Betas[,c(1,2,5,8:10)], digits=3)
 ```
@@ -1861,8 +1897,6 @@ kable(m4Betas[,c(1,2,5,8:10)], digits=3)
 # How Many BioProjects included publication information, and for how many could we find papers?
 
 ```{r}
-gs4_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
-drive_auth(path = "GEOME_credentials/geome-282803-0475069b49ce.json")
 #get path to spreadsheet in GDrive
 nonmarineSRA <- googledrive::drive_ls(path = "BioProject_Tables", pattern =
 "nonMarine_SRA_BioProjects")
@@ -1889,10 +1923,9 @@ bioprojects_with_pub_info/848
 
 ```
 
-
 # Data Loading
 
-We cannot have spaces or dashes in materialSampleIDs, as they will be part of URIs. So, a quick script to replace spaces with underscores and dashes with . Also, need to remove the genus part of the specificEpithet. Blank localities replaced with "unknown" and blank years replaced with "unknown". Merge projects that appear in both marine and nonmarine sets. Rename biosample_acc_sra to biosampleAccession. Remove duplicates that have different run numbers.
+Now it is time to get the data ready for upload to GEOME. We cannot have spaces or dashes in materialSampleIDs, as they will be part of URIs. So, a quick script to replace spaces with underscores and dashes with `.` Also, need to remove the genus part of the specificEpithet. Blank localities replaced with "unknown" and blank years replaced with "unknown". Merge projects that appear in both marine and nonmarine sets. Rename biosample_acc_sra to biosampleAccession. Remove duplicates that have different run numbers.
 
 ```{r}
 

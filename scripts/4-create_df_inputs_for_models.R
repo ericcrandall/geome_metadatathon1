@@ -21,7 +21,7 @@ gc()
 #get parsed metadata statuses at bioprj level for paper 2
 #filtered by: relevant = T, not a domestic or other species we don't care about, not a duplicated project (or one we lost btw 2019 and 2020)
 
-df.full <- read.table("Supplemental_Materials_S6-Datathon_Anonymized_Author_Response.tsv", sep = "\t", header = T)
+df.full <- read.table("data/Supplemental_Materials_S6-Datathon_Anonymized_Author_Response.tsv", sep = "\t", header = T)
 
 #recode date to continuous variable: year + julianDay/365 -> year.julianDayFraction
 #	then recorde dataset age as (November 7, 2019) - (bioproject registration year)
