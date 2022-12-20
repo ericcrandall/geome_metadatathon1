@@ -1,3 +1,5 @@
+#written by R.H. Toczydlowski (rhtoczydlowski@gmail.com, ORCID: 0000-0002-8141-2036)
+
 #idea: reviewer asked how correlated deposition date and collection date are
 
 #load libraries

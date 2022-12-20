@@ -1,3 +1,5 @@
+#written by R.H. Toczydlowski (rhtoczydlowski@gmail.com, ORCID: 0000-0002-8141-2036)
+
 #idea: parse metadata statuses for pre, mid, and post datathon
 
 #METADATA CATEGORIES:
