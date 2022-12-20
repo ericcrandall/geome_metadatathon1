@@ -12,6 +12,8 @@ execute:
   eval: false
 ---
 
+# Setup
+
 ```{r Setup}
 #| eval: true
 #| message: false
@@ -30,6 +32,8 @@ library(ggalluvial)
 library(lubridate)
 library(clipr)
 library(knitr)
+library(rotl)
+library(ape)
 
 
 
@@ -1801,6 +1805,77 @@ biosampsQC_nodup_gathered <- left_join(biosampsQC_nodups,df[,c("project_index","
  biosampsQC_nodup_gathered %>% filter(project_acc_bioprj %in% newBioProjects) %>% count(Metadata_Gathered)
 
 ```
+
+# Create a phylogenetic tree of datathon species
+
+We don't care about branch lengths, so the easiest approach is to use the Open Tree of Life, via the `rotl` package. Right off the bat we find the problem that `specificEpithet` usually contains the generic name, but not always. I'm going to solve this manually, rather than programatically.
+
+```{r}
+
+biosamps <- read_tsv("datathon1_working_files/paper2_all_QCd_biosample_list.tsv",
+                col_types = cols(.default =   col_character()))
+
+#get distinct genus/species
+uniqueTaxa <- biosamps  %>% distinct(genus,specificEpithet)
+# sub in genus where specificEpithet is missing
+uniqueTaxa$specificEpithet[which(is.na(uniqueTaxa$specificEpithet))] <- uniqueTaxa$genus[which(is.na(uniqueTaxa$specificEpithet))]
+
+#write_csv(uniqueTaxa, "datathon1_working_files/distinct_taxa_datathon1.csv")
+
+#uniqueTaxa <- read.csv("datathon1_working_files/distinct_taxa_datathon1.csv")
+
+
+```
+
+Match them to the Open Tree of Life using the `rotl` package
+
+```{r}
+
+
+resolved_names <- tnrs_match_names(uniqueTaxa$specificEpithet, context_name = "All life", 
+                                   include_suppressed = F)
+# remove the NAs for 5 unmatched taxa: 
+# Warning: Bufotes cypriensis, Bufotes perrini, Dactylorhiza pytagorae, Microbotryum lychnidis, Micromeria pedro are not matched
+ott <- resolved_names %>% drop_na() %>%
+                    filter(!str_detect(flags,"incertae_sedis")) %>% 
+                    filter(!str_detect(flags,"extinct")) %>% 
+                    filter(!str_detect(flags,"hidden_inherited")) %>% 
+                    filter(!str_detect(flags,"hybrid")) %>%
+                    filter(!str_detect(flags,"pruned_ott_id")) %>%
+                    filter(!str_detect(flags,"major_rank_conflict")) %>%
+                    select(ott_id)
+                                          
+
+#remove `` additional taxa with IDs that cannot be found in the OTL tree
+# Error: HTTP failure: 400
+# [/v3/tree_of_life/induced_subtree] Error: node_id 'ott600790' was not found!list(ott600790 = "pruned_ott_id", ott877901 = "pruned_ott_id")
+# these are extinct,  "hidden inherited", incertae_sedis, 
+
+
+```
+
+## Get a Subtree
+
+```{r}
+datathon_subtree <- tol_induced_subtree(ott_ids = ott$ott_id, label_format = "name", 
+                                        file = "datathon_subtree.tre")
+datathon_subtree <- tol_induced_subtree(ott_ids = ott$ott_id, label_format = "name")
+
+write.tree(datathon_subtree,"datathon_subtree_nosingletons.tre")
+
+
+```
+
+Ended up using this tree for the figure:
+Phylogenetic tree with 672 tips and 581 internal nodes.
+
+Tip labels:
+  Euphorbia_niciciana, Euphorbia_nicaeensis, Euphorbia_seguieriana, Ficus_arfakensis, Ficus_microdictya, Ficus_itoana, ...
+Node labels:
+  Eukaryota, mrcaott2ott148, Chloroplastida, Tracheophyta, Euphyllophyta, Spermatophyta, ...
+
+Rooted; no branch lengths.
+
 
 # Interpreting the logistic models
 

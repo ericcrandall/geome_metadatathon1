@@ -4,7 +4,7 @@
     "href": "Datathon_Data_Wrangling.html",
     "title": "Metadata Wrangling Code for GEOME Metadatathon",
     "section": "",
-    "text": "library(tidyverse)\nlibrary(googlesheets4)\nlibrary(googledrive)\nlibrary(taxize)\nlibrary(openxlsx)\nlibrary(readxl)\nlibrary(RefManageR)\nlibrary(rvest)\nBibOptions(max.names = 100, style = \"text\")\nlibrary(ggalluvial)\nlibrary(lubridate)\nlibrary(clipr)\nlibrary(knitr)"
+    "text": "library(tidyverse)\nlibrary(googlesheets4)\nlibrary(googledrive)\nlibrary(taxize)\nlibrary(openxlsx)\nlibrary(readxl)\nlibrary(RefManageR)\nlibrary(rvest)\nBibOptions(max.names = 100, style = \"text\")\nlibrary(ggalluvial)\nlibrary(lubridate)\nlibrary(clipr)\nlibrary(knitr)\nlibrary(rotl)\nlibrary(ape)"
   },
   {
     "objectID": "Datathon_Data_Wrangling.html#from-rachels-email-of-june-24-2020",
@@ -131,5 +131,12 @@
     "title": "Metadata Wrangling Code for GEOME Metadatathon",
     "section": "Analysis 4",
     "text": "Analysis 4\ngained enough metadata to have year & (locality OR coords) for >= 50% of samples; only gains that flip metadata from F/SOME to MOST/T count P(recovered all data|author response = T) ~ registration date of BioProject\n\nm4Betas <- read_delim(\"figures_and_outputs/analysis4_betaTable.csv\",\n                      delim = \" \") %>% \n          #split the CI column\n          mutate(CI95 = str_extract_all(`95% CI`,\"-*[0-9]\\\\.[0-9]+\")) %>%\n          # move the resulting list column into two columns\n          unnest_wider(CI95, names_sep = \"_\") %>% \n          #change to numeric\n          mutate(across(starts_with(\"CI\"),as.numeric)) %>% \n          #exponentiate to get odds ratio\n          mutate(OddsMean = exp(mean), OddsLo95CI = exp(CI95_1), \n                 OddsHi95CI = exp(CI95_2))\n\nRows: 12 Columns: 5\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \" \"\nchr (2): model, 95% CI\ndbl (3): mean, median, p-value\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\nkable(m4Betas[,c(1,2,5,8:10)], digits=3)\n\n\n\n\n\n\n\n\n\n\n\n\nmodel\nmean\np-value\nOddsMean\nOddsLo95CI\nOddsHi95CI\n\n\n\n\ndatathonderivedGeneticDataX\n-0.358\n0.080\n0.699\n0.435\n1.051\n\n\ndatathonpermitInformation\n-0.564\n0.058\n0.569\n0.281\n1.015\n\n\ndatathonyearCollected\n-0.204\n0.026\n0.815\n0.680\n0.969\n\n\ndatathonmaterialSampleID\n-0.221\n0.292\n0.802\n0.527\n1.229\n\n\ndatathonspatiotemp\n-0.200\n0.046\n0.819\n0.671\n0.994\n\n\ndatathonpreservative\n-0.389\n0.038\n0.678\n0.460\n0.978\n\n\ndatathoncoordinates\n-0.234\n0.094\n0.791\n0.598\n1.034\n\n\ndatathonlocality\n0.251\n0.312\n1.285\n0.808\n2.201\n\n\ndatathonhabitat\n-0.071\n0.750\n0.931\n0.598\n1.406\n\n\ndatathoncountry\n0.140\n0.622\n1.150\n0.636\n2.012\n\n\ndatathonenvironmentalMedium\n-0.571\n0.076\n0.565\n0.264\n1.034\n\n\ndatathonpublication\n-6.009\n0.458\n0.002\n5.053\n237.460"
+  },
+  {
+    "objectID": "Datathon_Data_Wrangling.html#get-a-subtree",
+    "href": "Datathon_Data_Wrangling.html#get-a-subtree",
+    "title": "Metadata Wrangling Code for GEOME Metadatathon",
+    "section": "Get a Subtree",
+    "text": "Get a Subtree\n\ndatathon_subtree <- tol_induced_subtree(ott_ids = ott$ott_id, label_format = \"name\", \n                                        file = \"datathon_subtree.tre\")\ndatathon_subtree <- tol_induced_subtree(ott_ids = ott$ott_id, label_format = \"name\")\n\nwrite.tree(datathon_subtree,\"datathon_subtree_nosingletons.tre\")\n\nEnded up using this tree for the figure: Phylogenetic tree with 672 tips and 581 internal nodes.\nTip labels: Euphorbia_niciciana, Euphorbia_nicaeensis, Euphorbia_seguieriana, Ficus_arfakensis, Ficus_microdictya, Ficus_itoana, … Node labels: Eukaryota, mrcaott2ott148, Chloroplastida, Tracheophyta, Euphyllophyta, Spermatophyta, …\nRooted; no branch lengths."
   }
 ]

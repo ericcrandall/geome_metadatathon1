@@ -2,6 +2,8 @@
 
 Code and meta-metadata that support analyses for the great Genomic Observatories Metadatabase (geome-db.org) metadatathon of 2020. 
 
+Eric Crandall'ss code for setting up the datathon, creating a list of non-wild species to filter the SRA data, making a tree of all datathon species, and other code can also be viewed as a Quarto Notebook here[here](https://ericcrandall.github.io/geome_metadatathon1/Datathon_Data_Wrangling.html)
+
 There are two manuscripts associated with this datathon. The first, by Toczdlowski et al. 2021, can be found [here](https://doi.org/10.1073/pnas.2107934118). The code for this manuscript can be found [here](https://bitbucket.org/toczydlowski/status_of_insdc_genomic_metadata/src/master/)
 
 

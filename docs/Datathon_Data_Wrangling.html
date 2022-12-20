@@ -140,7 +140,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#purpose" id="toc-purpose" class="nav-link active" data-scroll-target="#purpose">Purpose</a>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">Purpose</a>
   <ul class="collapse">
   <li><a href="#from-rachels-email-of-june-24-2020" id="toc-from-rachels-email-of-june-24-2020" class="nav-link" data-scroll-target="#from-rachels-email-of-june-24-2020">From Rachel’s Email of June 24, 2020:</a></li>
   </ul></li>
@@ -177,6 +178,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#create-a-list-of-all-qcd-biosamples" id="toc-create-a-list-of-all-qcd-biosamples" class="nav-link" data-scroll-target="#create-a-list-of-all-qcd-biosamples">Create a list of all QCd biosamples</a>
   <ul class="collapse">
   <li><a href="#summarize" id="toc-summarize" class="nav-link" data-scroll-target="#summarize">Summarize</a></li>
+  </ul></li>
+  <li><a href="#create-a-phylogenetic-tree-of-datathon-species" id="toc-create-a-phylogenetic-tree-of-datathon-species" class="nav-link" data-scroll-target="#create-a-phylogenetic-tree-of-datathon-species">Create a phylogenetic tree of datathon species</a>
+  <ul class="collapse">
+  <li><a href="#get-a-subtree" id="toc-get-a-subtree" class="nav-link" data-scroll-target="#get-a-subtree">Get a Subtree</a></li>
   </ul></li>
   <li><a href="#interpreting-the-logistic-models" id="toc-interpreting-the-logistic-models" class="nav-link" data-scroll-target="#interpreting-the-logistic-models">Interpreting the logistic models</a>
   <ul class="collapse">
@@ -215,6 +220,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<section id="setup" class="level1">
+<h1>Setup</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(googlesheets4)</span>
@@ -228,8 +235,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggalluvial)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(clipr)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rotl)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
 <section id="purpose" class="level1">
 <h1>Purpose</h1>
 <p>This notebook documents the steps to go from raw csv’s pulled down from INSDC Sequence Read Archive by Rachel to the spreadsheets necessary for GEOME Datathon project management. I’m also going to try to learn to work better in the Tidyverse. The raw INSDC data and other datasets contain some sensitive information, and so are not available in this repository. The raw data that are available for reconstructing the Figure 4 results are in the <code>data</code> directory of this repository. Please contact me at eric.d.crandall ~A T~ gmail.com if you would like to examine other raw data files mentioned in this notebook.</p>
@@ -1922,6 +1932,57 @@ list4 needs to enter the pipeline at step #1.</p>
 </div>
 </section>
 </section>
+<section id="create-a-phylogenetic-tree-of-datathon-species" class="level1">
+<h1>Create a phylogenetic tree of datathon species</h1>
+<p>We don’t care about branch lengths, so the easiest approach is to use the Open Tree of Life, via the <code>rotl</code> package. Right off the bat we find the problem that <code>specificEpithet</code> usually contains the generic name, but not always. I’m going to solve this manually, rather than programatically.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>biosamps <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"datathon1_working_files/paper2_all_QCd_biosample_list.tsv"</span>,</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">.default =</span>   <span class="fu">col_character</span>()))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#get distinct genus/species</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>uniqueTaxa <span class="ot">&lt;-</span> biosamps  <span class="sc">%&gt;%</span> <span class="fu">distinct</span>(genus,specificEpithet)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># sub in genus where specificEpithet is missing</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>uniqueTaxa<span class="sc">$</span>specificEpithet[<span class="fu">which</span>(<span class="fu">is.na</span>(uniqueTaxa<span class="sc">$</span>specificEpithet))] <span class="ot">&lt;-</span> uniqueTaxa<span class="sc">$</span>genus[<span class="fu">which</span>(<span class="fu">is.na</span>(uniqueTaxa<span class="sc">$</span>specificEpithet))]</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co">#write_csv(uniqueTaxa, "datathon1_working_files/distinct_taxa_datathon1.csv")</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="co">#uniqueTaxa &lt;- read.csv("datathon1_working_files/distinct_taxa_datathon1.csv")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Match them to the Open Tree of Life using the <code>rotl</code> package</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>resolved_names <span class="ot">&lt;-</span> <span class="fu">tnrs_match_names</span>(uniqueTaxa<span class="sc">$</span>specificEpithet, <span class="at">context_name =</span> <span class="st">"All life"</span>, </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">include_suppressed =</span> F)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the NAs for 5 unmatched taxa: </span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning: Bufotes cypriensis, Bufotes perrini, Dactylorhiza pytagorae, Microbotryum lychnidis, Micromeria pedro are not matched</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>ott <span class="ot">&lt;-</span> resolved_names <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(flags,<span class="st">"incertae_sedis"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(flags,<span class="st">"extinct"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(flags,<span class="st">"hidden_inherited"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(flags,<span class="st">"hybrid"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(flags,<span class="st">"pruned_ott_id"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(flags,<span class="st">"major_rank_conflict"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">select</span>(ott_id)</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>                                          </span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="co">#remove `` additional taxa with IDs that cannot be found in the OTL tree</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Error: HTTP failure: 400</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="co"># [/v3/tree_of_life/induced_subtree] Error: node_id 'ott600790' was not found!list(ott600790 = "pruned_ott_id", ott877901 = "pruned_ott_id")</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="co"># these are extinct,  "hidden inherited", incertae_sedis, </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="get-a-subtree" class="level2">
+<h2 class="anchored" data-anchor-id="get-a-subtree">Get a Subtree</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>datathon_subtree <span class="ot">&lt;-</span> <span class="fu">tol_induced_subtree</span>(<span class="at">ott_ids =</span> ott<span class="sc">$</span>ott_id, <span class="at">label_format =</span> <span class="st">"name"</span>, </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">file =</span> <span class="st">"datathon_subtree.tre"</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>datathon_subtree <span class="ot">&lt;-</span> <span class="fu">tol_induced_subtree</span>(<span class="at">ott_ids =</span> ott<span class="sc">$</span>ott_id, <span class="at">label_format =</span> <span class="st">"name"</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">write.tree</span>(datathon_subtree,<span class="st">"datathon_subtree_nosingletons.tre"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ended up using this tree for the figure: Phylogenetic tree with 672 tips and 581 internal nodes.</p>
+<p>Tip labels: Euphorbia_niciciana, Euphorbia_nicaeensis, Euphorbia_seguieriana, Ficus_arfakensis, Ficus_microdictya, Ficus_itoana, … Node labels: Eukaryota, mrcaott2ott148, Chloroplastida, Tracheophyta, Euphyllophyta, Spermatophyta, …</p>
+<p>Rooted; no branch lengths.</p>
+</section>
+</section>
 <section id="interpreting-the-logistic-models" class="level1">
 <h1>Interpreting the logistic models</h1>
 <p>Gideon created Bayesian logistic models (in ./models) of the effect of BioProject age on the presence of various metadata categories.</p>
@@ -1930,17 +1991,17 @@ list4 needs to enter the pipeline at step #1.</p>
 <p>P(metadata in SRA or paper aka before author contact) ~ registration date of BioProject</p>
 <p>must have year &amp; (locality OR coords) for spatiotemp to be counted as present; inclusion criteria - relevant = T plus a handful of other decisions to get to the N = 492 bioprjs</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>m1Betas <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"figures_and_outputs/analysis1_betaTable.csv"</span>,</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">delim =</span> <span class="st">" "</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>          <span class="co">#split the CI column</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">CI95 =</span> <span class="fu">str_extract_all</span>(<span class="st">`</span><span class="at">95% CI</span><span class="st">`</span>,<span class="st">"-*[0-9]</span><span class="sc">\\</span><span class="st">.[0-9]+"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>          <span class="co"># move the resulting list column into two columns</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>          <span class="fu">unnest_wider</span>(CI95, <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>          <span class="co">#change to numeric</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"CI"</span>),as.numeric)) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>          <span class="co">#exponentiate to get odds ratio</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">OddsMean =</span> <span class="fu">exp</span>(mean), <span class="at">OddsLo95CI =</span> <span class="fu">exp</span>(CI95_1), </span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">OddsHi95CI =</span> <span class="fu">exp</span>(CI95_2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>m1Betas <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"figures_and_outputs/analysis1_betaTable.csv"</span>,</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">delim =</span> <span class="st">" "</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>          <span class="co">#split the CI column</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">CI95 =</span> <span class="fu">str_extract_all</span>(<span class="st">`</span><span class="at">95% CI</span><span class="st">`</span>,<span class="st">"-*[0-9]</span><span class="sc">\\</span><span class="st">.[0-9]+"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>          <span class="co"># move the resulting list column into two columns</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>          <span class="fu">unnest_wider</span>(CI95, <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>          <span class="co">#change to numeric</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"CI"</span>),as.numeric)) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>          <span class="co">#exponentiate to get odds ratio</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">OddsMean =</span> <span class="fu">exp</span>(mean), <span class="at">OddsLo95CI =</span> <span class="fu">exp</span>(CI95_1), </span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">OddsHi95CI =</span> <span class="fu">exp</span>(CI95_2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 12 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
@@ -1951,7 +2012,7 @@ dbl (3): mean, median, p-value
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(m1Betas[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">8</span><span class="sc">:</span><span class="dv">10</span>)], <span class="at">digits=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(m1Betas[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">8</span><span class="sc">:</span><span class="dv">10</span>)], <span class="at">digits=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
 <colgroup>
@@ -2078,17 +2139,17 @@ dbl (3): mean, median, p-value
 <h2 class="anchored" data-anchor-id="analysis-2">Analysis 2</h2>
 <p>P(author response|authors contacted = T) ~ registration date of BioProject</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>m2Betas <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"figures_and_outputs/analysis2_betaTable.csv"</span>,</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">delim =</span> <span class="st">" "</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>          <span class="co">#split the CI column</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">CI95 =</span> <span class="fu">str_extract_all</span>(<span class="st">`</span><span class="at">95% CI</span><span class="st">`</span>,<span class="st">"-*[0-9]</span><span class="sc">\\</span><span class="st">.[0-9]+"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>          <span class="co"># move the resulting list column into two columns</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>          <span class="fu">unnest_wider</span>(CI95, <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>          <span class="co">#change to numeric</span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"CI"</span>),as.numeric)) <span class="sc">%&gt;%</span> </span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>          <span class="co">#exponentiate to get odds ratio</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">OddsMean =</span> <span class="fu">exp</span>(mean), <span class="at">OddsLo95CI =</span> <span class="fu">exp</span>(CI95_1), </span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">OddsHi95CI =</span> <span class="fu">exp</span>(CI95_2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>m2Betas <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"figures_and_outputs/analysis2_betaTable.csv"</span>,</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">delim =</span> <span class="st">" "</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>          <span class="co">#split the CI column</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">CI95 =</span> <span class="fu">str_extract_all</span>(<span class="st">`</span><span class="at">95% CI</span><span class="st">`</span>,<span class="st">"-*[0-9]</span><span class="sc">\\</span><span class="st">.[0-9]+"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>          <span class="co"># move the resulting list column into two columns</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>          <span class="fu">unnest_wider</span>(CI95, <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>          <span class="co">#change to numeric</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"CI"</span>),as.numeric)) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>          <span class="co">#exponentiate to get odds ratio</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">OddsMean =</span> <span class="fu">exp</span>(mean), <span class="at">OddsLo95CI =</span> <span class="fu">exp</span>(CI95_1), </span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">OddsHi95CI =</span> <span class="fu">exp</span>(CI95_2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 1 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
@@ -2099,7 +2160,7 @@ dbl (4): model, mean, median, p-value
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(m2Betas[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">8</span><span class="sc">:</span><span class="dv">10</span>)], <span class="at">digits=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(m2Betas[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">8</span><span class="sc">:</span><span class="dv">10</span>)], <span class="at">digits=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
 <thead>
@@ -2131,17 +2192,17 @@ dbl (4): model, mean, median, p-value
 <p>P(recovered partial data|author response = T) ~ registration date of BioProject Recovered metadata = T if spatiotemp (collection date AND (coords or locality)) increases from MID to POST</p>
 <p>must have gained year OR (locality OR coords) metadata; any amount of gain counts (e.g.&nbsp;F -&gt; SOME, SOME -&gt; T, F -&gt; MOST, etc.); inclusion criteria - authors responded and dataset was missing any amount of data in locality or year or coords (after looking in papers)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>m3Betas <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"figures_and_outputs/analysis3_betaTable.csv"</span>,</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">delim =</span> <span class="st">" "</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>          <span class="co">#split the CI column</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">CI95 =</span> <span class="fu">str_extract_all</span>(<span class="st">`</span><span class="at">95% CI</span><span class="st">`</span>,<span class="st">"-*[0-9]</span><span class="sc">\\</span><span class="st">.[0-9]+"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>          <span class="co"># move the resulting list column into two columns</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>          <span class="fu">unnest_wider</span>(CI95, <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>          <span class="co">#change to numeric</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"CI"</span>),as.numeric)) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>          <span class="co">#exponentiate to get odds ratio</span></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">OddsMean =</span> <span class="fu">exp</span>(mean), <span class="at">OddsLo95CI =</span> <span class="fu">exp</span>(CI95_1), </span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">OddsHi95CI =</span> <span class="fu">exp</span>(CI95_2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>m3Betas <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"figures_and_outputs/analysis3_betaTable.csv"</span>,</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">delim =</span> <span class="st">" "</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>          <span class="co">#split the CI column</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">CI95 =</span> <span class="fu">str_extract_all</span>(<span class="st">`</span><span class="at">95% CI</span><span class="st">`</span>,<span class="st">"-*[0-9]</span><span class="sc">\\</span><span class="st">.[0-9]+"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>          <span class="co"># move the resulting list column into two columns</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>          <span class="fu">unnest_wider</span>(CI95, <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>          <span class="co">#change to numeric</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"CI"</span>),as.numeric)) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>          <span class="co">#exponentiate to get odds ratio</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">OddsMean =</span> <span class="fu">exp</span>(mean), <span class="at">OddsLo95CI =</span> <span class="fu">exp</span>(CI95_1), </span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">OddsHi95CI =</span> <span class="fu">exp</span>(CI95_2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 12 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
@@ -2152,7 +2213,7 @@ dbl (3): mean, median, p-value
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(m3Betas[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">8</span><span class="sc">:</span><span class="dv">10</span>)], <span class="at">digits=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(m3Betas[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">8</span><span class="sc">:</span><span class="dv">10</span>)], <span class="at">digits=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
 <colgroup>
@@ -2279,17 +2340,17 @@ dbl (3): mean, median, p-value
 <h2 class="anchored" data-anchor-id="analysis-4">Analysis 4</h2>
 <p>gained enough metadata to have year &amp; (locality OR coords) for &gt;= 50% of samples; only gains that flip metadata from F/SOME to MOST/T count P(recovered all data|author response = T) ~ registration date of BioProject</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>m4Betas <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"figures_and_outputs/analysis4_betaTable.csv"</span>,</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">delim =</span> <span class="st">" "</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>          <span class="co">#split the CI column</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">CI95 =</span> <span class="fu">str_extract_all</span>(<span class="st">`</span><span class="at">95% CI</span><span class="st">`</span>,<span class="st">"-*[0-9]</span><span class="sc">\\</span><span class="st">.[0-9]+"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>          <span class="co"># move the resulting list column into two columns</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>          <span class="fu">unnest_wider</span>(CI95, <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>          <span class="co">#change to numeric</span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"CI"</span>),as.numeric)) <span class="sc">%&gt;%</span> </span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>          <span class="co">#exponentiate to get odds ratio</span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">OddsMean =</span> <span class="fu">exp</span>(mean), <span class="at">OddsLo95CI =</span> <span class="fu">exp</span>(CI95_1), </span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">OddsHi95CI =</span> <span class="fu">exp</span>(CI95_2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>m4Betas <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"figures_and_outputs/analysis4_betaTable.csv"</span>,</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">delim =</span> <span class="st">" "</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>          <span class="co">#split the CI column</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">CI95 =</span> <span class="fu">str_extract_all</span>(<span class="st">`</span><span class="at">95% CI</span><span class="st">`</span>,<span class="st">"-*[0-9]</span><span class="sc">\\</span><span class="st">.[0-9]+"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>          <span class="co"># move the resulting list column into two columns</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>          <span class="fu">unnest_wider</span>(CI95, <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>          <span class="co">#change to numeric</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"CI"</span>),as.numeric)) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>          <span class="co">#exponentiate to get odds ratio</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">OddsMean =</span> <span class="fu">exp</span>(mean), <span class="at">OddsLo95CI =</span> <span class="fu">exp</span>(CI95_1), </span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">OddsHi95CI =</span> <span class="fu">exp</span>(CI95_2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 12 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
@@ -2300,7 +2361,7 @@ dbl (3): mean, median, p-value
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(m4Betas[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">8</span><span class="sc">:</span><span class="dv">10</span>)], <span class="at">digits=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(m4Betas[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">8</span><span class="sc">:</span><span class="dv">10</span>)], <span class="at">digits=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
 <colgroup>
@@ -2427,95 +2488,95 @@ dbl (3): mean, median, p-value
 <section id="how-many-bioprojects-included-publication-information-and-for-how-many-could-we-find-papers" class="level1">
 <h1>How Many BioProjects included publication information, and for how many could we find papers?</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get path to spreadsheet in GDrive</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>nonmarineSRA <span class="ot">&lt;-</span> googledrive<span class="sc">::</span><span class="fu">drive_ls</span>(<span class="at">path =</span> <span class="st">"BioProject_Tables"</span>, <span class="at">pattern =</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="st">"nonMarine_SRA_BioProjects"</span>)</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>marineSRA <span class="ot">&lt;-</span> <span class="fu">drive_get</span>(<span class="at">path =</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="st">"GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/Marine_SRA_BioProjects"</span>)</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>df.nonmarine <span class="ot">&lt;-</span> googlesheets4<span class="sc">::</span><span class="fu">range_read</span>(nonmarineSRA, <span class="at">sheet =</span> <span class="dv">1</span>, <span class="at">range =</span> <span class="st">"A:BK"</span>, <span class="at">col_types =</span> <span class="st">"c"</span>, <span class="at">na =</span> <span class="st">"NA"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(project_acc_bioprj, Paper_Available, publication_ID_bioprj) <span class="sc">%&gt;%</span> </span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">datagroup =</span> <span class="st">"nonmarine"</span>)</span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>df.marine <span class="ot">&lt;-</span> googlesheets4<span class="sc">::</span><span class="fu">range_read</span>(marineSRA, <span class="at">sheet =</span> <span class="dv">1</span>, <span class="at">range =</span> <span class="st">"A:BK"</span>, <span class="at">col_types =</span> <span class="st">"c"</span>, <span class="at">na =</span> <span class="st">"NA"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(project_acc_bioprj, Paper_Available, publication_ID_bioprj) <span class="sc">%&gt;%</span> </span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">datagroup =</span> <span class="st">"marine"</span>)</span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the 848 post-filter bioprojects addressed in the datathon</span></span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>p848 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./datathon1_working_files/848_bioprjs_all_datathon.csv"</span>)</span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(df.marine,df.nonmarine) <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(p848) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>(project_acc_bioprj, <span class="at">.keep_all =</span> T)</span>
-<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Paper_Available <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(df<span class="sc">$</span>Paper_Available)</span>
-<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>bioprojects_with_pub_info <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">which</span>(<span class="sc">!</span><span class="fu">is.na</span>(df<span class="sc">$</span>publication_ID_bioprj)))</span>
-<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="sc">!</span><span class="fu">which</span>(df<span class="sc">$</span>Paper_Available))</span>
-<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>bioprojects_with_pub_info<span class="sc">/</span><span class="dv">848</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get path to spreadsheet in GDrive</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>nonmarineSRA <span class="ot">&lt;-</span> googledrive<span class="sc">::</span><span class="fu">drive_ls</span>(<span class="at">path =</span> <span class="st">"BioProject_Tables"</span>, <span class="at">pattern =</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="st">"nonMarine_SRA_BioProjects"</span>)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>marineSRA <span class="ot">&lt;-</span> <span class="fu">drive_get</span>(<span class="at">path =</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="st">"GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/Marine_SRA_BioProjects"</span>)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>df.nonmarine <span class="ot">&lt;-</span> googlesheets4<span class="sc">::</span><span class="fu">range_read</span>(nonmarineSRA, <span class="at">sheet =</span> <span class="dv">1</span>, <span class="at">range =</span> <span class="st">"A:BK"</span>, <span class="at">col_types =</span> <span class="st">"c"</span>, <span class="at">na =</span> <span class="st">"NA"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(project_acc_bioprj, Paper_Available, publication_ID_bioprj) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">datagroup =</span> <span class="st">"nonmarine"</span>)</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>df.marine <span class="ot">&lt;-</span> googlesheets4<span class="sc">::</span><span class="fu">range_read</span>(marineSRA, <span class="at">sheet =</span> <span class="dv">1</span>, <span class="at">range =</span> <span class="st">"A:BK"</span>, <span class="at">col_types =</span> <span class="st">"c"</span>, <span class="at">na =</span> <span class="st">"NA"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(project_acc_bioprj, Paper_Available, publication_ID_bioprj) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">datagroup =</span> <span class="st">"marine"</span>)</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the 848 post-filter bioprojects addressed in the datathon</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>p848 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./datathon1_working_files/848_bioprjs_all_datathon.csv"</span>)</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(df.marine,df.nonmarine) <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(p848) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>(project_acc_bioprj, <span class="at">.keep_all =</span> T)</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Paper_Available <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(df<span class="sc">$</span>Paper_Available)</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>bioprojects_with_pub_info <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">which</span>(<span class="sc">!</span><span class="fu">is.na</span>(df<span class="sc">$</span>publication_ID_bioprj)))</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="sc">!</span><span class="fu">which</span>(df<span class="sc">$</span>Paper_Available))</span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>bioprojects_with_pub_info<span class="sc">/</span><span class="dv">848</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="data-loading" class="level1">
 <h1>Data Loading</h1>
 <p>Now it is time to get the data ready for upload to GEOME. We cannot have spaces or dashes in materialSampleIDs, as they will be part of URIs. So, a quick script to replace spaces with underscores and dashes with <code>.</code> Also, need to remove the genus part of the specificEpithet. Blank localities replaced with “unknown” and blank years replaced with “unknown”. Merge projects that appear in both marine and nonmarine sets. Rename biosample_acc_sra to biosampleAccession. Remove duplicates that have different run numbers.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>nm.path <span class="ot">&lt;-</span> <span class="st">"/Users/eric/Library/CloudStorage/GoogleDrive-eric.d.crandall@gmail.com/My Drive/GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/NonMarine_BioSample_Metadata/Completed_nonMarine_BioSample_Metadata_Sheets/QCd"</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>m.path <span class="ot">&lt;-</span> <span class="st">"/Users/eric/Library/CloudStorage/GoogleDrive-eric.d.crandall@gmail.com/My Drive/GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/Marine_BioSample_Metadata/Completed_Marine_BioSample_Metadata_Sheets/QCd"</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>final_path <span class="ot">&lt;-</span> <span class="st">"/Users/eric/Library/CloudStorage/GoogleDrive-eric.d.crandall@gmail.com/My Drive/GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/Final_for_GEOME"</span></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>biosampsQC <span class="ot">&lt;-</span> <span class="fu">tibble</span>() </span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(file <span class="cf">in</span> <span class="fu">list.files</span>(nm.path, <span class="at">full.names =</span> T)){</span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(file)</span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>  metadata <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="at">path =</span> file, </span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>                           <span class="at">sheet =</span> <span class="st">"Samples"</span>,<span class="at">col_types =</span> <span class="st">"text"</span>)</span>
-<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>  biosampsQC <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(biosampsQC, metadata)</span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(file <span class="cf">in</span> <span class="fu">list.files</span>(m.path, <span class="at">full.names =</span> T)){</span>
-<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(file)</span>
-<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>  metadata <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="at">path =</span> file, </span>
-<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>                           <span class="at">sheet =</span> <span class="st">"Samples"</span>,<span class="at">col_types =</span> <span class="st">"text"</span>)</span>
-<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>  biosampsQC <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(biosampsQC, metadata)</span>
-<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a><span class="co"># remove biosample accessions that were duplicated because of multiple runs, but keep them if they are duplicated </span></span>
-<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a><span class="co"># because of multiple derivedGenetic entries. This removes 3,607 entries</span></span>
-<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>biosampsQC_noruns <span class="ot">&lt;-</span> biosampsQC  <span class="sc">%&gt;%</span> <span class="fu">distinct</span>(biosample_acc_sra, derivedGeneticDataFilename, <span class="at">.keep_all =</span> T) <span class="sc">%&gt;%</span>   </span>
-<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(project_index)</span>
-<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>biosampsQC_noruns_reformat <span class="ot">&lt;-</span> biosampsQC_noruns <span class="sc">%&gt;%</span> </span>
-<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a>          <span class="co"># replace " " with "_" in materialSampleID</span></span>
-<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">materialSampleID =</span> <span class="fu">str_replace_all</span>(materialSampleID,<span class="st">" "</span>,<span class="st">"_"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a>          <span class="co"># replace "-" with "." in materialSampleID</span></span>
-<span id="cb39-35"><a href="#cb39-35" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">materialSampleID =</span> <span class="fu">str_replace_all</span>(materialSampleID,<span class="st">"-"</span>,<span class="st">"."</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb39-36"><a href="#cb39-36" aria-hidden="true" tabindex="-1"></a>          <span class="co"># remove genera (starting with a capital letter)</span></span>
-<span id="cb39-37"><a href="#cb39-37" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">specificEpithet =</span> <span class="fu">str_remove</span>(specificEpithet,<span class="st">"^[A-Z][a-z]+ "</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb39-38"><a href="#cb39-38" aria-hidden="true" tabindex="-1"></a>          <span class="co"># remove "sp."</span></span>
-<span id="cb39-39"><a href="#cb39-39" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">specificEpithet =</span> <span class="fu">str_remove</span>(specificEpithet, <span class="st">"^sp[</span><span class="sc">\\</span><span class="st">.]* +"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb39-40"><a href="#cb39-40" aria-hidden="true" tabindex="-1"></a>          <span class="co"># remove Genera following x in a hybrid name</span></span>
-<span id="cb39-41"><a href="#cb39-41" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">specificEpithet =</span> <span class="fu">str_remove</span>(specificEpithet, <span class="st">" [A-Z][a-z]+"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb39-42"><a href="#cb39-42" aria-hidden="true" tabindex="-1"></a>          <span class="co"># replace x with × in hybrid names</span></span>
-<span id="cb39-43"><a href="#cb39-43" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">specificEpithet =</span> <span class="fu">str_replace</span>(specificEpithet, <span class="fu">regex</span>(<span class="st">" X "</span>, <span class="at">ignore_case =</span> T), <span class="st">" × "</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb39-44"><a href="#cb39-44" aria-hidden="true" tabindex="-1"></a>          <span class="co"># replace blank yearCollected with "unknown"</span></span>
-<span id="cb39-45"><a href="#cb39-45" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">yearCollected =</span> <span class="fu">str_replace</span>(yearCollected,<span class="st">"^ *$"</span>, <span class="st">"unknown"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb39-46"><a href="#cb39-46" aria-hidden="true" tabindex="-1"></a>          <span class="co">#  replace NA yearCollected with "unknown"</span></span>
-<span id="cb39-47"><a href="#cb39-47" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">yearCollected =</span> <span class="fu">replace_na</span>(yearCollected, <span class="st">"unknown"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb39-48"><a href="#cb39-48" aria-hidden="true" tabindex="-1"></a>          <span class="co"># replace blank locality with "unknown"</span></span>
-<span id="cb39-49"><a href="#cb39-49" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">locality =</span> <span class="fu">str_replace</span>(locality,<span class="st">"^ *$"</span>, <span class="st">"unknown"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb39-50"><a href="#cb39-50" aria-hidden="true" tabindex="-1"></a>          <span class="co"># replace NA locality with "unknown"</span></span>
-<span id="cb39-51"><a href="#cb39-51" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">locality =</span> <span class="fu">replace_na</span>(locality, <span class="st">"unknown"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb39-52"><a href="#cb39-52" aria-hidden="true" tabindex="-1"></a>          <span class="co"># rename biosample_acc_sra to biosampleAccession</span></span>
-<span id="cb39-53"><a href="#cb39-53" aria-hidden="true" tabindex="-1"></a>          <span class="fu">rename</span>(<span class="at">biosampleAccession =</span> biosample_acc_sra) <span class="sc">%&gt;%</span> </span>
-<span id="cb39-54"><a href="#cb39-54" aria-hidden="true" tabindex="-1"></a>          <span class="fu">rename</span>(<span class="at">bioprojectAccession =</span> project_acc_bioprj)</span>
-<span id="cb39-55"><a href="#cb39-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-56"><a href="#cb39-56" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(bp <span class="cf">in</span> <span class="fu">unique</span>(biosampsQC_noruns_reformat<span class="sc">$</span>bioprojectAccession)){</span>
-<span id="cb39-57"><a href="#cb39-57" aria-hidden="true" tabindex="-1"></a>  bioproject <span class="ot">&lt;-</span> biosampsQC_noruns_reformat <span class="sc">%&gt;%</span> <span class="fu">filter</span>(biosampsQC_noruns_reformat<span class="sc">$</span>bioprojectAccession <span class="sc">==</span> bp)</span>
-<span id="cb39-58"><a href="#cb39-58" aria-hidden="true" tabindex="-1"></a>  filename <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">first</span>(biosampsQC_noruns_reformat<span class="sc">$</span>project_index[<span class="fu">which</span>(</span>
-<span id="cb39-59"><a href="#cb39-59" aria-hidden="true" tabindex="-1"></a>                              biosampsQC_noruns_reformat<span class="sc">$</span>bioprojectAccession<span class="sc">==</span>bp)]), bp, <span class="st">"final.xlsx"</span>, <span class="at">sep =</span> <span class="st">"_"</span>)</span>
-<span id="cb39-60"><a href="#cb39-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write.xlsx</span>(bioproject, <span class="at">file =</span> <span class="fu">file.path</span>(final_path, filename), <span class="at">sheetName =</span> <span class="st">"Samples"</span>, <span class="at">firstActiveRow =</span> <span class="dv">1</span>)</span>
-<span id="cb39-61"><a href="#cb39-61" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>nm.path <span class="ot">&lt;-</span> <span class="st">"/Users/eric/Library/CloudStorage/GoogleDrive-eric.d.crandall@gmail.com/My Drive/GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/NonMarine_BioSample_Metadata/Completed_nonMarine_BioSample_Metadata_Sheets/QCd"</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>m.path <span class="ot">&lt;-</span> <span class="st">"/Users/eric/Library/CloudStorage/GoogleDrive-eric.d.crandall@gmail.com/My Drive/GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/Marine_BioSample_Metadata/Completed_Marine_BioSample_Metadata_Sheets/QCd"</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>final_path <span class="ot">&lt;-</span> <span class="st">"/Users/eric/Library/CloudStorage/GoogleDrive-eric.d.crandall@gmail.com/My Drive/GEOME_Datathon/Datathon_Working_Directory/BioProject_Tables/Final_for_GEOME"</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>biosampsQC <span class="ot">&lt;-</span> <span class="fu">tibble</span>() </span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(file <span class="cf">in</span> <span class="fu">list.files</span>(nm.path, <span class="at">full.names =</span> T)){</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(file)</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>  metadata <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="at">path =</span> file, </span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>                           <span class="at">sheet =</span> <span class="st">"Samples"</span>,<span class="at">col_types =</span> <span class="st">"text"</span>)</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>  biosampsQC <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(biosampsQC, metadata)</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(file <span class="cf">in</span> <span class="fu">list.files</span>(m.path, <span class="at">full.names =</span> T)){</span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(file)</span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>  metadata <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="at">path =</span> file, </span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>                           <span class="at">sheet =</span> <span class="st">"Samples"</span>,<span class="at">col_types =</span> <span class="st">"text"</span>)</span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>  biosampsQC <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(biosampsQC, metadata)</span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a><span class="co"># remove biosample accessions that were duplicated because of multiple runs, but keep them if they are duplicated </span></span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a><span class="co"># because of multiple derivedGenetic entries. This removes 3,607 entries</span></span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a>biosampsQC_noruns <span class="ot">&lt;-</span> biosampsQC  <span class="sc">%&gt;%</span> <span class="fu">distinct</span>(biosample_acc_sra, derivedGeneticDataFilename, <span class="at">.keep_all =</span> T) <span class="sc">%&gt;%</span>   </span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(project_index)</span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a>biosampsQC_noruns_reformat <span class="ot">&lt;-</span> biosampsQC_noruns <span class="sc">%&gt;%</span> </span>
+<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a>          <span class="co"># replace " " with "_" in materialSampleID</span></span>
+<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">materialSampleID =</span> <span class="fu">str_replace_all</span>(materialSampleID,<span class="st">" "</span>,<span class="st">"_"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a>          <span class="co"># replace "-" with "." in materialSampleID</span></span>
+<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">materialSampleID =</span> <span class="fu">str_replace_all</span>(materialSampleID,<span class="st">"-"</span>,<span class="st">"."</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a>          <span class="co"># remove genera (starting with a capital letter)</span></span>
+<span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">specificEpithet =</span> <span class="fu">str_remove</span>(specificEpithet,<span class="st">"^[A-Z][a-z]+ "</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb42-38"><a href="#cb42-38" aria-hidden="true" tabindex="-1"></a>          <span class="co"># remove "sp."</span></span>
+<span id="cb42-39"><a href="#cb42-39" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">specificEpithet =</span> <span class="fu">str_remove</span>(specificEpithet, <span class="st">"^sp[</span><span class="sc">\\</span><span class="st">.]* +"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb42-40"><a href="#cb42-40" aria-hidden="true" tabindex="-1"></a>          <span class="co"># remove Genera following x in a hybrid name</span></span>
+<span id="cb42-41"><a href="#cb42-41" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">specificEpithet =</span> <span class="fu">str_remove</span>(specificEpithet, <span class="st">" [A-Z][a-z]+"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-42"><a href="#cb42-42" aria-hidden="true" tabindex="-1"></a>          <span class="co"># replace x with × in hybrid names</span></span>
+<span id="cb42-43"><a href="#cb42-43" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">specificEpithet =</span> <span class="fu">str_replace</span>(specificEpithet, <span class="fu">regex</span>(<span class="st">" X "</span>, <span class="at">ignore_case =</span> T), <span class="st">" × "</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-44"><a href="#cb42-44" aria-hidden="true" tabindex="-1"></a>          <span class="co"># replace blank yearCollected with "unknown"</span></span>
+<span id="cb42-45"><a href="#cb42-45" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">yearCollected =</span> <span class="fu">str_replace</span>(yearCollected,<span class="st">"^ *$"</span>, <span class="st">"unknown"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb42-46"><a href="#cb42-46" aria-hidden="true" tabindex="-1"></a>          <span class="co">#  replace NA yearCollected with "unknown"</span></span>
+<span id="cb42-47"><a href="#cb42-47" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">yearCollected =</span> <span class="fu">replace_na</span>(yearCollected, <span class="st">"unknown"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb42-48"><a href="#cb42-48" aria-hidden="true" tabindex="-1"></a>          <span class="co"># replace blank locality with "unknown"</span></span>
+<span id="cb42-49"><a href="#cb42-49" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">locality =</span> <span class="fu">str_replace</span>(locality,<span class="st">"^ *$"</span>, <span class="st">"unknown"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-50"><a href="#cb42-50" aria-hidden="true" tabindex="-1"></a>          <span class="co"># replace NA locality with "unknown"</span></span>
+<span id="cb42-51"><a href="#cb42-51" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">locality =</span> <span class="fu">replace_na</span>(locality, <span class="st">"unknown"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb42-52"><a href="#cb42-52" aria-hidden="true" tabindex="-1"></a>          <span class="co"># rename biosample_acc_sra to biosampleAccession</span></span>
+<span id="cb42-53"><a href="#cb42-53" aria-hidden="true" tabindex="-1"></a>          <span class="fu">rename</span>(<span class="at">biosampleAccession =</span> biosample_acc_sra) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-54"><a href="#cb42-54" aria-hidden="true" tabindex="-1"></a>          <span class="fu">rename</span>(<span class="at">bioprojectAccession =</span> project_acc_bioprj)</span>
+<span id="cb42-55"><a href="#cb42-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-56"><a href="#cb42-56" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(bp <span class="cf">in</span> <span class="fu">unique</span>(biosampsQC_noruns_reformat<span class="sc">$</span>bioprojectAccession)){</span>
+<span id="cb42-57"><a href="#cb42-57" aria-hidden="true" tabindex="-1"></a>  bioproject <span class="ot">&lt;-</span> biosampsQC_noruns_reformat <span class="sc">%&gt;%</span> <span class="fu">filter</span>(biosampsQC_noruns_reformat<span class="sc">$</span>bioprojectAccession <span class="sc">==</span> bp)</span>
+<span id="cb42-58"><a href="#cb42-58" aria-hidden="true" tabindex="-1"></a>  filename <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">first</span>(biosampsQC_noruns_reformat<span class="sc">$</span>project_index[<span class="fu">which</span>(</span>
+<span id="cb42-59"><a href="#cb42-59" aria-hidden="true" tabindex="-1"></a>                              biosampsQC_noruns_reformat<span class="sc">$</span>bioprojectAccession<span class="sc">==</span>bp)]), bp, <span class="st">"final.xlsx"</span>, <span class="at">sep =</span> <span class="st">"_"</span>)</span>
+<span id="cb42-60"><a href="#cb42-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write.xlsx</span>(bioproject, <span class="at">file =</span> <span class="fu">file.path</span>(final_path, filename), <span class="at">sheetName =</span> <span class="st">"Samples"</span>, <span class="at">firstActiveRow =</span> <span class="dv">1</span>)</span>
+<span id="cb42-61"><a href="#cb42-61" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
